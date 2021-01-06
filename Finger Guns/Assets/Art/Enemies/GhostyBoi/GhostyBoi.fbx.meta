@@ -1,41 +1,59 @@
 fileFormatVersion: 2
-guid: 7b0effa92372f4812889a7f8921f4522
+guid: 810ba13abef19ab44b3deebaa3dbd221
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: -6428959902028374599
-    second: FingerGunMan_Rig|AFK
+      74: 5252070282003172235
+    second: GhostyBoi_Rig|Blink
   - first:
-      74: -7614561006769927713
-    second: FingerGunMan_Rig|Backflip
+      74: 7392254415337156678
+    second: GhostyBoi_Rig|Death
   - first:
-      74: -292041483680144524
-    second: FingerGunMan_Rig|Dash
+      74: -4808391597878657649
+    second: GhostyBoi_Rig|Idle
   - first:
-      74: -7389552620052608970
-    second: FingerGunMan_Rig|Falling
+      74: 4440584118690274557
+    second: GhostyBoi_Rig|LookLeft
   - first:
-      74: 734178046608956778
-    second: FingerGunMan_Rig|Idle
+      74: 5105624945248181347
+    second: GhostyBoi_Rig|LookRight
   - first:
-      74: -917783185902801855
-    second: FingerGunMan_Rig|Jump
+      74: 8715706912390675861
+    second: GhostyBoi_Rig|Open Mouth
   - first:
-      74: -5106922239546047576
-    second: FingerGunMan_Rig|Landing
+      74: 9022355490711639287
+    second: GhostyBoi_Rig|WalkLeft
   - first:
-      74: 9002792730733299892
-    second: FingerGunMan_Rig|Shoot
+      74: -3180860996781294667
+    second: GhostyBoi_Rig|WalkRight
   - first:
-      74: -8606693233323701913
-    second: FingerGunMan_Rig|Slide
+      74: 6283420731769511345
+    second: GhostyBoi_Rig|Zero
   - first:
-      74: -7293157377414256849
-    second: FingerGunMan_Rig|Walk
+      74: -7582573340871576414
+    second: GhostyBoi_Rig|Look Left
   - first:
-      74: -4045631945004546886
-    second: FingerGunMan_Rig|Zero
+      74: 3584256309769141114
+    second: GhostyBoi_Rig|Look Right
+  - first:
+      74: -4384669508474129479
+    second: GhostyBoi_Rig|Walk Left
+  - first:
+      74: -8155918891928904059
+    second: GhostyBoi_Rig|Walk Right
+  - first:
+      74: -6560094431745516100
+    second: GhostyBoi_Rig|Eyes Close
+  - first:
+      74: 3343084552623630162
+    second: GhostyBoi_Rig|Eyes Open
+  - first:
+      74: 446572739069190697
+    second: GhostyBoi_Rig|Mouth Closed
+  - first:
+      74: -4217094189758810415
+    second: GhostyBoi_Rig|Mouth Open
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -65,11 +83,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: FingerGunMan_Rig|AFK
-      takeName: FingerGunMan_Rig|AFK
+      name: GhostyBoi_Rig|Idle
+      takeName: GhostyBoi_Rig|Idle
       internalID: 0
-      firstFrame: 0
-      lastFrame: 47
+      firstFrame: 1
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -94,37 +112,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Backflip
-      takeName: FingerGunMan_Rig|Backflip
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 23
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: FingerGunMan_Rig|Dash
-      takeName: FingerGunMan_Rig|Dash
+      name: GhostyBoi_Rig|Zero
+      takeName: GhostyBoi_Rig|Zero
       internalID: 0
       firstFrame: 0
       lastFrame: 1
@@ -152,95 +141,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Falling
-      takeName: FingerGunMan_Rig|Falling
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: FingerGunMan_Rig|Idle
-      takeName: FingerGunMan_Rig|Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 47
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: FingerGunMan_Rig|Jump
-      takeName: FingerGunMan_Rig|Jump
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 7
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: FingerGunMan_Rig|Landing
-      takeName: FingerGunMan_Rig|Landing
+      name: GhostyBoi_Rig|Look Left
+      takeName: GhostyBoi_Rig|Look Left
       internalID: 0
       firstFrame: 0
       lastFrame: 11
@@ -249,7 +151,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
+      hasAdditiveReferencePose: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -266,10 +168,10 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 11
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Shoot
-      takeName: FingerGunMan_Rig|Shoot
+      name: GhostyBoi_Rig|Look Right
+      takeName: GhostyBoi_Rig|Look Right
       internalID: 0
       firstFrame: 0
       lastFrame: 11
@@ -297,17 +199,17 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Slide
-      takeName: FingerGunMan_Rig|Slide
+      name: GhostyBoi_Rig|Walk Left
+      takeName: GhostyBoi_Rig|Walk Left
       internalID: 0
       firstFrame: 0
-      lastFrame: 11
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
+      hasAdditiveReferencePose: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -326,18 +228,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Walk
-      takeName: FingerGunMan_Rig|Walk
+      name: GhostyBoi_Rig|Walk Right
+      takeName: GhostyBoi_Rig|Walk Right
       internalID: 0
       firstFrame: 0
-      lastFrame: 23
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
+      hasAdditiveReferencePose: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -355,8 +257,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: FingerGunMan_Rig|Zero
-      takeName: FingerGunMan_Rig|Zero
+      name: GhostyBoi_Rig|Eyes Close
+      takeName: GhostyBoi_Rig|Eyes Close
       internalID: 0
       firstFrame: 0
       lastFrame: 1
@@ -365,7 +267,123 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
+      hasAdditiveReferencePose: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GhostyBoi_Rig|Eyes Open
+      takeName: GhostyBoi_Rig|Eyes Open
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GhostyBoi_Rig|Mouth Closed
+      takeName: GhostyBoi_Rig|Mouth Closed
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GhostyBoi_Rig|Mouth Open
+      takeName: GhostyBoi_Rig|Mouth Open
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GhostyBoi_Rig|Death
+      takeName: GhostyBoi_Rig|Death
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -391,7 +409,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
