@@ -11,17 +11,19 @@ public class PlayerWeapon : MonoBehaviour
     public GameObject fastBullet;
     public GameObject homingBullet;
     public GameObject sprayBullet;
-    
+    public GameObject blastBullet;
+
     public float regularBulletRate = 0.5f;
     public float fastBulletRate = 0.5f;
     public float homingBulletRate = 0.5f;
     public float sprayBulletRate = 0.5f;
+    public float blastBulletRate = 0.5f;
 
     //Private Variables
     private Transform playerHand;
     private Vector3 mousePosition;
     [Range(1,5)]
-    private int weaponSelect;
+    private int weaponSelect = 1;
     private bool shooting;
     private float currentFireRate;
     private float currentFireTime;
@@ -93,11 +95,8 @@ public class PlayerWeapon : MonoBehaviour
                 currentFireRate = sprayBulletRate;
                 break;
             case 5:
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
-                break;
-            default:
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
-                currentFireRate = regularBulletRate;
+                Instantiate(blastBullet, firePoint.position, firePoint.rotation);
+                currentFireRate = blastBulletRate;
                 break;
         }
     }

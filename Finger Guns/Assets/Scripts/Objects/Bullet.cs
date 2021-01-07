@@ -9,8 +9,9 @@ public class Bullet : MonoBehaviour
     public float speed = 20f;
     public float range = 2f;
     public bool homingShot;
+    public bool blastShot;
 
-    public GameObject homingExplosion;
+    public GameObject blastExplosion;
 
     private GameObject[] enemies;
     [HideInInspector]
@@ -20,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     private Vector3 enemyTarget;
     private Rigidbody rb;
-    private bool homingCollision = false;
+    private bool blastCollision = false;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -32,13 +33,9 @@ public class Bullet : MonoBehaviour
         closestEnemy = null;
         enemyContact = false;
 
-        if(homingShot)
+        if(blastShot)
         {
-            StartCoroutine(DestroyHomingBullet());
-
-            GameObject explosion = Instantiate(homingExplosion, 
-                transform.position, Quaternion.identity);
-            Destroy(explosion, 1f);
+            StartCoroutine(DestroyBlastBullet());            
         }
         else
         {
@@ -48,14 +45,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (homingShot)
+        if (blastShot)
         {
-            homingCollision = true;
-            StartCoroutine(DestroyHomingBullet());
+            blastCollision = true;
 
-            GameObject explosion = Instantiate(homingExplosion, 
-                transform.position, Quaternion.identity);
-            Destroy(explosion, 1f);
+            StartCoroutine(DestroyBlastBullet());
         }
         else
         {
@@ -88,18 +82,17 @@ public class Bullet : MonoBehaviour
     #endregion
 
     #region Private Methods
-    IEnumerator DestroyHomingBullet()
+    IEnumerator DestroyBlastBullet()
     {        
-        if(homingCollision)
-        {
-            Destroy(gameObject);
-            yield return new WaitForSeconds(0f);            
-        }
+        if(blastCollision)
+            yield return new WaitForSeconds(0);
         else
-        {
-            Destroy(gameObject, range);
-            yield return new WaitForSeconds(range);            
-        }        
+            yield return new WaitForSeconds(range);
+
+        GameObject explosion = Instantiate(blastExplosion,
+                transform.position, Quaternion.identity);
+        Destroy(explosion, 1f);
+        Destroy(gameObject);
     }
 
     public Transform GetClosestEnemy()
