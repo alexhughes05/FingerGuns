@@ -379,8 +379,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8689614324622798577}
   - component: {fileID: 9159494041349703960}
+  - component: {fileID: 431139750383628046}
   m_Layer: 0
-  m_Name: FingerGunManRig
+  m_Name: FingerGunMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +422,74 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &431139750383628046
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348660633012139083}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.50365174, y: 0.56083965}
+      - {x: 0.60928226, y: 0.47259033}
+      - {x: 0.7209225, y: 0.47372866}
+      - {x: 0.77395153, y: 0.49319154}
+      - {x: 0.84375644, y: 0.55334216}
+      - {x: 0.8482199, y: 0.6026221}
+      - {x: 0.843902, y: 0.6632751}
+      - {x: 0.87705046, y: 0.6644313}
+      - {x: 0.98517525, y: 0.66655797}
+      - {x: 0.9947689, y: 0.7995878}
+      - {x: 0.9518082, y: 0.83111894}
+      - {x: 0.6763646, y: 0.8376774}
+      - {x: 0.65440804, y: 0.9336463}
+      - {x: 0.61558473, y: 0.9536739}
+      - {x: 0.6070993, y: 0.95122945}
+      - {x: 0.5444149, y: 0.94264644}
+      - {x: 0.3154481, y: 0.81163293}
+      - {x: 0.31373394, y: 0.83621013}
+      - {x: 0, y: 1}
+      - {x: 0.2764042, y: 1.0800197}
+      - {x: 0.38049418, y: 1.1798557}
+      - {x: 0.46206835, y: 1.3554038}
+      - {x: 0.488387, y: 1.5916836}
+      - {x: 0.40862805, y: 1.788107}
+      - {x: 0.2106116, y: 1.949301}
+      - {x: -0.004818853, y: 1.9991351}
+      - {x: -0.30679467, y: 1.8809676}
+      - {x: -0.43160504, y: 1.7032448}
+      - {x: -0.4659893, y: 1.456982}
+      - {x: -0.44639227, y: 1.3083236}
+      - {x: -0.36623716, y: 1.1665998}
+      - {x: -0.25995797, y: 1.1042547}
+      - {x: -0.13136113, y: 1.0346925}
+      - {x: -0.09251025, y: 0.9444999}
+      - {x: -0.16545498, y: 0.9094605}
+      - {x: -0.25984707, y: 0.88043445}
+      - {x: -0.31875134, y: 0.785026}
+      - {x: -0.36560416, y: 0.6681131}
+      - {x: -0.37618035, y: 0.47734034}
+      - {x: -0.37332743, y: 0.034965903}
+      - {x: 0.36028308, y: 0.0057290792}
+      - {x: 0.35817498, y: 0.36866152}
+      - {x: 0.37332737, y: 0.55344087}
 --- !u!1 &8629874126992669372
 GameObject:
   m_ObjectHideFlags: 0
