@@ -40,5 +40,7 @@ public class Health : MonoBehaviour
     public void modifyHealth(int amount)
     {
         currentHealth += amount;
+        if (currentHealth == 0)
+            Destroy(gameObject);
     }
 }
