@@ -52,5 +52,10 @@ public class GhostyBoiAnimationTest : MonoBehaviour
         {
             animator.SetTrigger("Death");
         }
+
+        if (Input.GetKeyDown("x"))
+        {
+            animator.SetTrigger("Take Damage");
+        }
     }
 }

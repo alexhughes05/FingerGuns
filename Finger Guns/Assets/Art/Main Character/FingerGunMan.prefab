@@ -268,7 +268,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4493c3dc8f23745b68a8b942bb199880, type: 2}
+  - {fileID: 2100000, guid: f48098673d9a49e4eb0b500a5a0f668c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 8689614324622798577}
   - component: {fileID: 9159494041349703960}
   m_Layer: 0
-  m_Name: FingerGunManRig
+  m_Name: FingerGunMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
