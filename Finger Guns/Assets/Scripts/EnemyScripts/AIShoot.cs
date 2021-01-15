@@ -25,11 +25,6 @@ public class AIShoot : MonoBehaviour
         currentTimeBtwShots = timeBtwShots;
     }
 
-    void Update()
-    {
-        
-    }
-
     void OnTriggerStay2D(Collider2D collision)
     {        
         if(collision.gameObject.tag == "Player")
@@ -45,7 +40,7 @@ public class AIShoot : MonoBehaviour
     {
         if(currentTimeBtwShots <= 0)
         {
-            Instantiate(enemyProjectile, firePoint.transform.position, Quaternion.identity);
+            Instantiate(enemyProjectile, firePoint.position, Quaternion.identity);
             currentTimeBtwShots = timeBtwShots;
         }
         else
