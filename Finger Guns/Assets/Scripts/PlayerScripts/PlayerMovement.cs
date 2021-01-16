@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     //Components
-    private Rigidbody rb;
+    private Rigidbody2D rb2d;
 
     //Public Variables
     [Header("Movement")]
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     #region Monobehaviour Callbacks 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
 
@@ -58,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jump
-        if(jumpInput && Mathf.Abs(rb.velocity.y) < 0.001f)
+        if(jumpInput && Mathf.Abs(rb2d.velocity.y) < 0.001f)
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
+            rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }
     #endregion
