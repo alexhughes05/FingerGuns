@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
         var fingerGunMan = collision.collider.GetComponent<Health>();
         if (fingerGunMan && tookHit == false)
         {
-            fingerGunMan.modifyHealth(damage);
+            fingerGunMan.ModifyHealth(damage);
             tookHit = true;
         }
     }

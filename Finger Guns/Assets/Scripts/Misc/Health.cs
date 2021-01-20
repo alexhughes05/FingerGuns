@@ -5,42 +5,61 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int currentHealth;
-    public int numberOfHearts;
-
-    public Image[] hearts;
+    #region Variables
+    //Public
+    public int health;    
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public Image[] hearts;
 
-    // Start is called before the first frame update
+    //Private
+    private int currentHealth;   
+    #endregion
+
+    #region Monobehaviour Callbacks
     void Start()
     {
-        
+        currentHealth = health;
     }
 
     private void Update()
     {
-        if (currentHealth > numberOfHearts)
-            currentHealth = numberOfHearts;
-
-        for (int i = 0; i < hearts.Length; i++)
+        //Set up player health display
+        if (fullHeart != null)
         {
-            if (i < currentHealth)
-                hearts[i].sprite = fullHeart;
-            else
-                hearts[i].sprite = emptyHeart;
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                if (i < currentHealth)
+                    hearts[i].sprite = fullHeart;
+                else
+                    hearts[i].sprite = emptyHeart;
 
-            if (i < numberOfHearts)
-                hearts[i].enabled = true;
-            else
-                hearts[i].enabled = false;
+                if (i < health)
+                    hearts[i].enabled = true;
+                else
+                    hearts[i].enabled = false;
+            }
         }
     }
+    #endregion
 
-    public void modifyHealth(int amount)
+    #region Private Methods
+    public void ModifyHealth(int amount)
     {
         currentHealth += amount;
         if (currentHealth == 0)
-            Destroy(gameObject);
+        {
+            if(gameObject.tag == "Player")
+            {
+                GetComponent<PlayerMovement>().anim.SetTrigger("Death");
+                Destroy(gameObject, 1f);
+            }
+            else if (gameObject.tag == "Enemy")
+            {
+                GetComponent<AIPatrol>().anim.SetTrigger("Death");
+                Destroy(gameObject, 1f);
+            }            
+        }
     }
+    #endregion
 }

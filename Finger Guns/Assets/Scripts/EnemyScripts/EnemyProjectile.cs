@@ -39,8 +39,12 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag != "Enemy")
+        if(collision.gameObject.tag != "Enemy" &&
+            collision.gameObject.layer != 9)
             Destroy(gameObject);
+
+        if (collision.gameObject.tag == "Player")
+            collision.GetComponent<Health>().ModifyHealth(-1);
     }
     #endregion
 }

@@ -7,7 +7,8 @@ public class AIPatrol : MonoBehaviour
     #region Variables
     //Components
     private Rigidbody2D rb2d;
-    private Animator anim;
+    [HideInInspector]
+    public Animator anim;
 
     //Public
     public float walkSpeed;
@@ -45,6 +46,18 @@ public class AIPatrol : MonoBehaviour
         {
             turnAround = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+            patrolling = false;
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            patrolling = true;
     }
     #endregion
 

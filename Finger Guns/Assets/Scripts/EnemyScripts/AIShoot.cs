@@ -5,9 +5,6 @@ using UnityEngine;
 public class AIShoot : MonoBehaviour
 {
     #region Variables
-    //Components
-    private CircleCollider2D detectionCollider;
-
     //Public
     public Transform firePoint;
     public GameObject enemyProjectile;
@@ -15,14 +12,21 @@ public class AIShoot : MonoBehaviour
 
     //Private
     private float currentTimeBtwShots;
+    private bool shooting;
     #endregion
 
     #region Monobehaviour Callbacks
     void Start()
     {
-        detectionCollider = GetComponent<CircleCollider2D>();
-
         currentTimeBtwShots = timeBtwShots;
+    }
+
+    void Update()
+    {
+        if(shooting)
+        {
+            Shoot();
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
@@ -30,15 +34,20 @@ public class AIShoot : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             firePoint.Rotate(collision.transform.position);
-            Shoot();
+            shooting = true;
         }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        shooting = false;
     }
     #endregion
 
     #region Private Methods
     void Shoot()
-    {
-        if(currentTimeBtwShots <= 0)
+    {        
+        if (currentTimeBtwShots <= 0)
         {
             Instantiate(enemyProjectile, firePoint.position, Quaternion.identity);
             currentTimeBtwShots = timeBtwShots;

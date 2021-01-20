@@ -3,6 +3,10 @@
 public class PlayerWeapon : MonoBehaviour
 {
     #region Variables
+    //Components
+    PlayerMovement playerMovement;
+
+    //Public
     public Transform firePoint;
     public Transform sprayPoint1;
     public Transform sprayPoint2;
@@ -33,6 +37,7 @@ public class PlayerWeapon : MonoBehaviour
     private void Awake()
     {
         playerHand = gameObject.transform;
+        playerMovement = GetComponentInParent<PlayerMovement>();
     }
 
     private void Update()
@@ -68,8 +73,14 @@ public class PlayerWeapon : MonoBehaviour
     {
         //Aim Hand
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        playerHand.eulerAngles = new Vector3(0, 0, angle);
+        float angle;
+        if (playerMovement.facingRight)
+            angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        else
+            angle = Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg;
+        angle = Mathf.Clamp(angle, -85, 85);
+
+        playerHand.eulerAngles = new Vector3(0, 0, angle);        
     }
 
     private void Shoot()

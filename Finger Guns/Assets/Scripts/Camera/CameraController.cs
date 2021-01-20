@@ -3,20 +3,23 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-
-	public float interpVelocity;
-	public float minDistance;
-	public float followDistance;
-	public GameObject target;
+    #region Variables
+    //Public    
+    public GameObject target;
+    public float followSpeed = 1f;	
 	public Vector3 offset;
-	Vector3 targetPos;
-	// Use this for initialization
-	void Start()
+
+    //Private
+    private float interpVelocity;
+    Vector3 targetPos;
+    #endregion
+
+    #region Monobehaviour Callbacks
+    void Start()
 	{
 		targetPos = transform.position;
 	}
 
-	// Update is called once per frame
 	void FixedUpdate()
 	{
 		if (target)
@@ -30,8 +33,9 @@ public class CameraController : MonoBehaviour
 
 			targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
 
-			transform.position = Vector3.Lerp(transform.position, targetPos + offset, 0.25f);
+			transform.position = Vector3.Lerp(transform.position, targetPos + offset, followSpeed);
 
 		}
 	}
+    #endregion
 }

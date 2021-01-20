@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     #region Variables
-    public float damage = 5f;
+    public int damage = 5;
     public float speed = 20f;
     public float range = 2f;
     public bool homingShot;
@@ -20,15 +20,15 @@ public class Bullet : MonoBehaviour
     public bool enemyContact;
 
     private Vector3 enemyTarget;
-    private Rigidbody rb;
+    private Rigidbody2D rb2d;
     private bool blastCollision = false;
     #endregion
 
     #region Monobehaviour Callbacks
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        rb.velocity = transform.right * speed;
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rb2d.velocity = transform.right * speed;
 
         closestEnemy = null;
         enemyContact = false;
@@ -43,7 +43,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void Update()
+    {
+        Physics2D.IgnoreLayerCollision(9, 11, true);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (blastShot)
         {
@@ -55,9 +60,15 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Health>().ModifyHealth(-damage);
+            collision.gameObject.GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
+        }            
     }
 
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.isTrigger != true && collision.CompareTag("Enemy"))
         {
@@ -65,14 +76,14 @@ public class Bullet : MonoBehaviour
             {
                 closestEnemy = GetClosestEnemy();
                 Vector3 targetPosition = closestEnemy.position - gameObject.transform.position;
-                rb.AddForce(targetPosition * 10f);
+                rb2d.AddForce(targetPosition * 10f);
                 transform.LookAt(closestEnemy);
             }
             enemyContact = true;
         }
     }
 
-    private void OnTriggerExit(Collider collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.isTrigger != true && collision.CompareTag("Enemy"))
         {
