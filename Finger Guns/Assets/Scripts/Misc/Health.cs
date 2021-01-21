@@ -53,13 +53,21 @@ public class Health : MonoBehaviour
             if(gameObject.tag == "Player")
             {
                 GetComponent<PlayerMovement>().anim.SetTrigger("Death");
+                GetComponent<PlayerMovement>().playerDead = true;
                 Destroy(gameObject, 1f);
             }
             else if (gameObject.tag == "Enemy")
             {
                 GetComponent<AIPatrol>().anim.SetTrigger("Death");
-                Destroy(gameObject, 1f);
+                Destroy(gameObject, 0.5f);
             }            
+        }
+        else
+        {
+            if (gameObject.tag == "Enemy")
+            {
+                GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
+            }
         }
     }
     #endregion

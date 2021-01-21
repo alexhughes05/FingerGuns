@@ -9,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
 
     //Public Variables
+    [Header("Controller")]
+    public bool playerDead = false;
+    public bool flipPlayer;
+    [Space()]
+
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
     public float movementSpeed = 10f;
@@ -17,20 +22,18 @@ public class PlayerMovement : MonoBehaviour
     public float somersaultForceY = 3f;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public float groundCheckDistance = 0.1f;
     public bool facingRight = true;
     [Space()]
     public float AFKTimer = 10f;
-
-    [Header("Camera")]
-    public Transform cameraTarget;
-    public float moveAheadAmount, moveAheadSpeed;
-    [Space()]
 
     [Header("Weapon")]
     public Transform firePoint;    
 
     //Other Private Variables        
     private bool grounded;
+    private bool wasGrounded;
+    private bool falling;
     private int buttonCount = 0;
     private float horizontalInput;
     private bool jumpInput;
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
 
         currentAFKTime = AFKTimer;
+        wasGrounded = grounded;
     }
 
     private void Update()
@@ -62,14 +66,18 @@ public class PlayerMovement : MonoBehaviour
     #region Private Methods
     private void GetInput()
     {
-        //Movement
-        horizontalInput = Input.GetAxis("Horizontal");
-        //Jump
-        jumpInput = Input.GetButtonDown("Jump");
-        //SomerSault
-        somersaultInput = GetSomersaultInput();
-        //Backflip
-        //backflipInput = Input.GetKeyDown(KeyCode.LeftShift);
+        //If player is not dead, accept input
+        if (!playerDead)
+        {
+            //Movement
+            horizontalInput = Input.GetAxis("Horizontal");
+            //Jump
+            jumpInput = Input.GetButtonDown("Jump");
+            //SomerSault
+            somersaultInput = GetSomersaultInput();
+            //Backflip
+            //backflipInput = Input.GetKeyDown(KeyCode.LeftShift);
+        }
     }
 
     private bool GetSomersaultInput()
@@ -105,21 +113,16 @@ public class PlayerMovement : MonoBehaviour
     private void PerformMovement()
     {
         //Ground Check
-        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
+        //Falling Check
+        falling = rb2d.velocity.y < 0 && !grounded ? true : false;
 
         //Movement
         rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
-        if (horizontalInput < 0 && facingRight)
-            Flip();
-        else if (horizontalInput > 0 && !facingRight)
-            Flip();
-
-        //Move Camera Target
-        if (horizontalInput != 0)
+        //Flip Player
+        if(flipPlayer)
         {
-            cameraTarget.localPosition = new Vector3(Mathf.Lerp(cameraTarget.localPosition.x, 
-                moveAheadAmount, moveAheadSpeed * Time.deltaTime), 
-                cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+            Flip();
         }
 
         //Jump
@@ -163,8 +166,17 @@ public class PlayerMovement : MonoBehaviour
 
         //Jump, Fall, & Land
         if (jumpInput && grounded)
+            anim.SetTrigger("Jump");            
+        if (falling)
         {
-            anim.SetTrigger("Jump");
+            anim.SetTrigger("Falling");
+            wasGrounded = false;
+        }
+        if (grounded && !wasGrounded)
+        {
+            anim.SetTrigger("Landing");
+            anim.ResetTrigger("Falling");
+            wasGrounded = grounded;
         }
 
         //Dash

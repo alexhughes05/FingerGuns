@@ -5,23 +5,32 @@ public class PlayerWeapon : MonoBehaviour
     #region Variables
     //Components
     PlayerMovement playerMovement;
+    Animator anim;
 
     //Public
+    [Header("Firepoints")]
     public Transform firePoint;
     public Transform sprayPoint1;
     public Transform sprayPoint2;
-
+    [Space()]
+    [Header("Bullet Prefabs")]
     public GameObject bullet;
     public GameObject fastBullet;
     public GameObject homingBullet;
     public GameObject sprayBullet;
     public GameObject blastBullet;
-
+    [Space()]
+    [Header("Firerates")]
     public float regularBulletRate = 0.5f;
     public float fastBulletRate = 0.5f;
     public float homingBulletRate = 0.5f;
     public float sprayBulletRate = 0.5f;
     public float blastBulletRate = 0.5f;
+    [Space()]
+    [Header("Camera")]
+    public Transform cameraTarget;
+    public float lookAheadAmount = 5f, lookAheadSpeed = 4f;
+    [Space()]
 
     //Private Variables
     private Transform playerHand;
@@ -38,6 +47,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         playerHand = gameObject.transform;
         playerMovement = GetComponentInParent<PlayerMovement>();
+        anim = GetComponentInParent<Animator>();
     }
 
     private void Update()
@@ -78,9 +88,30 @@ public class PlayerWeapon : MonoBehaviour
             angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         else
             angle = Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg;
-        angle = Mathf.Clamp(angle, -85, 85);
+        //angle = Mathf.Clamp(angle, -85, 85);
 
-        playerHand.eulerAngles = new Vector3(0, 0, angle);        
+        playerHand.eulerAngles = new Vector3(0, 0, angle);
+
+        //Move Camera Target
+        cameraTarget.localPosition = new Vector3(Mathf.Lerp(cameraTarget.localPosition.x,
+            aimDirection.x * lookAheadAmount, lookAheadSpeed * Time.deltaTime),
+            cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+
+        //Player Flip Conditions
+        if (playerMovement.facingRight)
+        {
+            if (angle < -90 || angle > 90)
+                playerMovement.flipPlayer = true;
+            else
+                playerMovement.flipPlayer = false;
+        }
+        else
+        {
+            if (angle < -90 || angle > 90)
+                playerMovement.flipPlayer = true;
+            else
+                playerMovement.flipPlayer = false;
+        }
     }
 
     private void Shoot()
@@ -110,6 +141,7 @@ public class PlayerWeapon : MonoBehaviour
                 currentFireRate = blastBulletRate;
                 break;
         }
+        anim.SetTrigger("Shoot");
     }
     private void WeaponSwitch()
     {

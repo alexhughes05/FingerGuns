@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public float speed = 20f;
     public float range = 2f;
     public bool homingShot;
+    public float homingSpeed = 10f;
     public bool blastShot;
 
     public GameObject blastExplosion;
@@ -16,8 +17,6 @@ public class Bullet : MonoBehaviour
     private GameObject[] enemies;
     [HideInInspector]
     public Transform closestEnemy;
-    [HideInInspector]
-    public bool enemyContact;
 
     private Vector3 enemyTarget;
     private Rigidbody2D rb2d;
@@ -31,7 +30,6 @@ public class Bullet : MonoBehaviour
         rb2d.velocity = transform.right * speed;
 
         closestEnemy = null;
-        enemyContact = false;
 
         if(blastShot)
         {
@@ -43,29 +41,37 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        Physics2D.IgnoreLayerCollision(9, 11, true);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (blastShot)
-        {
-            blastCollision = true;
-
-            StartCoroutine(DestroyBlastBullet());
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        if (collision.gameObject.tag == "Enemy")
+    {       
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<Health>().ModifyHealth(-damage);
-            collision.gameObject.GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
-        }            
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Special conditions for homing shot, because of it's "homing" circle collider
+        //All other bullets, make sure they don't collide with enemy circle detection collider
+        if (collision.GetType() != typeof(CircleCollider2D) && !homingShot)
+        {
+            if (blastShot)
+            {
+                blastCollision = true;
+
+                StartCoroutine(DestroyBlastBullet());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.gameObject.GetComponent<Health>().ModifyHealth(-damage);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -76,20 +82,11 @@ public class Bullet : MonoBehaviour
             {
                 closestEnemy = GetClosestEnemy();
                 Vector3 targetPosition = closestEnemy.position - gameObject.transform.position;
-                rb2d.AddForce(targetPosition * 10f);
+                rb2d.AddForce(targetPosition * homingSpeed);
                 transform.LookAt(closestEnemy);
             }
-            enemyContact = true;
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.isTrigger != true && collision.CompareTag("Enemy"))
-        {
-            enemyContact = false;
-        }
-    }
+    }    
     #endregion
 
     #region Private Methods

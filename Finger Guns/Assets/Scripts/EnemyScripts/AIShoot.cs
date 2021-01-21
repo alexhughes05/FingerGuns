@@ -34,7 +34,9 @@ public class AIShoot : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             firePoint.Rotate(collision.transform.position);
-            shooting = true;
+            //If player is not dead, enemy can shoot
+            if(!collision.gameObject.GetComponent<PlayerMovement>().playerDead)
+                shooting = true;
         }
     }
 

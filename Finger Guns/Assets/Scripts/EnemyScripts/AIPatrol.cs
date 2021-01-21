@@ -15,6 +15,7 @@ public class AIPatrol : MonoBehaviour
     public bool patrolling;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public float groundCheckDistance = 0.1f;
 
     //Private
     private bool turnAround;
@@ -44,21 +45,9 @@ public class AIPatrol : MonoBehaviour
     {
         if (patrolling)
         {
-            turnAround = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            turnAround = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         }
-    }
-
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-            patrolling = false;
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-            patrolling = true;
-    }
+    }    
     #endregion
 
     #region Private Methods
