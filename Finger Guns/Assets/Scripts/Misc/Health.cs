@@ -7,7 +7,8 @@ public class Health : MonoBehaviour
 {
     #region Variables
     //Public
-    public int health;    
+    public int health;
+    //public int maxHealth;
     public Sprite fullHeart;
     public Sprite emptyHeart;
     public Image[] hearts;
@@ -37,7 +38,7 @@ public class Health : MonoBehaviour
                 if (i < health)
                     hearts[i].enabled = true;
                 else
-                    hearts[i].enabled = false;
+                    hearts[i].enabled = false;              
             }
         }
     }
@@ -47,7 +48,7 @@ public class Health : MonoBehaviour
     public void ModifyHealth(int amount)
     {
         currentHealth += amount;
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
             if(gameObject.tag == "Player")
             {

@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
     //Public Variables
     [Header("Movement")]
+    public float doubleTapWindow = 0.5f;
     public float movementSpeed = 10f;
     public float jumpForce = 5f;
+    public float somersaultForceX = 3f;
+    public float somersaultForceY = 3f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public bool facingRight = true;
@@ -28,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Other Private Variables        
     private bool grounded;
-
+    private int buttonCount = 0;
     private float horizontalInput;
     private bool jumpInput;
     private bool dashInput;    
@@ -63,6 +66,40 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         //Jump
         jumpInput = Input.GetButtonDown("Jump");
+        //SomerSault
+        somersaultInput = GetSomersaultInput();
+        //Backflip
+        //backflipInput = Input.GetKeyDown(KeyCode.LeftShift);
+    }
+
+    private bool GetSomersaultInput()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+            if (doubleTapWindow > 0 && buttonCount == 1/*Number of Taps you want Minus One*/)
+            {
+                //Has double tapped
+                return true;
+            }
+            else
+            {
+                doubleTapWindow = 0.5f;
+                buttonCount += 1;
+            }
+        }
+
+        if (doubleTapWindow > 0)
+        {
+
+            doubleTapWindow -= 1 * Time.deltaTime;
+
+        }
+        else
+        {
+            buttonCount = 0;
+        }
+        return false;
     }
 
     private void PerformMovement()
@@ -71,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         //Movement
-        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
         if (horizontalInput < 0 && facingRight)
             Flip();
         else if (horizontalInput > 0 && !facingRight)
@@ -89,6 +126,11 @@ public class PlayerMovement : MonoBehaviour
         if(jumpInput && grounded)
         {
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+        //SomerSault
+        if (somersaultInput && grounded)
+        {
+            rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
         }
     }
 
@@ -128,7 +170,10 @@ public class PlayerMovement : MonoBehaviour
         //Dash
 
         //Somersault
-
+        if (somersaultInput && grounded)
+        {
+            anim.SetTrigger("Somersault");
+        }
         //Slide
 
         //Backflip

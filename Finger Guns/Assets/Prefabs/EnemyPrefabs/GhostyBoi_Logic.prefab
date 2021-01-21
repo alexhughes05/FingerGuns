@@ -537,8 +537,9 @@ GameObject:
   - component: {fileID: 3930181855921769378}
   - component: {fileID: 3930181855921769383}
   - component: {fileID: 3930181855921769377}
+  - component: {fileID: 658652150}
   m_Layer: 0
-  m_Name: GhostyBoi
+  m_Name: GhostyBoi_Logic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,7 +670,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.04, y: 0.8}
   serializedVersion: 2
-  m_Radius: 7
+  m_Radius: 10
 --- !u!114 &3930181855921769383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,12 +683,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf85ca53612cc274389528f9f8914030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   walkSpeed: 80
   patrolling: 0
   groundCheck: {fileID: 3930181855507638778}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
 --- !u!114 &3930181855921769377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,7 +705,23 @@ MonoBehaviour:
   firePoint: {fileID: 3930181855950825401}
   enemyProjectile: {fileID: 5410862014141978629, guid: 9024f2d7127182a4996fe354dd170897,
     type: 3}
-  timeBtwShots: 1
+  timeBtwShots: 0.5
+--- !u!114 &658652150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5641730514803784852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf792371dabac44bb23b6be35ae8db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4
+  fullHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
+  hearts: []
 --- !u!1 &5817961410760820452
 GameObject:
   m_ObjectHideFlags: 0
