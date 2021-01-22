@@ -7583,6 +7583,7 @@ MonoBehaviour:
   flipPlayer: 0
   doubleTapWindow: 0.5
   movementSpeed: 15
+  dashSpeed: 100
   jumpForce: 15
   somersaultForceX: 10
   somersaultForceY: 5

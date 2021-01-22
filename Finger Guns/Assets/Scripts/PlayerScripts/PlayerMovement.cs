@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
     public float movementSpeed = 100f;
+    public float dashSpeed = 100f;
     public float jumpForce = 5f;
     public float somersaultForceX = 3f;
     public float somersaultForceY = 3f;
@@ -42,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     private bool dashInput;    
     private bool somersaultInput;
     private bool ignoreFalling;
-    private bool slideInput;
     private bool backflipInput;
 
     private float currentAFKTime;
@@ -78,7 +78,8 @@ public class PlayerMovement : MonoBehaviour
             jumpInput = Input.GetButtonDown("Jump");
             //SomerSault
             somersaultInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x > 0;
-            dashInput = GetSlideInput();
+            //Dash
+            dashInput = GetDashInput();
             //Backflip
             backflipInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x < 0;
 
@@ -88,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool GetSlideInput()
+    private bool GetDashInput()
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -137,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         //Dash
         if (dashInput && grounded)
         {
-            rb2d.AddForce(new Vector2(30f, 0), ForceMode2D.Impulse);
+            transform.position += new Vector3(dashSpeed * Time.deltaTime, 0.1f, 0.0f);
         }
 
         //Jump
@@ -217,8 +218,15 @@ public class PlayerMovement : MonoBehaviour
         //Slide
         if (dashInput && grounded)
         {
-            anim.SetTrigger("Dash");
+            anim.SetBool("Dash", true);
+            StartCoroutine(StopDash());
         }
+    }
+
+    private IEnumerator StopDash()
+    {
+        yield return new WaitForSeconds(0.2f);
+        anim.SetBool("Dash", false);
     }
 
     private IEnumerator AllowFalling()
