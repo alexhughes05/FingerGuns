@@ -7587,6 +7587,8 @@ MonoBehaviour:
   jumpForce: 15
   somersaultForceX: 10
   somersaultForceY: 5
+  backflipForceX: 3
+  backflipForceY: 13
   groundCheck: {fileID: 1853139550}
   groundLayer:
     serializedVersion: 2

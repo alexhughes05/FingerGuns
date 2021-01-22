@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     public float somersaultForceX = 3f;
     public float somersaultForceY = 3f;
+    public float backflipForceX = 3f;
+    public float backflipForceY = 5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckDistance = 0.1f;
@@ -153,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (backflipInput && grounded)
         {
-            rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
         }
     }
 
