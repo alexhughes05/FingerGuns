@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
-    public float movementSpeed = 10f;
+    public float movementSpeed = 100f;
     public float jumpForce = 5f;
     public float somersaultForceX = 3f;
     public float somersaultForceY = 3f;
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpInput;
     private bool dashInput;    
     private bool somersaultInput;
+    private bool ignoreFalling;
     private bool slideInput;
     private bool backflipInput;
 
@@ -74,13 +77,18 @@ public class PlayerMovement : MonoBehaviour
             //Jump
             jumpInput = Input.GetButtonDown("Jump");
             //SomerSault
-            somersaultInput = GetSomersaultInput();
+            somersaultInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x > 0;
+            dashInput = GetSlideInput();
             //Backflip
-            //backflipInput = Input.GetKeyDown(KeyCode.LeftShift);
+            backflipInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x < 0;
+
+            //Stop falling animation if doing somersault or backflip
+            if (somersaultInput || backflipInput)
+                ignoreFalling = true;
         }
     }
 
-    private bool GetSomersaultInput()
+    private bool GetSlideInput()
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -88,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             if (doubleTapWindow > 0 && buttonCount == 1/*Number of Taps you want Minus One*/)
             {
                 //Has double tapped
+                ignoreFalling = true;
                 return true;
             }
             else
@@ -115,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         //Falling Check
-        falling = rb2d.velocity.y < 0 && !grounded ? true : false;
+        falling = ((rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded)) ? true : false;
 
         //Movement
         rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
@@ -125,15 +134,25 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
+        //Dash
+        if (dashInput && grounded)
+        {
+            rb2d.AddForce(new Vector2(30f, 0), ForceMode2D.Impulse);
+        }
+
         //Jump
         if(jumpInput && grounded)
         {
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
         //SomerSault
-        if (somersaultInput && grounded)
+        else if (somersaultInput && grounded)
         {
             rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+        }
+        else if (backflipInput && grounded)
+        {
+            rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
         }
     }
 
@@ -185,12 +204,27 @@ public class PlayerMovement : MonoBehaviour
         if (somersaultInput && grounded)
         {
             anim.SetTrigger("Somersault");
+            StartCoroutine(AllowFalling());
         }
+
+        //backflip
+        if (backflipInput && grounded)
+        {
+            anim.SetTrigger("Backflip");
+            StartCoroutine(AllowFalling());
+        }
+
         //Slide
+        if (dashInput && grounded)
+        {
+            anim.SetTrigger("Dash");
+        }
+    }
 
-        //Backflip
-
-        //Death
+    private IEnumerator AllowFalling()
+    {
+        yield return new WaitForSeconds(2);
+        ignoreFalling = false;
     }
     #endregion
 }

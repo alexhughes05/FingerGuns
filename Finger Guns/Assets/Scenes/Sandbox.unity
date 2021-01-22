@@ -7584,8 +7584,8 @@ MonoBehaviour:
   doubleTapWindow: 0.5
   movementSpeed: 15
   jumpForce: 15
-  somersaultForceX: 3
-  somersaultForceY: 3
+  somersaultForceX: 10
+  somersaultForceY: 5
   groundCheck: {fileID: 1853139550}
   groundLayer:
     serializedVersion: 2
