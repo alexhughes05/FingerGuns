@@ -5,6 +5,9 @@ using UnityEngine;
 public class AIShoot : MonoBehaviour
 {
     #region Variables
+    //Components
+    PlayerMovement playerMovement;
+
     //Public
     public Transform firePoint;
     public GameObject enemyProjectile;
@@ -19,11 +22,12 @@ public class AIShoot : MonoBehaviour
     void Start()
     {
         currentTimeBtwShots = timeBtwShots;
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        if(shooting)
+        if(shooting && !playerMovement.playerDead)
         {
             Shoot();
         }

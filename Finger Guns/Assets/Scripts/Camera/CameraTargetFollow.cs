@@ -8,6 +8,7 @@ public class CameraTargetFollow : MonoBehaviour
 
     void Update()
     {
-        transform.position = player.position;
+        if(player)
+            transform.position = player.position;
     }
 }

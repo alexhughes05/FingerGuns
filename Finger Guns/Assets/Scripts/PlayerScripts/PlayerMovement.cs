@@ -14,26 +14,30 @@ public class PlayerMovement : MonoBehaviour
     [Header("Controller")]
     public bool playerDead = false;
     public bool flipPlayer;
+    public float AFKTimer = 10f;
+    public bool facingRight = true;
     [Space()]
 
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
     public float movementSpeed = 100f;
-    public float dashSpeed = 100f;
+    [Header("Jump")]
     public float jumpForce = 5f;
-    public float somersaultForceX = 3f;
-    public float somersaultForceY = 3f;
-    public float backflipForceX = 3f;
-    public float backflipForceY = 5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckDistance = 0.1f;
-    public bool facingRight = true;
-    [Space()]
-    public float AFKTimer = 10f;
+    [Header("Dash")]
+    public float dashAmount = 100f;
+    public float dashSpeed = 10f;
+    [Header("Dodging")]
+    public float somersaultForceX = 3f;
+    public float somersaultForceY = 3f;
+    public float backflipForceX = 3f;
+    public float backflipForceY = 15f;       
+    [Space()]    
 
     [Header("Weapon")]
-    public Transform firePoint;    
+    public Transform firePoint;
 
     //Other Private Variables        
     private bool grounded;
@@ -79,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
             //Jump
             jumpInput = Input.GetButtonDown("Jump");
             //SomerSault
-            somersaultInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x > 0;
+            somersaultInput = Input.GetKeyDown(KeyCode.S);
             //Dash
             dashInput = GetDashInput();
             //Backflip
-            backflipInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x < 0;
+            backflipInput = Input.GetKeyDown(KeyCode.S);
 
             //Stop falling animation if doing somersault or backflip
             if (somersaultInput || backflipInput)
@@ -99,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             if (doubleTapWindow > 0 && buttonCount == 1/*Number of Taps you want Minus One*/)
             {
                 //Has double tapped
-                ignoreFalling = true;
+                DisableFalling();
                 return true;
             }
             else
@@ -137,25 +141,26 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        //Dash
-        if (dashInput && grounded)
-        {
-            transform.position += new Vector3(dashSpeed * Time.deltaTime, 0.1f, 0.0f);
-        }
-
         //Jump
         if(jumpInput && grounded)
         {
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
         //SomerSault
-        else if (somersaultInput && grounded)
+        if (somersaultInput && grounded)
         {
-            rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+            if (facingRight && rb2d.velocity.x > 0)
+                rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+            else if (!facingRight && rb2d.velocity.x < 0)
+                rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
         }
-        else if (backflipInput && grounded)
+        //Backflip
+        if (backflipInput && grounded)
         {
-            rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
+            if (facingRight && rb2d.velocity.x < 0)
+                rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
+            else if (!facingRight && rb2d.velocity.x > 0)
+                rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
         }
     }
 
@@ -201,40 +206,60 @@ public class PlayerMovement : MonoBehaviour
             wasGrounded = grounded;
         }
 
-        //Dash
+        //Slide
 
         //Somersault
         if (somersaultInput && grounded)
         {
-            anim.SetTrigger("Somersault");
-            StartCoroutine(AllowFalling());
+            if (facingRight && rb2d.velocity.x > 0 || !facingRight && rb2d.velocity.x < 0)
+                anim.SetTrigger("Somersault");
         }
 
-        //backflip
+        //Backflip
         if (backflipInput && grounded)
         {
-            anim.SetTrigger("Backflip");
-            StartCoroutine(AllowFalling());
+            if (facingRight && rb2d.velocity.x < 0 || !facingRight && rb2d.velocity.x > 0)
+                anim.SetTrigger("Backflip");
         }
-
-        //Slide
+        
+        //Dash
         if (dashInput && grounded)
         {
             anim.SetBool("Dash", true);
             StartCoroutine(StopDash());
         }
+
+        //Allow Falling
+        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault"))
+        {
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            {
+                AllowFalling();
+            }
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip"))
+        {
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            {
+                AllowFalling();
+            }
+        }
     }
+
+    private void AllowFalling()
+    {
+        ignoreFalling = false;
+    }
+
+    private void DisableFalling()
+    {
+        ignoreFalling = true;
+    }    
 
     private IEnumerator StopDash()
     {
         yield return new WaitForSeconds(0.2f);
         anim.SetBool("Dash", false);
-    }
-
-    private IEnumerator AllowFalling()
-    {
-        yield return new WaitForSeconds(2);
-        ignoreFalling = false;
-    }
+    }    
     #endregion
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     #region Variables
+    //
+
     //Public
     public float speed;
 
@@ -16,15 +18,18 @@ public class EnemyProjectile : MonoBehaviour
     #region Monobehaviour Callbacks
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
-        target = new Vector2(player.position.x, player.position.y);
+        if (!GameObject.FindObjectOfType<PlayerMovement>().playerDead)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
+            target = new Vector2(player.position.x, player.position.y);
 
-        //Point towards target position
-        Vector3 relativePos = player.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(relativePos);
-        rotation.x = transform.rotation.x;
-        rotation.y = transform.rotation.y;
-        transform.rotation = rotation;
+            //Point towards target position
+            Vector3 relativePos = player.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos);
+            rotation.x = transform.rotation.x;
+            rotation.y = transform.rotation.y;
+            transform.rotation = rotation;
+        }
     }
 
     private void Update()
