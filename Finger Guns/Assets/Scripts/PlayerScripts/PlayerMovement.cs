@@ -230,17 +230,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Allow Falling
-        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault"))
+        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) //Still an issue here. Falling animation cuts off animation
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
+                Debug.Log("executed somersault");
                 AllowFalling();
             }
         }
-        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip"))
+        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) //Still an issue here. Falling animation cuts off animation
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
+                Debug.Log("executed backflip");
                 AllowFalling();
             }
         }

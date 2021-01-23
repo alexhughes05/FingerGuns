@@ -6,21 +6,29 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     #region Variables
+    [Header("Enemy")]
+    [SerializeField] int enemyPointValue = 80;
     //Public
     public int health;
     //public int maxHealth;
     public Sprite fullHeart;
     public Sprite emptyHeart;
     public Image[] hearts;
+    public GameSession gameSession;
+    public Level level;
 
     //Private
-    private int currentHealth;   
+    private int currentHealth;
+    private bool addedScore;
     #endregion
 
     #region Monobehaviour Callbacks
     void Start()
     {
+
         currentHealth = health;
+        gameSession = FindObjectOfType<GameSession>();
+        level = FindObjectOfType<Level>();
     }
 
     private void Update()
@@ -55,11 +63,14 @@ public class Health : MonoBehaviour
                 GetComponent<PlayerMovement>().anim.SetTrigger("Death");
                 GetComponent<PlayerMovement>().playerDead = true;
                 Destroy(gameObject, 1f);
+                level.DeathScreen();
             }
-            else if (gameObject.tag == "Enemy")
+            else if (gameObject.tag == "Enemy" && addedScore == false)
             {
+                addedScore = true;
                 GetComponent<AIPatrol>().anim.SetTrigger("Death");
                 Destroy(gameObject, 0.5f);
+                gameSession.AddToScore(enemyPointValue);
             }            
         }
         else
