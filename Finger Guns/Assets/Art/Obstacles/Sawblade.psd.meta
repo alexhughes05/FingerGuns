@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: d6e0214eb7a8bb242b18dfde5c4c4f60
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8327858935011257928
+    second: End Cap
+  - first:
+      213: 4260025456749934199
+    second: Rail
+  - first:
+      213: 5459606555420312397
+    second: Sawblade
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: End Cap
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 195
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b15717eb608d6c80800000000000000
+      internalID: -8327858935011257928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rail
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 205
+        width: 29
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77673b31596ae1b30800000000000000
+      internalID: 4260025456749934199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sawblade
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 222
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 67, y: -92}
+        - {x: 45, y: -89}
+        - {x: 35, y: -108}
+        - {x: 16, y: -98}
+        - {x: 3, y: -111}
+        - {x: -3, y: -111}
+        - {x: -15, y: -99}
+        - {x: -34, y: -108}
+        - {x: -44, y: -89}
+        - {x: -66, y: -93}
+        - {x: -70, y: -71}
+        - {x: -91, y: -67}
+        - {x: -88, y: -46}
+        - {x: -107, y: -35}
+        - {x: -97, y: -16}
+        - {x: -111, y: -2}
+        - {x: -111, y: 3}
+        - {x: -98, y: 16}
+        - {x: -107, y: 35}
+        - {x: -88, y: 46}
+        - {x: -91, y: 67}
+        - {x: -70, y: 71}
+        - {x: -66, y: 92}
+        - {x: -45, y: 89}
+        - {x: -34, y: 108}
+        - {x: -16, y: 98}
+        - {x: -3, y: 111}
+        - {x: 3, y: 111}
+        - {x: 16, y: 99}
+        - {x: 35, y: 108}
+        - {x: 45, y: 89}
+        - {x: 67, y: 92}
+        - {x: 70, y: 70}
+        - {x: 92, y: 67}
+        - {x: 88.5625, y: 45.59375}
+        - {x: 109, y: 34}
+        - {x: 98, y: 15}
+        - {x: 111, y: 3}
+        - {x: 111, y: -3}
+        - {x: 98, y: -15}
+        - {x: 109, y: -36}
+        - {x: 88, y: -45}
+        - {x: 92, y: -67}
+        - {x: 70, y: -70}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43c8356c3b64cb40800000000000000
+      internalID: 5459606555420312397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 1
+  pSDShowRemoveMatteOption: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
