@@ -8,10 +8,10 @@ public class Projectile : MonoBehaviour
     bool tookHit = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var fingerGunMan = collision.collider.GetComponent<Health>();
-        if (fingerGunMan && tookHit == false)
+        var damageDealer = collision.collider.GetComponent<Health>();
+        if (damageDealer && tookHit == false)
         {
-            fingerGunMan.ModifyHealth(damage);
+            damageDealer.ModifyHealth(-damage);
             tookHit = true;
         }
     }

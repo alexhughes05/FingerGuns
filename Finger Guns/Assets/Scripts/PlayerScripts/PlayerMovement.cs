@@ -234,7 +234,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
-                Debug.Log("executed somersault");
                 AllowFalling();
             }
         }
@@ -242,7 +241,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
-                Debug.Log("executed backflip");
                 AllowFalling();
             }
         }

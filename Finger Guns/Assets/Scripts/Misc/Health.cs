@@ -14,8 +14,8 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
     public Image[] hearts;
-    public GameSession gameSession;
-    public Level level;
+    private GameSession gameSession;
+    private Level level;
 
     //Private
     private int currentHealth;
