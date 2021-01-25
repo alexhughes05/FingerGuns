@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckDistance = 0.1f;
+    public float hangTime = 0.2f;
+    public float jumpBufferLength = 0.1f;
     [Header("Dash")]
     public float dashAmount = 100f;
     public float dashSpeed = 10f;
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public float somersaultForceX = 3f;
     public float somersaultForceY = 3f;
     public float backflipForceX = 3f;
-    public float backflipForceY = 15f;       
+    public float backflipForceY = 15f;
     [Space()]    
 
     [Header("Weapon")]
@@ -43,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool wasGrounded;
     private bool falling;
+    private float hangCounter;
+    private float jumpBufferCounter;
+
     private int buttonCount = 0;
     private float horizontalInput;
     private bool jumpInput;
@@ -131,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         //Falling Check
-        falling = ((rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded)) ? true : false;
+        falling = ((rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded));
 
         //Movement
         rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
@@ -141,10 +146,26 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
+        //Hang time
+        if (grounded)
+            hangCounter = hangTime;
+        else
+            hangCounter -= Time.deltaTime;
+        //Jump Buffer
+        if(jumpInput)
+            jumpBufferCounter = jumpBufferLength;
+        else
+            jumpBufferCounter -= Time.deltaTime;
+
         //Jump
-        if(jumpInput && grounded)
+        if(jumpBufferCounter >= 0 && hangCounter > 0)
         {
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpBufferCounter = 0;
+        }
+        if(Input.GetButtonUp("Jump") && rb2d.velocity.y > 0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
         }
         //SomerSault
         if (somersaultInput && grounded)
@@ -220,13 +241,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (facingRight && rb2d.velocity.x < 0 || !facingRight && rb2d.velocity.x > 0)
                 anim.SetTrigger("Backflip");
-        }
-        
-        //Dash
-        if (dashInput && grounded)
-        {
-            anim.SetBool("Dash", true);
-            StartCoroutine(StopDash());
         }
 
         //Allow Falling

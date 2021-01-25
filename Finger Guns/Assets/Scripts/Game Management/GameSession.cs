@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameSession : MonoBehaviour
 {
     int score = 0;
-    // Start is called before the first frame update
+    
     void Awake()
     {
         SetUpSingleton();
@@ -32,6 +32,11 @@ public class GameSession : MonoBehaviour
     public void AddToScore(int scoreValue)
     {
         score += scoreValue;
+    }
+
+    public void SubtractFromScore(int scoreValue)
+    {
+        score -= scoreValue;
     }
 
     public void ResetGame()
