@@ -88,7 +88,6 @@ public class PlayerWeapon : MonoBehaviour
             angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         else
             angle = Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg;
-        //angle = Mathf.Clamp(angle, -85, 85);
 
         playerHand.eulerAngles = new Vector3(0, 0, angle);
 
