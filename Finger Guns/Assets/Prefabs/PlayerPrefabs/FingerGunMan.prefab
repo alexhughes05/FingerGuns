@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4447466110590383788}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3274379893813782751}
   - component: {fileID: 7311343219640532368}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FingerGunMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2891424811040410116}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6576524996408568055}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8164580317241533934}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3206576544873709671}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5017324900814347086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1107837711797069336}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7646399966307175807}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6396969289064240797}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FingerGunMan_Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,9 +382,9 @@ GameObject:
   - component: {fileID: 2630622481233304459}
   - component: {fileID: 484406950010659944}
   - component: {fileID: 8719658524638122412}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FingerGunMan
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,11 +525,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb1a073b5fc09e499c8036410606989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  playerDead: 0
+  flipPlayer: 0
+  AFKTimer: 10
+  facingRight: 1
+  doubleTapWindow: 0.5
   movementSpeed: 10
   jumpForce: 5
-  cameraTarget: {fileID: 0}
-  moveAheadAmount: 0
-  moveAheadSpeed: 0
+  groundCheck: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckDistance: 0.1
+  dashAmount: 100
+  dashSpeed: 10
+  somersaultForceX: 3
+  somersaultForceY: 3
+  backflipForceX: 3
+  backflipForceY: 15
+  firePoint: {fileID: 0}
 --- !u!1 &6249050901806353977
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1430912036468209628}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}

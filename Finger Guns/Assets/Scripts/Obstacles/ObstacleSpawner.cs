@@ -6,6 +6,9 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
+    public Vector2 followOffset;
+    Vector3 leftCloudSpawn;
+    Vector3 rightCloudSpawn;
     Blade blade;
     Lightning lightning;
     // Start is called before the first frame update
@@ -29,6 +32,13 @@ public class ObstacleSpawner : MonoBehaviour
         }
         while (looping);
     }
+
+    private void Update()
+    {
+        leftCloudSpawn = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5));
+        rightCloudSpawn = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.7f, 5));
+
+    }
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
     {
         blade.selectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
@@ -38,6 +48,15 @@ public class ObstacleSpawner : MonoBehaviour
     }
     private IEnumerator SpawnLightning(GameObject obstacle, Lightning lightning)
     {
-        yield return new WaitForSeconds(5);
+        int randomNum = UnityEngine.Random.Range(0, 2);
+        if (randomNum == 0)
+        {
+            Instantiate(obstacle, leftCloudSpawn, Quaternion.identity);
+        }
+        else if (randomNum == 1)
+        {
+            Instantiate(obstacle, rightCloudSpawn, Quaternion.identity);
+        }
+        yield return new WaitForSeconds(UnityEngine.Random.Range(lightning.getMinSpawnRateInSeconds(), lightning.getMaxSpawnRateInSeconds()));
     }
 }

@@ -171,6 +171,12 @@ public class PlayerMovement : MonoBehaviour
 
         firePoint.Rotate(0f, 180f, 0f);
     }
+    public float GetPlayerXPos()
+    {
+        var xPos = gameObject.transform.position.x;
+        Debug.Log(xPos);
+        return xPos;
+    }
 
     void Animation()
     {
@@ -260,6 +266,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         anim.SetBool("Dash", false);
-    }    
+    }
     #endregion
 }
