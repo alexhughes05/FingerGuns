@@ -9,8 +9,6 @@ public class Lightning : MonoBehaviour
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
     [SerializeField] float moveSpeed;
-    public Transform leftSpawn;
-    public Transform rightSpawn;
     [SerializeField] int numTimesExecPerSpawn;
     [SerializeField] float durationBtwEachAnim;
 
@@ -45,7 +43,6 @@ public class Lightning : MonoBehaviour
         if (transform.position.x == targetPosition.x)
         {
             controller.SetTrigger("Lightning Strike");
-            Debug.Log("Position reached");
         }
 
     }

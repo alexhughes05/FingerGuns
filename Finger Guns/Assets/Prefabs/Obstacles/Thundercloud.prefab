@@ -690,14 +690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd20ec7614267746b00ba3ce2a0ce44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
   minSpawnRateInSeconds: 5
   maxSpawnRateInSeconds: 7
-  moveSpeed: 10
-  leftSpawn: {fileID: 8868417948158845567, guid: 62818973efbf7d24d8ab18fd48441bb0,
-    type: 3}
-  rightSpawn: {fileID: 5006495193670955631, guid: 09bdd41161dba974ba77d0833828866c,
-    type: 3}
-  player: {fileID: 5955457421823574222, guid: 7d1acc91180d5504e8d4049406b904c2, type: 3}
+  moveSpeed: 15
   numTimesExecPerSpawn: 0
   durationBtwEachAnim: 0
 --- !u!1 &6774199858188883110

@@ -22,18 +22,18 @@ public class PlayerMovement : MonoBehaviour
     public float doubleTapWindow = 0.5f;
     public float movementSpeed = 100f;
     [Header("Jump")]
-    public float jumpForce = 5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckDistance = 0.1f;
     public float hangTime = 0.2f;
     public float jumpBufferLength = 0.1f;
-    [Header("Dash")]
-    public float dashAmount = 100f;
-    public float dashSpeed = 10f;
+    [Header("Slide")]
+    [SerializeField] float slideDuration = 1f;
     [Header("Dodging")]
+    public float jumpForce = 5f;
     public float somersaultForceX = 3f;
     public float somersaultForceY = 3f;
+    public float slideForce = 12f;
     public float backflipForceX = 3f;
     public float backflipForceY = 15f;
     [Space()]    
@@ -47,11 +47,13 @@ public class PlayerMovement : MonoBehaviour
     private bool falling;
     private float hangCounter;
     private float jumpBufferCounter;
+    private bool isCoroutineStarted;
+    private bool maxSlideTimeReached;
 
-    private int buttonCount = 0;
     private float horizontalInput;
     private bool jumpInput;
-    private bool dashInput;    
+    private bool slideInput;
+    private bool crouchInput;
     private bool somersaultInput;
     private bool ignoreFalling;
     private bool backflipInput;
@@ -86,51 +88,21 @@ public class PlayerMovement : MonoBehaviour
             //Movement
             horizontalInput = Input.GetAxis("Horizontal");
             //Jump
-            jumpInput = Input.GetButtonDown("Jump");
+            jumpInput = Input.GetButtonDown("Jump") && rb2d.velocity.x == 0;
             //SomerSault
-            somersaultInput = Input.GetKeyDown(KeyCode.S);
-            //Dash
-            dashInput = GetDashInput();
+            somersaultInput = Input.GetKeyDown(KeyCode.Space) && rb2d.velocity.x != 0;
+            //Slide
+            slideInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x != 0;
+            //Crouch
+            crouchInput = Input.GetKey(KeyCode.S) && rb2d.velocity.x == 0;
             //Backflip
-            backflipInput = Input.GetKeyDown(KeyCode.S);
+            backflipInput = Input.GetKeyDown(KeyCode.Space) && rb2d.velocity.x != 0;
 
             //Stop falling animation if doing somersault or backflip
             if (somersaultInput || backflipInput)
-                ignoreFalling = true;
-        }
-    }
-
-    private bool GetDashInput()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-
-            if (doubleTapWindow > 0 && buttonCount == 1/*Number of Taps you want Minus One*/)
-            {
-                //Has double tapped
                 DisableFalling();
-                return true;
-            }
-            else
-            {
-                doubleTapWindow = 0.5f;
-                buttonCount += 1;
-            }
         }
-
-        if (doubleTapWindow > 0)
-        {
-
-            doubleTapWindow -= 1 * Time.deltaTime;
-
-        }
-        else
-        {
-            buttonCount = 0;
-        }
-        return false;
     }
-
     private void PerformMovement()
     {
         //Ground Check
@@ -139,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
         falling = ((rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded));
 
         //Movement
+        if (anim.GetBool("Slide") == false)
         rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
         //Flip Player
         if(flipPlayer)
@@ -158,12 +131,12 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if(jumpBufferCounter >= 0 && hangCounter > 0)
+        if(jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.x == 0)
         {
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpBufferCounter = 0;
         }
-        if(Input.GetButtonUp("Jump") && rb2d.velocity.y > 0)
+        if(Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && rb2d.velocity.x == 0)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
         }
@@ -182,6 +155,15 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
             else if (!facingRight && rb2d.velocity.x > 0)
                 rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
+        }
+
+        //Slide
+        if (slideInput && grounded)
+        {
+            if (facingRight && rb2d.velocity.x > 0)
+                rb2d.AddForce(new Vector2(slideForce, 0), ForceMode2D.Impulse);
+            else if (!facingRight && rb2d.velocity.x < 0)
+                rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -219,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Walking", Mathf.Abs(horizontalInput));
 
         //Jump, Fall, & Land
-        if (jumpInput && grounded)
+        if (jumpInput && grounded && rb2d.velocity.x == 0)
             anim.SetTrigger("Jump");            
         if (falling)
         {
@@ -234,6 +216,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Slide
+        if (slideInput && isCoroutineStarted == false)
+        {
+            if (facingRight && rb2d.velocity.x > 0 || !facingRight && rb2d.velocity.x < 0)
+            {
+                anim.SetBool("Slide", true);
+                StartCoroutine(WaitToStopSlide());
+            }
+        }
+
+        //Crouch
+        if (crouchInput && grounded)
+        {
+            anim.SetBool("Crouch", true);
+        }
+        else
+            anim.SetBool("Crouch", false);
 
         //Somersault
         if (somersaultInput && grounded)
@@ -248,6 +246,7 @@ public class PlayerMovement : MonoBehaviour
             if (facingRight && rb2d.velocity.x < 0 || !facingRight && rb2d.velocity.x > 0)
                 anim.SetTrigger("Backflip");
         }
+
 
         //Allow Falling
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) //Still an issue here. Falling animation cuts off animation
@@ -266,6 +265,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitToStopSlide()
+    {
+        isCoroutineStarted = true;
+        yield return new WaitForSeconds(slideDuration);
+        anim.SetBool("Slide", false);
+        isCoroutineStarted = false;
+    }
+
     private void AllowFalling()
     {
         ignoreFalling = false;
@@ -275,11 +282,5 @@ public class PlayerMovement : MonoBehaviour
     {
         ignoreFalling = true;
     }    
-
-    private IEnumerator StopDash()
-    {
-        yield return new WaitForSeconds(0.2f);
-        anim.SetBool("Dash", false);
-    }
     #endregion
 }

@@ -6,7 +6,6 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    public Vector2 followOffset;
     Vector3 leftCloudSpawn;
     Vector3 rightCloudSpawn;
     Blade blade;
