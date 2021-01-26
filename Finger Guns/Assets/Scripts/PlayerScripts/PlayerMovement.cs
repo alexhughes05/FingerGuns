@@ -236,32 +236,36 @@ public class PlayerMovement : MonoBehaviour
         //Somersault
         if (somersaultInput && grounded)
         {
-            if (facingRight && rb2d.velocity.x > 0 || !facingRight && rb2d.velocity.x < 0)
+            if ((facingRight && rb2d.velocity.x > 0 && grounded) || (!facingRight && rb2d.velocity.x < 0 && grounded))
                 anim.SetTrigger("Somersault");
         }
 
         //Backflip
         if (backflipInput && grounded)
         {
-            if (facingRight && rb2d.velocity.x < 0 || !facingRight && rb2d.velocity.x > 0)
+            if ((facingRight && rb2d.velocity.x < 0 && grounded)|| (!facingRight && rb2d.velocity.x > 0) && grounded)
                 anim.SetTrigger("Backflip");
         }
 
 
         //Allow Falling
-        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) //Still an issue here. Falling animation cuts off animation
+        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) 
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
                 AllowFalling();
             }
+            else
+                DisableFalling();
         }
-        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) //Still an issue here. Falling animation cuts off animation
+        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) 
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
             {
                 AllowFalling();
             }
+            else
+                DisableFalling();
         }
     }
 
