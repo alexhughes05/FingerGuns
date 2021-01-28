@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Movement
         if (anim.GetBool("Slide") == false)
-        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
+        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); 
         //Flip Player
         if(flipPlayer)
             Flip();
@@ -168,12 +168,6 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         firePoint.Rotate(0f, 180f, 0f);
-    }
-    public float GetPlayerXPos()
-    {
-        var xPos = gameObject.transform.position.x;
-        Debug.Log(xPos);
-        return xPos;
     }
 
     void Animation()
@@ -240,23 +234,27 @@ public class PlayerMovement : MonoBehaviour
         //Allow Falling
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) 
         {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
             {
+                Debug.Log("This one is executed.");
                 AllowFalling();
                 flipDodging = false;
+                Debug.Log("SomerSault Finished.");
             }
             else
                 DisableFalling();
         }
         else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) 
         {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
             {
                 AllowFalling();
                 flipDodging = false;
             }
             else
+            {
                 DisableFalling();
+            }
         }
     }
 
