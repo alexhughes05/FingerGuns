@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6535521085681344220}
   - component: {fileID: 6535521085681344223}
-  - component: {fileID: 1837733705501029835}
-  m_Layer: 9
-  m_Name: Generic Platform
+  - component: {fileID: 2674022423000907617}
+  m_Layer: 0
+  m_Name: Foreground Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: 0996e3ccad337484aa5f47adede46c1b, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 94c1903d0823e2b44b2da096f7861e15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1837733705501029835
+--- !u!114 &2674022423000907617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,8 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6535521085681344222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ade859aa14ccd4db199ad48955521e, type: 3}
+  m_Script: {fileID: 11500000, guid: fd7727249f0ab6e47ae3a23e88c6a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
+  padding: -0.1
