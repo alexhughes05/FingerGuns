@@ -54,9 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpInput;
     private bool slideInput;
     private bool crouchInput;
-    private bool somersaultInput;
+    private bool flipDodging;
     private bool ignoreFalling;
-    private bool backflipInput;
 
     private float currentAFKTime;
     #endregion
@@ -88,18 +87,14 @@ public class PlayerMovement : MonoBehaviour
             //Movement
             horizontalInput = Input.GetAxis("Horizontal");
             //Jump
-            jumpInput = Input.GetButtonDown("Jump") && rb2d.velocity.x == 0;
-            //SomerSault
-            somersaultInput = Input.GetKeyDown(KeyCode.Space) && rb2d.velocity.x != 0;
+            jumpInput = Input.GetButtonDown("Jump");           
             //Slide
-            slideInput = Input.GetKeyDown(KeyCode.S) && rb2d.velocity.x != 0;
+            slideInput = Input.GetKeyDown(KeyCode.S);
             //Crouch
-            crouchInput = Input.GetKey(KeyCode.S) && rb2d.velocity.x == 0;
-            //Backflip
-            backflipInput = Input.GetKeyDown(KeyCode.Space) && rb2d.velocity.x != 0;
+            crouchInput = Input.GetKey(KeyCode.S);
 
             //Stop falling animation if doing somersault or backflip
-            if (somersaultInput || backflipInput)
+            if (flipDodging)
                 DisableFalling();
         }
     }
@@ -112,12 +107,10 @@ public class PlayerMovement : MonoBehaviour
 
         //Movement
         if (anim.GetBool("Slide") == false)
-        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); //Might have to put Time.deltaTime
+        rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); 
         //Flip Player
         if(flipPlayer)
-        {
             Flip();
-        }
 
         //Hang time
         if (grounded)
@@ -125,40 +118,42 @@ public class PlayerMovement : MonoBehaviour
         else
             hangCounter -= Time.deltaTime;
         //Jump Buffer
-        if(jumpInput)
+        if(jumpInput && grounded)
             jumpBufferCounter = jumpBufferLength;
         else
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if(jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.x == 0)
+        if(jumpBufferCounter > 0 && hangCounter > 0)
         {
-            rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpBufferCounter = 0;
-        }
-        if(Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && rb2d.velocity.x == 0)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
-        }
-        //SomerSault
-        if (somersaultInput && grounded)
-        {
-            if (facingRight && rb2d.velocity.x > 0)
+
+            //Regular jump
+            if (rb2d.velocity.x == 0)
+                rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            //Somersault
+            else if (facingRight && rb2d.velocity.x > 0)
                 rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
             else if (!facingRight && rb2d.velocity.x < 0)
                 rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
-        }
-        //Backflip
-        if (backflipInput && grounded)
-        {
-            if (facingRight && rb2d.velocity.x < 0)
+            //Backflip
+            else if (facingRight && rb2d.velocity.x < 0)
                 rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
             else if (!facingRight && rb2d.velocity.x > 0)
                 rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
+
+            //Flip Dodge Variable
+            if (rb2d.velocity.x != 0)
+                flipDodging = true;
+        }        
+        //Short hops
+        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && rb2d.velocity.x == 0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
         }
 
         //Slide
-        if (slideInput && grounded)
+        if (slideInput && rb2d.velocity.x != 0 && grounded)
         {
             if (facingRight && rb2d.velocity.x > 0)
                 rb2d.AddForce(new Vector2(slideForce, 0), ForceMode2D.Impulse);
@@ -173,12 +168,6 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         firePoint.Rotate(0f, 180f, 0f);
-    }
-    public float GetPlayerXPos()
-    {
-        var xPos = gameObject.transform.position.x;
-        Debug.Log(xPos);
-        return xPos;
     }
 
     void Animation()
@@ -200,14 +189,25 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         anim.SetFloat("Walking", Mathf.Abs(horizontalInput));
 
-        //Jump, Fall, & Land
-        if (jumpInput && grounded && rb2d.velocity.x == 0)
-            anim.SetTrigger("Jump");            
+        //Jump, Somersault, & Backflip
+        if (jumpBufferCounter >= 0 && hangCounter > 0)
+        {
+            if (rb2d.velocity.x == 0)
+                anim.SetTrigger("Jump");
+            else if (facingRight && rb2d.velocity.x > 0 || 
+                !facingRight && rb2d.velocity.x < 0)
+                anim.SetTrigger("Somersault");
+            else if (facingRight && rb2d.velocity.x < 0 || 
+                !facingRight && rb2d.velocity.x > 0)
+                anim.SetTrigger("Backflip");
+        }        
+        //Falling
         if (falling)
         {
             anim.SetTrigger("Falling");
             wasGrounded = false;
         }
+        //Landing
         if (grounded && !wasGrounded)
         {
             anim.SetTrigger("Landing");
@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Slide
-        if (slideInput && isCoroutineStarted == false)
+        if (slideInput && rb2d.velocity.x != 0  && grounded && isCoroutineStarted == false)
         {
             if (facingRight && rb2d.velocity.x > 0 || !facingRight && rb2d.velocity.x < 0)
             {
@@ -226,46 +226,33 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Crouch
-        if (crouchInput && grounded)
-        {
+        if (crouchInput && rb2d.velocity.x == 0 && grounded)
             anim.SetBool("Crouch", true);
-        }
         else
             anim.SetBool("Crouch", false);
-
-        //Somersault
-        if (somersaultInput && grounded)
-        {
-            if ((facingRight && rb2d.velocity.x > 0 && grounded) || (!facingRight && rb2d.velocity.x < 0 && grounded))
-                anim.SetTrigger("Somersault");
-        }
-
-        //Backflip
-        if (backflipInput && grounded)
-        {
-            if ((facingRight && rb2d.velocity.x < 0 && grounded)|| (!facingRight && rb2d.velocity.x > 0) && grounded)
-                anim.SetTrigger("Backflip");
-        }
-
 
         //Allow Falling
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) 
         {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
             {
                 AllowFalling();
+                flipDodging = false;
             }
             else
                 DisableFalling();
         }
         else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) 
         {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1)
+            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
             {
                 AllowFalling();
+                flipDodging = false;
             }
             else
+            {
                 DisableFalling();
+            }
         }
     }
 

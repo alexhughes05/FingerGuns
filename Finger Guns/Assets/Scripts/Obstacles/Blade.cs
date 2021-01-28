@@ -12,28 +12,24 @@ public class Blade : MonoBehaviour
     [SerializeField] float durationBtwEachAnim;
     [SerializeField] GameObject[] pathsPrefab;
     [HideInInspector] public GameObject selectedPath;
-    int waypointIndex = 0;
-    List<Transform> waypoints;
+    Rigidbody2D rgbd;
+    bool fromRightSide;
 
     public void Start()
     {
-        waypoints = GetWaypoints(selectedPath);
-    }
-
-    private List<Transform> GetWaypoints(GameObject path)
-    {
-        var waypoints = new List<Transform>();
-        foreach(Transform waypoint in path.transform)
-        {
-            waypoints.Add(waypoint);
-        }
-        return waypoints;
+        rgbd = GetComponent<Rigidbody2D>();
     }
 
     public void Update()
     {
-        MoveBlade(waypoints);
+        MoveBlade();
     }
+
+    public void SetSide (bool fromRight)
+    {
+        fromRightSide = fromRight;
+    }
+
     public int getMinSpawnRateInSeconds()
     {
         return minSpawnRateInSeconds;
@@ -53,20 +49,14 @@ public class Blade : MonoBehaviour
         return pathsPrefab;
     }
 
-    private void MoveBlade(List<Transform> waypoints)
+    private void MoveBlade()
     {
-        if (waypointIndex <= waypoints.Count - 1)
-        {
-            var targetPosition = waypoints[waypointIndex].transform.position;
-            var movementThisFrame = moveSpeed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);
-            transform.Rotate(0, 0, (speedOfSpin / (1/moveSpeed)) * Time.deltaTime);
-            if (transform.position.x == targetPosition.x)
-            {
-                waypointIndex++;
-            }
-        }
-        else
+        rgbd.velocity = new Vector2(-moveSpeed, 0);
+        rgbd.rotation += speedOfSpin * Time.deltaTime;
+        var destroyPos = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Debug.Log(transform.position.x);
+        Debug.Log(destroyPos.x);
+        if (transform.position.x <= destroyPos.x)
         {
             Destroy(gameObject);
         }
