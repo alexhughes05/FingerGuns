@@ -87,7 +87,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heart_Full 01
+      name: Heart_Full
       rect:
         serializedVersion: 2
         x: 9
@@ -129,7 +129,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heart_Full 02
+      name: Heart_Empty
       rect:
         serializedVersion: 2
         x: 9
