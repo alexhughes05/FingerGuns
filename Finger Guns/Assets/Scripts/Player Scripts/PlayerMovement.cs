@@ -236,10 +236,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
             {
-                Debug.Log("This one is executed.");
                 AllowFalling();
                 flipDodging = false;
-                Debug.Log("SomerSault Finished.");
             }
             else
                 DisableFalling();

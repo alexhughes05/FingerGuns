@@ -6,8 +6,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    Vector3 leftCloudSpawn;
-    Vector3 rightCloudSpawn;
+    GameObject spawnedBlade;
     Blade blade;
     Lightning lightning;
     // Start is called before the first frame update
@@ -32,17 +31,15 @@ public class ObstacleSpawner : MonoBehaviour
         while (looping);
     }
 
-    private void Update()
-    {
-        leftCloudSpawn = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5));
-        rightCloudSpawn = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.7f, 5));
-
-    }
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
     {
         blade.selectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
-        var startingSpawn = blade.selectedPath.transform.GetChild(0);
-        Instantiate(obstacle, startingSpawn.position, Quaternion.identity);
+        var spawnHeight = blade.selectedPath.transform.GetChild(0).position.y;
+
+        var spawnPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 5));
+        spawnPoint.y = spawnHeight;
+        spawnedBlade = Instantiate(obstacle, spawnPoint, Quaternion.identity);
+
         yield return new WaitForSeconds(UnityEngine.Random.Range(blade.getMinSpawnRateInSeconds(), blade.getMaxSpawnRateInSeconds()));
     }
     private IEnumerator SpawnLightning(GameObject obstacle, Lightning lightning)
@@ -50,11 +47,11 @@ public class ObstacleSpawner : MonoBehaviour
         int randomNum = UnityEngine.Random.Range(0, 2);
         if (randomNum == 0)
         {
-            Instantiate(obstacle, leftCloudSpawn, Quaternion.identity);
+            Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5)), Quaternion.identity);
         }
         else if (randomNum == 1)
         {
-            Instantiate(obstacle, rightCloudSpawn, Quaternion.identity);
+            Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(1, 0.7f, 5)), Quaternion.identity);
         }
         yield return new WaitForSeconds(UnityEngine.Random.Range(lightning.getMinSpawnRateInSeconds(), lightning.getMaxSpawnRateInSeconds()));
     }
