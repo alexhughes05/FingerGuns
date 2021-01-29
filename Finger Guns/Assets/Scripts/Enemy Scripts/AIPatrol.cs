@@ -7,8 +7,8 @@ public class AIPatrol : MonoBehaviour
     #region Variables
     //Components
     private Rigidbody2D rb2d;
-    [HideInInspector]
-    public Animator anim;
+    [HideInInspector] public Animator anim;
+    [SerializeField] private BoxCollider2D bodyCollider;
 
     //Public
     public float walkSpeed;
@@ -54,7 +54,7 @@ public class AIPatrol : MonoBehaviour
     void Patrol()
     {
         rb2d.velocity = new Vector2(-walkSpeed * Time.fixedDeltaTime, rb2d.velocity.y);
-        if (turnAround)
+        if (turnAround || bodyCollider.IsTouchingLayers(groundLayer))
             Flip();
     }
 
@@ -63,6 +63,9 @@ public class AIPatrol : MonoBehaviour
         walkSpeed *= -1f;
         groundCheck.localPosition = new Vector3(groundCheck.localPosition.x * -1f, 
             groundCheck.localPosition.y, groundCheck.localPosition.z);
+        
+        //Move collider to other side of character due to the character not rotation on turn
+        bodyCollider.offset = new Vector2(bodyCollider.offset.x * -1, bodyCollider.offset.y);
     }
 
     void CharacterAnimation()

@@ -18,7 +18,7 @@ public class PlatformColliderCreation : MonoBehaviour
     private void Awake()
     {
         // Set gameObject's layer to "Platform"
-        targetLayer = LayerMask.NameToLayer("Platform");
+        /*targetLayer = LayerMask.NameToLayer("Platform");
         if (targetLayer < 0)
         {
             Debug.Log("Platforms are trying to assign themselves to the \"Platform\" layer for platforming logic, but no such layer exists.");
@@ -26,7 +26,7 @@ public class PlatformColliderCreation : MonoBehaviour
         else if (gameObject.layer != targetLayer)
         {
             gameObject.layer = targetLayer;
-        }
+        }*/
 
         // Set up component dependencies
         if(GetComponent<SpriteRenderer>() == null)

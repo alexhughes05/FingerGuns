@@ -17,15 +17,15 @@ public class ForegroundColliderCreation : MonoBehaviour
     private void Awake()
     {
         // Set gameObject's layer to "Default"
-        targetLayer = LayerMask.NameToLayer("Default");
+        /*targetLayer = LayerMask.NameToLayer("Ground");
         if (targetLayer < 0)
         {
-            Debug.Log("Foreground objects are trying to assign themselves to the \"Default\" layer for physics, but no such layer exists.");
+            Debug.Log("Foreground objects are trying to assign themselves to the \"Ground\" layer for physics, but no such layer exists.");
         }
         else if (gameObject.layer != targetLayer)
         {
             gameObject.layer = targetLayer;
-        }
+        }*/
 
         // Set up component dependencies
         if (GetComponent<SpriteRenderer>() == null)

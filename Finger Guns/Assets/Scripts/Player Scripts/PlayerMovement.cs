@@ -22,18 +22,18 @@ public class PlayerMovement : MonoBehaviour
     public float doubleTapWindow = 0.5f;
     public float movementSpeed = 100f;
     [Header("Jump")]
+    public float jumpForce = 5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckDistance = 0.1f;
     public float hangTime = 0.2f;
     public float jumpBufferLength = 0.1f;
     [Header("Slide")]
-    [SerializeField] float slideDuration = 1f;
-    [Header("Dodging")]
-    public float jumpForce = 5f;
-    public float somersaultForceX = 3f;
-    public float somersaultForceY = 3f;
     public float slideForce = 12f;
+    [SerializeField] float slideDuration = 1f;
+    [Header("Dodging")]    
+    public float somersaultForceX = 3f;
+    public float somersaultForceY = 3f;    
     public float backflipForceX = 3f;
     public float backflipForceY = 15f;
     [Space()]    
@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         PerformMovement();
         Animation();
     }
+
     #endregion
 
     #region Private Methods
@@ -114,19 +115,20 @@ public class PlayerMovement : MonoBehaviour
 
         //Hang time
         if (grounded)
-            hangCounter = hangTime;
+            hangCounter = hangTime; //0.2
         else
             hangCounter -= Time.deltaTime;
         //Jump Buffer
-        if(jumpInput && grounded)
-            jumpBufferCounter = jumpBufferLength;
+        if(jumpInput)
+            jumpBufferCounter = jumpBufferLength; //0.1
         else
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if(jumpBufferCounter > 0 && hangCounter > 0)
+        if(jumpBufferCounter >= 0 && hangCounter > 0)
         {
-            jumpBufferCounter = 0;
+            jumpBufferCounter = -0.1f;
+            hangCounter = 0;
 
             //Regular jump
             if (rb2d.velocity.x == 0)
