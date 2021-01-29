@@ -54,8 +54,6 @@ public class Blade : MonoBehaviour
         rgbd.velocity = new Vector2(-moveSpeed, 0);
         rgbd.rotation += speedOfSpin * Time.deltaTime;
         var destroyPos = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        Debug.Log(transform.position.x);
-        Debug.Log(destroyPos.x);
         if (transform.position.x <= destroyPos.x)
         {
             Destroy(gameObject);

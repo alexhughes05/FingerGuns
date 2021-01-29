@@ -16,19 +16,22 @@ public class ObstacleSpawner : MonoBehaviour
         {
             foreach (GameObject obstacle in obstacles)
             {
-                if (obstacle.CompareTag("Blade"))
+                if (obstacle)
                 {
-                    blade = obstacle.GetComponent<Blade>();
-                    yield return StartCoroutine(SpawnBlades(obstacle, blade));
-                }
-                else if (obstacle.CompareTag("Lightning"))
-                {
-                    lightning = obstacle.GetComponent<Lightning>();
-                    yield return StartCoroutine(SpawnLightning(obstacle, lightning));
+                    if (obstacle.CompareTag("Blade"))
+                    {
+                        blade = obstacle.GetComponent<Blade>();
+                        yield return StartCoroutine(SpawnBlades(obstacle, blade));
+                    }
+                    else if (obstacle.CompareTag("Lightning"))
+                    {
+                        lightning = obstacle.GetComponent<Lightning>();
+                        yield return StartCoroutine(SpawnLightning(obstacle, lightning));
+                    }
                 }
             }
         }
-        while (looping);
+        while (looping && (FindObjectOfType<Health>().GetHealth() <= 0));
     }
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
