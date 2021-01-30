@@ -2558,7 +2558,7 @@ PrefabInstance:
     - target: {fileID: 3261078869957480801, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 293.10004
+      value: 293.0996
       objectReference: {fileID: 0}
     - target: {fileID: 3261078869957480801, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
@@ -2708,7 +2708,7 @@ PrefabInstance:
     - target: {fileID: 6332932686860060859, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 63.899902
+      value: 63.90039
       objectReference: {fileID: 0}
     - target: {fileID: 6332932686860060859, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
@@ -2776,7 +2776,7 @@ PrefabInstance:
     - target: {fileID: 8122050904337712818, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 179.29999
+      value: 179.2998
       objectReference: {fileID: 0}
     - target: {fileID: 8122050904337712818, guid: 29a0a1421a5579044a39ca943ab06a0a,
         type: 3}
@@ -3279,7 +3279,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22124
+  m_Name: pb_Mesh15800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3442,7 +3442,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22200
+  m_Name: pb_Mesh15882
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3948,7 +3948,7 @@ PrefabInstance:
         type: 3}
       propertyPath: obstacles.Array.data[1]
       value: 
-      objectReference: {fileID: 6657850955107631334, guid: 702d63700a33d4255b9f5daa0a7aec41,
+      objectReference: {fileID: 3918097988625539665, guid: 22c83697ef384964982b0fbd4b29dfab,
         type: 3}
     - target: {fileID: 6591448227755617196, guid: 561868666ca213040ad4a0652489a818,
         type: 3}
