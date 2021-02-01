@@ -692,7 +692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: backflipForceY
-      value: 17
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: jumpBufferLength
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: maxSlideDuration
@@ -704,7 +708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: somersaultForceY
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1314095600, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: m_Layer
@@ -12729,7 +12733,7 @@ PrefabInstance:
     - target: {fileID: 6591448227755617196, guid: 561868666ca213040ad4a0652489a818,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 561868666ca213040ad4a0652489a818, type: 3}

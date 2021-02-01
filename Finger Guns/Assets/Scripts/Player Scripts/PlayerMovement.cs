@@ -38,14 +38,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Weapon")]
     public Transform firePoint;
 
-    //Other Private Variables        
+    //Other Private Variables
+    private bool dontFlip = true;
+    private bool aUP;
+    private bool aDown;
+    private bool dUp;
+    private bool dDown;
     private bool grounded;
     private bool wasGrounded;
     private bool falling;
     private float hangCounter;
     private float jumpBufferCounter;
     private bool isCoroutineStarted;
-    private bool maxSlideTimeReached;
 
     private float horizontalInput;
     private bool jumpInput;
@@ -83,6 +87,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //Movement
             horizontalInput = Input.GetAxis("Horizontal");
+            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                dontFlip = true;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                dontFlip = false;
             //Jump
             jumpInput = Input.GetButtonDown("Jump");           
             //Slide
@@ -122,28 +130,28 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if(jumpBufferCounter >= 0 && hangCounter > 0)
+        if(jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0)
         {            
-            //Regular jump
-            if (horizontalInput == 0)
+            //Regular jumpz
+            if (dontFlip)
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             //Somersault
-            else if (facingRight && horizontalInput > 0)
+            else if (facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
-            else if (!facingRight && horizontalInput < 0)
+            else if (!facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
             //Backflip
-            else if (facingRight && horizontalInput < 0)
+            else if (facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
-            else if (!facingRight && horizontalInput > 0)
+            else if (!facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
 
             //Flip Dodge Variable
-            if (horizontalInput != 0)
+            if (!dontFlip)
                 flipDodging = true;
         }        
         //Short hops
-        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && horizontalInput == 0)
+        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
         }
@@ -191,13 +199,15 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter = -0.1f;
             hangCounter = 0;
 
-            if (horizontalInput == 0)
+            if (dontFlip)
                 anim.SetTrigger("Jump");
-            else if (facingRight && horizontalInput > 0 || 
-                !facingRight && horizontalInput < 0)
+            else if (facingRight && horizontalInput > 0 && !dontFlip || 
+                !facingRight && horizontalInput < 0 && !dontFlip)
+            {
                 anim.SetTrigger("Somersault");
-            else if (facingRight && horizontalInput < 0 || 
-                !facingRight && horizontalInput > 0)
+            }
+            else if (facingRight && horizontalInput < 0 && !dontFlip || 
+                !facingRight && horizontalInput > 0 && !dontFlip)
                 anim.SetTrigger("Backflip");
         }        
         //Falling
