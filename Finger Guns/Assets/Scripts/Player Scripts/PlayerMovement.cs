@@ -40,12 +40,8 @@ public class PlayerMovement : MonoBehaviour
 
     //Other Private Variables
     private bool dontFlip = true;
-    private bool aUP;
-    private bool aDown;
-    private bool dUp;
-    private bool dDown;
-    private bool grounded;
     private bool wasGrounded;
+    private bool grounded;
     private bool falling;
     private float hangCounter;
     private float jumpBufferCounter;
@@ -62,11 +58,12 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks 
+
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
+        grounded = true;
         currentAFKTime = AFKTimer;
         wasGrounded = grounded;
     }
@@ -88,9 +85,15 @@ public class PlayerMovement : MonoBehaviour
             //Movement
             horizontalInput = Input.GetAxis("Horizontal");
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+            {
                 dontFlip = true;
+                AllowFalling();
+            }
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
                 dontFlip = false;
+                DisableFalling();
+            }
             //Jump
             jumpInput = Input.GetButtonDown("Jump");           
             //Slide
@@ -99,8 +102,7 @@ public class PlayerMovement : MonoBehaviour
             crouchInput = Input.GetKey(KeyCode.S);
 
             //Stop falling animation if doing somersault or backflip
-            if (flipDodging)
-                DisableFalling();
+
         }
     }
 
@@ -109,8 +111,8 @@ public class PlayerMovement : MonoBehaviour
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         //Falling Check
-        falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangTime <= 0);
-
+        falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0); //the problem is hangTime <= 0
+        Debug.Log(ignoreFalling);
         //Movement
         if (anim.GetBool("Slide") == false)
             rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); 
@@ -145,10 +147,6 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
             else if (!facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
-
-            //Flip Dodge Variable
-            if (!dontFlip)
-                flipDodging = true;
         }        
         //Short hops
         if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
@@ -209,14 +207,16 @@ public class PlayerMovement : MonoBehaviour
             else if (facingRight && horizontalInput < 0 && !dontFlip || 
                 !facingRight && horizontalInput > 0 && !dontFlip)
                 anim.SetTrigger("Backflip");
-        }        
+        }
         //Falling
         if (falling)
         {
+            Debug.Log("Falling executed.");
             anim.SetTrigger("Falling");
             wasGrounded = false;
         }
         //Landing
+
         if (grounded && !wasGrounded)
         {
             anim.SetTrigger("Landing");
@@ -240,27 +240,7 @@ public class PlayerMovement : MonoBehaviour
         else
             anim.SetBool("Crouch", false);
 
-        //Allow Falling
-        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault")) 
-        {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
-            {
-                AllowFalling();
-                flipDodging = false;
-            }
-            else
-                DisableFalling();
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip")) 
-        {
-            if (anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 1 && grounded)
-            {
-                AllowFalling();
-                flipDodging = false;
-            }
-            else
-                DisableFalling();
-        }
+
     }
 
     private IEnumerator WaitToStopSlide()
