@@ -87,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
                 dontFlip = true;
-                AllowFalling();
             }
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
@@ -100,9 +99,6 @@ public class PlayerMovement : MonoBehaviour
             slideInput = Input.GetKeyDown(KeyCode.S);
             //Crouch
             crouchInput = Input.GetKey(KeyCode.S);
-
-            //Stop falling animation if doing somersault or backflip
-
         }
     }
 
@@ -111,8 +107,7 @@ public class PlayerMovement : MonoBehaviour
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         //Falling Check
-        falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0); //the problem is hangTime <= 0
-        Debug.Log(ignoreFalling);
+        falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0);
         //Movement
         if (anim.GetBool("Slide") == false)
             rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); 
@@ -136,12 +131,19 @@ public class PlayerMovement : MonoBehaviour
         {            
             //Regular jumpz
             if (dontFlip)
+            {
+                AllowFalling();
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            }
             //Somersault
             else if (facingRight && !dontFlip)
+            {
                 rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+            }
             else if (!facingRight && !dontFlip)
+            {
                 rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+            }
             //Backflip
             else if (facingRight && !dontFlip)
                 rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
@@ -151,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
         //Short hops
         if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
         {
+            AllowFalling();
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
         }
 
@@ -200,24 +203,21 @@ public class PlayerMovement : MonoBehaviour
             if (dontFlip)
                 anim.SetTrigger("Jump");
             else if (facingRight && horizontalInput > 0 && !dontFlip || 
-                !facingRight && horizontalInput < 0 && !dontFlip)
-            {
+                !facingRight && !dontFlip)
                 anim.SetTrigger("Somersault");
-            }
-            else if (facingRight && horizontalInput < 0 && !dontFlip || 
-                !facingRight && horizontalInput > 0 && !dontFlip)
+            else if (facingRight && !dontFlip || 
+                !facingRight && !dontFlip)
                 anim.SetTrigger("Backflip");
         }
         //Falling
         if (falling)
         {
-            Debug.Log("Falling executed.");
             anim.SetTrigger("Falling");
             wasGrounded = false;
         }
         //Landing
 
-        if (grounded && !wasGrounded)
+        if (grounded && !wasGrounded && jumpBufferCounter < 0)
         {
             anim.SetTrigger("Landing");
             anim.ResetTrigger("Falling");
