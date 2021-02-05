@@ -24,11 +24,6 @@ public class Blade : MonoBehaviour
         MoveBlade();
     }
 
-    public void SetSide (bool fromRight)
-    {
-        fromRightSide = fromRight;
-    }
-
     public int getMinSpawnRateInSeconds()
     {
         return minSpawnRateInSeconds;
