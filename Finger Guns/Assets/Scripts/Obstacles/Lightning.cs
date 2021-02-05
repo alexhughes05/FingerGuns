@@ -6,16 +6,20 @@ public class Lightning : MonoBehaviour
 {
     [HideInInspector]
     public Animator controller;
+    [SerializeField] float timeBeforeStrike = 0.3f;
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
     [SerializeField] float moveSpeed;
     [SerializeField] int numTimesExecPerSpawn;
     [SerializeField] float durationBtwEachAnim;
+    [SerializeField] GameObject player;
+    PlayerMovement playerScript;
     private bool hasFinished;
 
     private void Start()
     {
         controller = GetComponent<Animator>();
+        playerScript = FindObjectOfType<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -40,19 +44,25 @@ public class Lightning : MonoBehaviour
     {
         if (!hasFinished)
         {
-            var targetPosition = new Vector3(GameObject.FindGameObjectsWithTag("Player")[0].transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5)).y, -5);
+            var targetPosition = playerScript.gameObject.transform.position;
+            targetPosition.y = targetPosition.y + 1;
             var movementThisFrame = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);
             if (transform.position.x == targetPosition.x)
             {
                 hasFinished = true;
-                controller.SetTrigger("Lightning Strike");
-                controller.SetBool("Lightning Strike", true);
+                StartCoroutine(WaitBeforeLightning());
             }
         }
         else
         {
             Destroy(gameObject, 2f);
         }
+    }
+
+    private IEnumerator WaitBeforeLightning()
+    {
+        yield return new WaitForSeconds(timeBeforeStrike);
+        controller.SetTrigger("Lightning Strike");
     }
 }

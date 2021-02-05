@@ -6,7 +6,6 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    GameObject spawnedBlade;
     Blade blade;
     Lightning lightning;
     // Start is called before the first frame update
@@ -14,24 +13,22 @@ public class ObstacleSpawner : MonoBehaviour
     {
         do
         {
-            foreach (GameObject obstacle in obstacles)
+            GameObject obstacle = obstacles[UnityEngine.Random.Range(0, obstacles.Length)];
+            if (obstacle)
             {
-                if (obstacle)
+                if (obstacle.CompareTag("Blade"))
                 {
-                    if (obstacle.CompareTag("Blade"))
-                    {
-                        blade = obstacle.GetComponent<Blade>();
-                        yield return StartCoroutine(SpawnBlades(obstacle, blade));
-                    }
-                    else if (obstacle.CompareTag("Lightning"))
-                    {
-                        lightning = obstacle.GetComponent<Lightning>();
-                        yield return StartCoroutine(SpawnLightning(obstacle, lightning));
-                    }
+                    blade = obstacle.GetComponent<Blade>();
+                    yield return StartCoroutine(SpawnBlades(obstacle, blade));
                 }
-            }
+                else if (obstacle.CompareTag("Lightning"))
+                {
+                    lightning = obstacle.GetComponent<Lightning>();
+                    yield return StartCoroutine(SpawnLightning(obstacle, lightning));
+                }
+            }           
         }
-        while (looping && (FindObjectOfType<Health>().GetHealth() <= 0));
+        while (looping && (FindObjectOfType<Health>().GetHealth() > 0));
     }
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
@@ -41,7 +38,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         var spawnPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 5));
         spawnPoint.y = spawnHeight;
-        spawnedBlade = Instantiate(obstacle, spawnPoint, Quaternion.identity);
+        Instantiate(obstacle, spawnPoint, Quaternion.identity);
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(blade.getMinSpawnRateInSeconds(), blade.getMaxSpawnRateInSeconds()));
     }

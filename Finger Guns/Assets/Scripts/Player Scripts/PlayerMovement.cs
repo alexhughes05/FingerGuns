@@ -29,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slide")]
     public float slideForce = 12f;
     [SerializeField] float slideDuration = 1f;
-    [Header("Dodging")]    
-    public float somersaultForceX = 3f;
-    public float somersaultForceY = 3f;    
-    public float backflipForceX = 3f;
+    [Header("Dodging")]
+    public float somersaultForceX = 20f;
+    public float somersaultForceY = 12.5f;
+    public float backflipForceX = 10f;
     public float backflipForceY = 15f;
     [Space()]    
     [Header("Weapon")]
@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpInput;
     private bool slideInput;
     private bool crouchInput;
-    private bool flipDodging;
     private bool ignoreFalling;
 
     private float currentAFKTime;
@@ -133,22 +132,22 @@ public class PlayerMovement : MonoBehaviour
             if (dontFlip)
             {
                 AllowFalling();
-                rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
             }
             //Somersault
-            else if (facingRight && !dontFlip)
+            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.D))
             {
-                rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, somersaultForceY);
             }
-            else if (!facingRight && !dontFlip)
+            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A))
             {
-                rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+                rb2d.velocity = new Vector2(-rb2d.velocity.x, somersaultForceY);
             }
             //Backflip
-            else if (facingRight && !dontFlip)
-                rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
-            else if (!facingRight && !dontFlip)
-                rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
+            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A))
+                rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
+            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D))
+                rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
         }        
         //Short hops
         if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
