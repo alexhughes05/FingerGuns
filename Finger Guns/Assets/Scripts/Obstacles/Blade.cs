@@ -58,22 +58,7 @@ public class Blade : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Animator anim = collision.gameObject.GetComponent<Animator>();
-            HitAnimations(collision.gameObject, anim);
             Destroy(gameObject);
         }
     }
-
-    private void HitAnimations(GameObject player, Animator anim)
-    {
-        anim.SetTrigger("Fall Back");
-        if (isGrounded())
-            anim.SetTrigger("Stand Up");
-
-        bool isGrounded()
-        {
-            return false;
-        }
-    }
-
 }
