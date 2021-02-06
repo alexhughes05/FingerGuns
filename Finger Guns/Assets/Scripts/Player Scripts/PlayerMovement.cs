@@ -322,7 +322,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator AllowMovement()
     {
         float waitTime;
-        waitTime = anim.GetCurrentAnimatorStateInfo(2).normalizedTime;
+        waitTime = anim.GetCurrentAnimatorStateInfo(2).normalizedTime / 2;
         yield return new WaitForSeconds(waitTime);
         flipping = false;
     }

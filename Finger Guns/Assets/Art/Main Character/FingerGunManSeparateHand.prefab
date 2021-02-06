@@ -472,7 +472,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 46207e1a4a8f8654f9198d161496849e, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -517,8 +517,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPointValue: 80
   health: 5
-  fullHeart: {fileID: 21300000, guid: 517d2fa199dbdba4bafefb28813bd511, type: 3}
-  emptyHeart: {fileID: 21300000, guid: faf3c981f43900e4295a852460e821ed, type: 3}
+  fullHeart: {fileID: -6776549129961857684, guid: 87d190747e3540045a212f8ef02145f4,
+    type: 3}
+  emptyHeart: {fileID: 6558375965957239549, guid: 87d190747e3540045a212f8ef02145f4,
+    type: 3}
   hearts:
   - {fileID: 0}
   - {fileID: 0}
@@ -550,12 +552,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   groundCheckDistance: 0.1
-  dashAmount: 5
-  dashSpeed: 0.2
-  somersaultForceX: 3
-  somersaultForceY: 13
-  backflipForceX: 3
-  backflipForceY: 15
+  hangTime: 0.2
+  jumpBufferLength: 0.1
+  slideForce: 12
+  slideDuration: 0.5
+  somersaultForceX: 20
+  somersaultForceY: 12.5
+  backflipForceX: 12
+  backflipForceY: 18
   firePoint: {fileID: 1420432067}
 --- !u!114 &1096362836
 MonoBehaviour:
@@ -651,7 +655,7 @@ MonoBehaviour:
   firePoint: {fileID: 1420432067}
   sprayPoint1: {fileID: 315252452}
   sprayPoint2: {fileID: 1314095601}
-  bullet: {fileID: 6187359139675990662, guid: d6db2032696e3ad4ea44abeb113f7499, type: 3}
+  bullet: {fileID: 5858298368082820291, guid: 4ae755b6f0e7ea44684f1486e0522fa3, type: 3}
   fastBullet: {fileID: 5211012516027292782, guid: 92305b857c2eef24fb51365bda8af9dc,
     type: 3}
   homingBullet: {fileID: 427243681305756459, guid: 4d00905e811e7a743a46b28fdcb014d5,
