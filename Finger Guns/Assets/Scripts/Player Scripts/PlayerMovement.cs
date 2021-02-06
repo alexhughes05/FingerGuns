@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 0.1f;
     public float hangTime = 0.2f;
     public float jumpBufferLength = 0.1f;
+    //[SerializeField] float maxFallSpeed = 20f; 
     [Header("Slide")]
     public float slideForce = 12f;
     [SerializeField] float slideDuration = 1f;
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private bool slideInput;
     private bool crouchInput;
     private bool ignoreFalling;
+    private bool sliding;
+    private bool flipping;
 
     private float currentAFKTime;
     #endregion
@@ -70,27 +73,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
-        PerformMovement();
-        Debug.Log(grounded);
-        if (bladeHit)
-        {
-            StartCoroutine(WaitAndStand());
-        }
+        GetInput();                
         Animation();
     }
 
-    IEnumerator WaitAndStand()
+    private void FixedUpdate()
     {
-        if (grounded)
-        {
-            bladeHit = false;
-            Debug.Log("Player is grounded.");
-            yield return new WaitForSeconds(1);
-            Debug.Log("waited a second.");
-            anim.SetTrigger("Stand Up");
-            AllowFalling();
-        }
+        PerformMovement();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -136,10 +125,14 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         //Falling Check
         falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0) && (bladeHit == false);
-        Debug.Log("Falling is " + falling);
+        //Limit falling speed
+        //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
+        //Debug.Log("Falling is " + falling);
+
         //Movement
-        if (anim.GetBool("Slide") == false)
-            rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y); 
+        if (anim.GetBool("Slide") == false && !flipping)
+            rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y);
+        
         //Flip Player
         if(flipPlayer)
             Flip();
@@ -157,27 +150,40 @@ public class PlayerMovement : MonoBehaviour
 
         //Jump
         if(jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0)
-        {            
+        {
             //Regular jumpz
             if (dontFlip)
             {
                 AllowFalling();
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                flipping = false;
             }
             //Somersault
-            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.D))
+            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, somersaultForceY);
+                rb2d.velocity = new Vector2(somersaultForceX, somersaultForceY);
+                flipping = true;
+                StartCoroutine(AllowMovement());
             }
-            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A))
-            {
-                rb2d.velocity = new Vector2(-rb2d.velocity.x, somersaultForceY);
+            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
+            {                
+                rb2d.velocity = new Vector2(-somersaultForceX, somersaultForceY);
+                flipping = true;
+                StartCoroutine(AllowMovement());
             }
             //Backflip
-            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A))
+            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
+            {
                 rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
-            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D))
-                rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
+                flipping = true;
+                StartCoroutine(AllowMovement());
+            }
+            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
+            {
+                rb2d.velocity = new Vector2(backflipForceX, backflipForceY);
+                flipping = true;
+                StartCoroutine(AllowMovement());
+            }
         }        
         //Short hops
         if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
@@ -187,22 +193,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Slide
-        if (slideInput && horizontalInput != 0 && grounded)
+        if (slideInput && horizontalInput != 0 && grounded && !sliding)
         {
+            sliding = true;
+
             if (facingRight && horizontalInput > 0)
                 rb2d.AddForce(new Vector2(slideForce, 0), ForceMode2D.Impulse);
             else if (!facingRight && horizontalInput < 0)
                 rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
-    }
 
-    void Flip()
-    {        
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        facingRight = !facingRight;
-
-        firePoint.Rotate(0f, 180f, 0f);
-    }
+        //Taking Damage
+        //Debug.Log(grounded);
+        if (bladeHit)
+        {
+            StartCoroutine(WaitAndStand());
+        }
+    }    
 
     void Animation()
     {
@@ -232,10 +239,10 @@ public class PlayerMovement : MonoBehaviour
             if (dontFlip)
                 anim.SetTrigger("Jump");
             else if (facingRight && horizontalInput > 0 && !dontFlip || 
-                !facingRight && !dontFlip)
+                !facingRight && horizontalInput < 0 && !dontFlip)
                 anim.SetTrigger("Somersault");
-            else if (facingRight && !dontFlip || 
-                !facingRight && !dontFlip)
+            else if (facingRight && horizontalInput < 0 && !dontFlip || 
+                !facingRight && horizontalInput > 0 && !dontFlip)
                 anim.SetTrigger("Backflip");
         }
         //Falling
@@ -272,12 +279,12 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private IEnumerator WaitToStopSlide()
+    void Flip()
     {
-        isCoroutineStarted = true;
-        yield return new WaitForSeconds(slideDuration);
-        anim.SetBool("Slide", false);
-        isCoroutineStarted = false;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        facingRight = !facingRight;
+
+        firePoint.Rotate(0f, 180f, 0f);
     }
 
     private void AllowFalling()
@@ -288,6 +295,36 @@ public class PlayerMovement : MonoBehaviour
     private void DisableFalling()
     {
         ignoreFalling = true;
-    }    
+    }
+
+    IEnumerator WaitToStopSlide()
+    {
+        isCoroutineStarted = true;
+        yield return new WaitForSeconds(slideDuration);
+        anim.SetBool("Slide", false);
+        isCoroutineStarted = false;
+        sliding = false;
+    }
+
+    IEnumerator WaitAndStand()
+    {
+        if (grounded)
+        {
+            bladeHit = false;
+            Debug.Log("Player is grounded.");
+            yield return new WaitForSeconds(1);
+            Debug.Log("waited a second.");
+            anim.SetTrigger("Stand Up");
+            AllowFalling();
+        }
+    }
+
+    IEnumerator AllowMovement()
+    {
+        float waitTime;
+        waitTime = anim.GetCurrentAnimatorStateInfo(2).normalizedTime;
+        yield return new WaitForSeconds(waitTime);
+        flipping = false;
+    }
     #endregion
 }
