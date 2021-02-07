@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Blade
   - Lightning
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX

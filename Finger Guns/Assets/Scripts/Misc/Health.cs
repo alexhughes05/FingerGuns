@@ -25,7 +25,6 @@ public class Health : MonoBehaviour
     #region Monobehaviour Callbacks
     void Start()
     {
-
         currentHealth = health;
         gameSession = FindObjectOfType<GameSession>();
         level = FindObjectOfType<Level>();

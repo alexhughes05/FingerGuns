@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8415371647407671812}
   m_Layer: 11
   m_Name: PlayerBullet_Regular
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc0b84f9f1dd9240bfb8757c9ea5024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  speed: 20
+  damage: 1
+  speed: 40
   range: 2
   homingShot: 0
   homingSpeed: 10

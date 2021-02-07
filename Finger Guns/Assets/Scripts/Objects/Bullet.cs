@@ -6,13 +6,14 @@ public class Bullet : MonoBehaviour
 {
     #region Variables
     public int damage = 5;
-    public float speed = 20f;
+    public float speed = 500f;
     public float range = 2f;
     public bool homingShot;
     public float homingSpeed = 10f;
     public bool blastShot;
 
     public GameObject blastExplosion;
+    GameObject enemy;
 
     private GameObject[] enemies;
     [HideInInspector]

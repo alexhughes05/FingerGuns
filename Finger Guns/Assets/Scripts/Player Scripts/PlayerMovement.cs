@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform firePoint;
 
     //Other Private Variables
+    private bool standingUp = false;
+    private bool canShoot = true;
     private bool bladeHit = false;
     private bool dontFlip = true;
     private bool wasGrounded;
@@ -73,19 +75,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        GetInput();                
-        Animation();
-    }
-
-    private void FixedUpdate()
-    {
+        GetInput();
         PerformMovement();
+        Animation();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Blade"))
         {
+            canShoot = false;
             bladeHit = true;
             DisableFalling();
             anim.SetTrigger("Fall Back");
@@ -109,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 dontFlip = false;
                 DisableFalling();
+                canShoot = false;
             }
             //Jump
             jumpInput = Input.GetButtonDown("Jump");           
@@ -123,6 +123,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
+        if (grounded && standingUp)
+        {
+            canShoot = true;
+            standingUp = false;
+        }
         //Falling Check
         falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0) && (bladeHit == false);
         //Limit falling speed
@@ -278,6 +283,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
 
     void Flip()
     {
@@ -311,10 +320,9 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             bladeHit = false;
-            Debug.Log("Player is grounded.");
             yield return new WaitForSeconds(1);
-            Debug.Log("waited a second.");
             anim.SetTrigger("Stand Up");
+            standingUp = true;
             AllowFalling();
         }
     }

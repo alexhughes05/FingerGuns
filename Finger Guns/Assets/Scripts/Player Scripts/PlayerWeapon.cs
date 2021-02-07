@@ -37,7 +37,6 @@ public class PlayerWeapon : MonoBehaviour
     private Vector3 mousePosition;
     [Range(1,5)]
     private int weaponSelect = 1;
-    private bool shooting;
     private float currentFireRate;
     private float currentFireTime;
     #endregion
@@ -67,7 +66,7 @@ public class PlayerWeapon : MonoBehaviour
         //Shooting
         if (currentFireTime <= 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && playerMovement.CanShoot())
             {
                 Shoot();
                 currentFireTime = currentFireRate;

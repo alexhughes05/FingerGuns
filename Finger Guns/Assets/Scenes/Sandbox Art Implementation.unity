@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: cameraTarget
       value: 
       objectReference: {fileID: 187797214}
+    - target: {fileID: 36496568, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: regularBulletRate
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1096362832, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 
@@ -158,6 +162,18 @@ PrefabInstance:
       propertyPath: hearts.Array.data[4]
       value: 
       objectReference: {fileID: 724965797}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: backflipForceX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: backflipForceY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: somersaultForceY
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6965907587231263372, guid: dda8ce0ebd1174cf49b7f428eccde8da,
         type: 3}
       propertyPath: m_RootOrder
@@ -264,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textDisplay: {fileID: 1225287699}
-  startTime: 5
+  startTime: 1000
   takingAway: 0
   timeLeft: 0
 --- !u!4 &79750238 stripped
@@ -1687,7 +1703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &801527155
 Transform:
   m_ObjectHideFlags: 0
@@ -2137,12 +2153,6 @@ BoxCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 359689391}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &933091979 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3930181855921769380, guid: 7fafb3ee52f5cdf4a8c188084234a5c7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1120754653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &943861450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,25 +2521,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 360891877}
     m_Modifications:
-    - target: {fileID: 658652150, guid: 7fafb3ee52f5cdf4a8c188084234a5c7, type: 3}
-      propertyPath: enemyPointValue
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 3930181855921769377, guid: 7fafb3ee52f5cdf4a8c188084234a5c7,
-        type: 3}
-      propertyPath: timeBtwShots
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3930181855921769378, guid: 7fafb3ee52f5cdf4a8c188084234a5c7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3930181855921769383, guid: 7fafb3ee52f5cdf4a8c188084234a5c7,
-        type: 3}
-      propertyPath: bodyCollider
-      value: 
-      objectReference: {fileID: 933091979}
     - target: {fileID: 4972155062557877806, guid: 7fafb3ee52f5cdf4a8c188084234a5c7,
         type: 3}
       propertyPath: m_RootOrder
@@ -2590,8 +2581,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: GhostyBoi_Logic (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3930181855921769378, guid: 7fafb3ee52f5cdf4a8c188084234a5c7, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fafb3ee52f5cdf4a8c188084234a5c7, type: 3}
 --- !u!4 &1120754654 stripped
 Transform:
@@ -3643,7 +3633,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16030
+  m_Name: pb_Mesh15852
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3806,7 +3796,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16112
+  m_Name: pb_Mesh15934
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
