@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     //Components
     private Rigidbody2D rb2d;
     [HideInInspector] public Animator anim;
+    [Header("Components")]
+    [SerializeField] PhysicsMaterial2D frictionMaterial;
+    [SerializeField] PhysicsMaterial2D noFrictionMaterial;
+    [Space()]
 
     //Public Variables
     [Header("Controller")]
@@ -16,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public bool flipPlayer;
     public float AFKTimer = 10f;
     public bool facingRight = true;
+    [SerializeField] float knockBackStrength = 10f;
     [Space()]
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
@@ -80,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
         PerformMovement();
+        ChangeMaterials();
         Animation();
     }
 
@@ -87,7 +93,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Blade"))
         {
-            rb2d.AddForce(transform.forward * 500, ForceMode2D.Impulse);
+            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, -transform.right, 0.2f);
+            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, transform.right, 0.2f);
+
+            if(leftHit.collider.CompareTag("Blade"))
+            {
+                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
+            }
+            else if (rightHit.collider.CompareTag("Blade"))
+            {
+                rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);
+            }
+            
             canShoot = false;
             canMove = false;
             standingUp = false;
@@ -105,9 +122,8 @@ public class PlayerMovement : MonoBehaviour
         //If player is not dead, accept input
         if (!playerDead)
         {
-            //Movement
-            if (canMove)
-                horizontalInput = Input.GetAxis("Horizontal");
+            //Movement            
+            horizontalInput = Input.GetAxis("Horizontal");
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
                 dontFlip = true;
@@ -116,8 +132,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 dontFlip = false;
                 DisableFalling();
-                //if (standingUp)
-                  //  canShoot = true;
+                if (standingUp)
+                    canShoot = true;
             }
             //Enable slowmotion
             if (Input.GetKeyDown(KeyCode.E))
@@ -139,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         if (grounded && standingUp)
         {
-            canShoot = true;
             standingUp = false;
         }
         //Falling Check
@@ -148,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
 
         //Movement
-        if (anim.GetBool("Slide") == false && !flipping)
+        if (anim.GetBool("Slide") == false && !flipping && canMove)
             rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y);
         
         //Flip Player
@@ -183,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.velocity = new Vector2(somersaultForceX, somersaultForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
+                StartCoroutine(AllowShooting());
             }
             else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
             {
@@ -190,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.velocity = new Vector2(-somersaultForceX, somersaultForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
+                StartCoroutine(AllowShooting());
             }
             //Backflip
             else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
@@ -198,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
+                StartCoroutine(AllowShooting());
             }
             else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
             {
@@ -205,6 +223,7 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.velocity = new Vector2(backflipForceX, backflipForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
+                StartCoroutine(AllowShooting());
             }
         }        
         //Short hops
@@ -220,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
             sliding = true;
 
             if (facingRight && horizontalInput > 0)
-                rb2d.AddForce(new Vector2(slideForce, 0), ForceMode2D.Impulse);
+                rb2d.AddForce (new Vector2(slideForce, 0), ForceMode2D.Impulse);
             else if (!facingRight && horizontalInput < 0)
                 rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
@@ -231,6 +250,14 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(WaitAndStand());
         }
     }    
+
+    void ChangeMaterials()
+    {
+        if(grounded)
+            rb2d.sharedMaterial = frictionMaterial;
+        else
+            rb2d.sharedMaterial = noFrictionMaterial;
+    }
 
     void Animation()
     {
@@ -277,7 +304,6 @@ public class PlayerMovement : MonoBehaviour
             wasGrounded = false;
         }
         //Landing
-
         if (grounded && !wasGrounded && jumpBufferCounter < 0)
         {
             anim.SetTrigger("Landing");
@@ -301,7 +327,14 @@ public class PlayerMovement : MonoBehaviour
         else
             anim.SetBool("Crouch", false);
 
-
+        //Allow Shooting
+        /*if(anim.GetCurrentAnimatorStateInfo(2).IsName(""))
+        {
+            if(anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 0.5)
+            {
+                canShoot = true;
+            }
+        }*/
     }
     public bool CanShoot()
     {
@@ -339,21 +372,40 @@ public class PlayerMovement : MonoBehaviour
     {
         if (grounded)
         {
-            bladeHit = false;
+            StartCoroutine(AllowShooting());        
             yield return new WaitForSeconds(1);
             anim.SetTrigger("Stand Up");
             canMove = true;
             standingUp = true;
-            AllowFalling();
+            AllowFalling();            
         }
     }
 
     IEnumerator AllowMovement()
     {
         float waitTime;
-        waitTime = anim.GetCurrentAnimatorStateInfo(2).normalizedTime / 2;
+        waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;
         yield return new WaitForSeconds(waitTime);
         flipping = false;
+    }
+
+    IEnumerator AllowShooting()
+    {
+        float waitTime;
+
+        if (bladeHit)
+        {
+            bladeHit = false;
+            waitTime = anim.GetCurrentAnimatorStateInfo(2).length;
+            yield return new WaitForSeconds(waitTime);
+            canShoot = true;
+        }
+        else
+        {
+            waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 2;
+            yield return new WaitForSeconds(waitTime);
+            canShoot = true;
+        }
     }
     #endregion
 }

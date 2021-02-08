@@ -163,6 +163,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 724965797}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: slideForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 858324514}
@@ -175,12 +179,32 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: frictionMaterial
+      value: 
+      objectReference: {fileID: 6200000, guid: bcd1c0fb9c7ab41499ea0bbdcce5d2a7, type: 2}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: somersaultForceX
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
       propertyPath: somersaultForceY
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: knockBackStrength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096362833, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: noFrictionMaterial
+      value: 
+      objectReference: {fileID: 6200000, guid: 46207e1a4a8f8654f9198d161496849e, type: 2}
+    - target: {fileID: 1096362834, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: bcd1c0fb9c7ab41499ea0bbdcce5d2a7, type: 2}
+    - target: {fileID: 1096362835, guid: dda8ce0ebd1174cf49b7f428eccde8da, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6965907587231263372, guid: dda8ce0ebd1174cf49b7f428eccde8da,
         type: 3}
@@ -1037,7 +1061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &360891877
 Transform:
   m_ObjectHideFlags: 0
