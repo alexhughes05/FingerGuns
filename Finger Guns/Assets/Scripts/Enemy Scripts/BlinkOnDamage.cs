@@ -35,9 +35,4 @@ public class BlinkOnDamage : MonoBehaviour
     {
         mr.material = matDefault;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

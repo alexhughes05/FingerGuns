@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Public Variables
     [Header("Controller")]
+    public TimeManager timeManager;
     public bool playerDead = false;
     public bool flipPlayer;
     public float AFKTimer = 10f;
@@ -40,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform firePoint;
 
     //Other Private Variables
-    private bool standingUp = false;
+    private bool canMove = true;
+    private bool standingUp = true;
     private bool canShoot = true;
     private bool bladeHit = false;
     private bool dontFlip = true;
@@ -51,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpBufferCounter;
     private bool isCoroutineStarted;
 
+    private bool slowDownInput;
     private float horizontalInput;
     private bool jumpInput;
     private bool slideInput;
@@ -84,9 +87,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Blade"))
         {
+            rb2d.AddForce(transform.forward * 500, ForceMode2D.Impulse);
             canShoot = false;
+            canMove = false;
+            standingUp = false;
             bladeHit = true;
             DisableFalling();
+            anim.ResetTrigger("Falling");
             anim.SetTrigger("Fall Back");
         }
     }
@@ -99,7 +106,8 @@ public class PlayerMovement : MonoBehaviour
         if (!playerDead)
         {
             //Movement
-            horizontalInput = Input.GetAxis("Horizontal");
+            if (canMove)
+                horizontalInput = Input.GetAxis("Horizontal");
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
                 dontFlip = true;
@@ -108,7 +116,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 dontFlip = false;
                 DisableFalling();
-                canShoot = false;
+                //if (standingUp)
+                  //  canShoot = true;
+            }
+            //Enable slowmotion
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                timeManager.DoSlowmotion();
             }
             //Jump
             jumpInput = Input.GetButtonDown("Jump");           
@@ -132,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
         falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0) && (bladeHit == false);
         //Limit falling speed
         //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
-        //Debug.Log("Falling is " + falling);
 
         //Movement
         if (anim.GetBool("Slide") == false && !flipping)
@@ -166,12 +179,14 @@ public class PlayerMovement : MonoBehaviour
             //Somersault
             else if (facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
             {
+                canShoot = false;
                 rb2d.velocity = new Vector2(somersaultForceX, somersaultForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
             }
             else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
-            {                
+            {
+                canShoot = false;
                 rb2d.velocity = new Vector2(-somersaultForceX, somersaultForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
@@ -179,12 +194,14 @@ public class PlayerMovement : MonoBehaviour
             //Backflip
             else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
             {
+                canShoot = false;
                 rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
             }
             else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
             {
+                canShoot = false;
                 rb2d.velocity = new Vector2(backflipForceX, backflipForceY);
                 flipping = true;
                 StartCoroutine(AllowMovement());
@@ -209,7 +226,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Taking Damage
-        //Debug.Log(grounded);
         if (bladeHit)
         {
             StartCoroutine(WaitAndStand());
@@ -233,7 +249,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Movement
-        anim.SetFloat("Walking", Mathf.Abs(horizontalInput));
+        if (canMove)
+        {
+            anim.SetFloat("Walking", Mathf.Abs(horizontalInput));
+        }
 
         //Jump, Somersault, & Backflip
         if (jumpBufferCounter >= 0 && hangCounter > 0)
@@ -253,6 +272,7 @@ public class PlayerMovement : MonoBehaviour
         //Falling
         if (falling)
         {
+            Debug.Log("Falling is currently " + falling);
             anim.SetTrigger("Falling");
             wasGrounded = false;
         }
@@ -322,6 +342,7 @@ public class PlayerMovement : MonoBehaviour
             bladeHit = false;
             yield return new WaitForSeconds(1);
             anim.SetTrigger("Stand Up");
+            canMove = true;
             standingUp = true;
             AllowFalling();
         }
