@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1956817865608665435}
   - component: {fileID: 1956817865608665436}
   m_Layer: 5
-  m_Name: Fade To White
+  m_Name: UI Fade To White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 1956817866458416895}
   - component: {fileID: 1956817866458416893}
   - component: {fileID: 1956817866458416894}
-  - component: {fileID: 1956817866458416892}
+  - component: {fileID: 8653709052133894683}
   m_Layer: 5
   m_Name: White
   m_TagString: Untagged
@@ -174,22 +174,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &1956817866458416892
-Animator:
-  serializedVersion: 3
+--- !u!114 &8653709052133894683
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956817866458416768}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e59db17786d490b438ce3c19002c7a47, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d584c7d9037f9445a770acfbf90af21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alphaStart: 0
+  alphaEnd: 1
+  startBackwards: 0
+  transitionDuration: 1
