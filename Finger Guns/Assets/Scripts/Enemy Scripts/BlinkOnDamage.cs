@@ -22,12 +22,23 @@ public class BlinkOnDamage : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             mr.material = matDamage;
+            if (health.GetHealth() > 0)
+            {
+
+                Invoke("ResetMaterial", .1f); //.1f
+            }
+            StartCoroutine(BlinkTwice());
+            //mr.material = matDamage;
         }
+    }
 
-
+    IEnumerator BlinkTwice()
+    {
+        yield return new WaitForSeconds(.2f);
+        mr.material = matDamage;
         if (health.GetHealth() > 0)
         {
-            Invoke("ResetMaterial", .1f);
+            Invoke("ResetMaterial", .1f); //.1f
         }
     }
 
