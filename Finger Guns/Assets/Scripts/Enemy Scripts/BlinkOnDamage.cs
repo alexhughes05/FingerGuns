@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlinkOnDamage : MonoBehaviour
 {
     Health health;
-    private Material matWhite;
+    private Material matDamage;
     private Material matDefault;
     SkinnedMeshRenderer mr;
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class BlinkOnDamage : MonoBehaviour
     {
         health = gameObject.GetComponent<Health>();
         mr = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
-        matWhite = Resources.Load("RedFlash", typeof(Material)) as Material;
+        matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
         matDefault = mr.material;
     }
 
@@ -21,7 +21,7 @@ public class BlinkOnDamage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
-            mr.material = matWhite;
+            mr.material = matDamage;
         }
 
 

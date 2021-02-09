@@ -299,7 +299,6 @@ public class PlayerMovement : MonoBehaviour
         //Falling
         if (falling)
         {
-            Debug.Log("Falling is currently " + falling);
             anim.SetTrigger("Falling");
             wasGrounded = false;
         }
