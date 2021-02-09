@@ -722,6 +722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44105ac2519ac574a816e26355d7e2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkDuration: 0.05
+  timeBetweenBlinks: 0.05
 --- !u!1 &5817961410760820452
 GameObject:
   m_ObjectHideFlags: 0

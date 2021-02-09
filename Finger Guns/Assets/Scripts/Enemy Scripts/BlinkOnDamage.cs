@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlinkOnDamage : MonoBehaviour
 {
+    [SerializeField] float blinkDuration = 0.05f;
+    [SerializeField] float timeBetweenBlinks = 0.05f;
     Health health;
     private Material matDamage;
     private Material matDefault;
@@ -24,8 +26,7 @@ public class BlinkOnDamage : MonoBehaviour
             mr.material = matDamage;
             if (health.GetHealth() > 0)
             {
-
-                Invoke("ResetMaterial", .1f); //.1f
+                Invoke("ResetMaterial", blinkDuration); //.1f
             }
             StartCoroutine(BlinkTwice());
             //mr.material = matDamage;
@@ -34,11 +35,11 @@ public class BlinkOnDamage : MonoBehaviour
 
     IEnumerator BlinkTwice()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(blinkDuration + timeBetweenBlinks);
         mr.material = matDamage;
         if (health.GetHealth() > 0)
         {
-            Invoke("ResetMaterial", .1f); //.1f
+            Invoke("ResetMaterial", blinkDuration); //.1f
         }
     }
 
