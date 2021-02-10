@@ -100,19 +100,31 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
             }
-            else if (rightHit.collider.CompareTag("Blade"))
+            else if (rightHit.collider.CompareTag("Blade")) //This method is never being executed.
             {
                 rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);
             }
-            
+
             canShoot = false;
             canMove = false;
             standingUp = false;
             bladeHit = true;
             DisableFalling();
             anim.ResetTrigger("Falling");
-            anim.SetTrigger("Fall Back");
+            if (leftHit.collider)
+                anim.SetTrigger("Fall Back");
+            else if (rightHit.collider)
+            {
+                anim.SetTrigger("Fall Forward");
+            }
         }
+    }
+
+    public void InitializeHitVariables()
+    {
+        bladeHit = false;
+        canShoot = false;
+        canMove = false;
     }
     #endregion
 
@@ -164,7 +176,9 @@ public class PlayerMovement : MonoBehaviour
 
         //Movement
         if (anim.GetBool("Slide") == false && !flipping && canMove)
+        {
             rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y);
+        }
         
         //Flip Player
         if(flipPlayer)
@@ -380,15 +394,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    IEnumerator AllowMovement()
+    public IEnumerator AllowMovement()
     {
         float waitTime;
         waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;
         yield return new WaitForSeconds(waitTime);
         flipping = false;
+        canMove = true;
     }
 
-    IEnumerator AllowShooting()
+    public IEnumerator AllowShooting()
     {
         float waitTime;
 

@@ -595,6 +595,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  currentHitObject: {fileID: 0}
+  circleRadius: 0.5
+  maxDistance: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  timeBeforeStrike: 0.3
   minSpawnRateInSeconds: 5
   maxSpawnRateInSeconds: 7
   moveSpeed: 12

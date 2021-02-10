@@ -6,6 +6,12 @@ public class Lightning : MonoBehaviour
 {
     [HideInInspector]
     public Animator controller;
+
+    public GameObject currentHitObject;
+    public float circleRadius;
+    public float maxDistance;
+    public LayerMask layerMask;
+
     [SerializeField] float timeBeforeStrike = 0.3f;
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
@@ -15,6 +21,10 @@ public class Lightning : MonoBehaviour
     [SerializeField] GameObject player;
     PlayerMovement playerScript;
     private bool hasFinished;
+
+    private Vector2 origin;
+    private Vector2 direction;
+    private float currentHitDistance;
 
     private void Start()
     {
@@ -45,6 +55,7 @@ public class Lightning : MonoBehaviour
         if (!hasFinished)
         {
             var targetPosition = playerScript.gameObject.transform.position;
+            origin = targetPosition;
             targetPosition.y = targetPosition.y + 1;
             var movementThisFrame = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);
@@ -64,5 +75,16 @@ public class Lightning : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBeforeStrike);
         controller.SetTrigger("Lightning Strike");
+        RaycastHit2D hit;
+        direction = Vector2.down;
+        if (hit = Physics2D.CircleCast(origin, circleRadius, direction, maxDistance, layerMask))
+        {
+            currentHitObject = hit.transform.gameObject;
+            currentHitObject.GetComponent<Health>().ModifyHealth(-1);
+            currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
+            currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
+            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowMovement());
+            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowShooting());
+        }
     }
 }
