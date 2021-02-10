@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
     {       
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Health>().ModifyHealth(-damage);
+            collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
         }
         Destroy(gameObject);
     }
@@ -70,7 +70,7 @@ public class Bullet : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                collision.gameObject.GetComponent<Health>().ModifyHealth(-damage);
+                collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
             }
         }
     }
@@ -84,7 +84,7 @@ public class Bullet : MonoBehaviour
                 closestEnemy = GetClosestEnemy();
                 Vector3 targetPosition = closestEnemy.position - gameObject.transform.position;
                 rb2d.AddForce(targetPosition * homingSpeed);
-                transform.LookAt(closestEnemy);
+                //transform.LookAt(closestEnemy);
             }
         }
     }    

@@ -8,7 +8,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] GameObject[] obstacles;
     Blade blade;
     Lightning lightning;
-    // Start is called before the first frame update
+    
     IEnumerator Start()
     {
         do
@@ -29,7 +29,7 @@ public class ObstacleSpawner : MonoBehaviour
                 }
             }           
         }
-        while (looping && (FindObjectOfType<Health>().GetHealth() > 0));
+        while (looping && (FindObjectOfType<PlayerHealth>().GetHealth() > 0));
     }
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)

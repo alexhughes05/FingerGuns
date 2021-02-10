@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 3930181855921769379}
   - component: {fileID: 3930181855921769383}
   - component: {fileID: 3930181855921769377}
-  - component: {fileID: 658652150}
+  - component: {fileID: -1900746559706937268}
   - component: {fileID: 1983751314}
   m_Layer: 12
   m_Name: GhostyBoi_Logic
@@ -693,7 +693,7 @@ MonoBehaviour:
   enemyProjectile: {fileID: 5410862014141978629, guid: 9024f2d7127182a4996fe354dd170897,
     type: 3}
   timeBtwShots: 1
---- !u!114 &658652150
+--- !u!114 &-1900746559706937268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -702,14 +702,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5641730514803784852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf792371dabac44bb23b6be35ae8db0, type: 3}
+  m_Script: {fileID: 11500000, guid: c6ea33b6fdc65f446976129e791227d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPointValue: 200
-  health: 5
-  fullHeart: {fileID: 0}
-  emptyHeart: {fileID: 0}
-  hearts: []
+  enemyPointValue: 100
+  health: 6
 --- !u!114 &1983751314
 MonoBehaviour:
   m_ObjectHideFlags: 0

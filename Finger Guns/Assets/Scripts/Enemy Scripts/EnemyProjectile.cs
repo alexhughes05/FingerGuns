@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     #region Variables
-    //
-
     //Public
     public float speed;
 
@@ -49,7 +47,7 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
 
         if (collision.gameObject.tag == "Player")
-            collision.GetComponent<Health>().ModifyHealth(-1);
+            collision.GetComponent<PlayerHealth>().ModifyHealth(-1);
     }
     #endregion
 }

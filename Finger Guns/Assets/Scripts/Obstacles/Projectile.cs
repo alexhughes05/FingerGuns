@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     bool tookHit = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var damageDealer = collision.collider.GetComponent<Health>();
+        var damageDealer = collision.collider.GetComponent<PlayerHealth>();
         if (damageDealer && tookHit == false)
         {
             damageDealer.ModifyHealth(-damage);

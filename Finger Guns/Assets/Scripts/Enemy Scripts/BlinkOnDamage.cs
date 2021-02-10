@@ -6,14 +6,14 @@ public class BlinkOnDamage : MonoBehaviour
 {
     [SerializeField] float blinkDuration = 0.05f;
     [SerializeField] float timeBetweenBlinks = 0.05f;
-    Health health;
+    EnemyHealth health;
     private Material matDamage;
     private Material matDefault;
     SkinnedMeshRenderer mr;
-    // Start is called before the first frame update
+    
     void Start()
     {
-        health = gameObject.GetComponent<Health>();
+        health = gameObject.GetComponent<EnemyHealth>();
         mr = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
         matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
         matDefault = mr.material;

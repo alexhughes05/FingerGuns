@@ -80,7 +80,7 @@ public class Lightning : MonoBehaviour
         if (hit = Physics2D.CircleCast(origin, circleRadius, direction, maxDistance, layerMask))
         {
             currentHitObject = hit.transform.gameObject;
-            currentHitObject.GetComponent<Health>().ModifyHealth(-1);
+            currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
             currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
             StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowMovement());

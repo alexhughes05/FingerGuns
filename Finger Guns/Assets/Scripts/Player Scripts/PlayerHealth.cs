@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     #region Variables
-    [Header("Enemy")]
-    [SerializeField] int enemyPointValue = 80;
+    //Components
+    private Level level;
+
     //Public
     public int health;
-    //public int maxHealth;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-    public Image[] hearts;
-    private GameSession gameSession;
-    private Level level;
+    public Image[] hearts;    
 
     //Private
     private int currentHealth;
@@ -26,7 +24,6 @@ public class Health : MonoBehaviour
     void Start()
     {
         currentHealth = health;
-        gameSession = FindObjectOfType<GameSession>();
         level = FindObjectOfType<Level>();
     }
 
@@ -57,27 +54,10 @@ public class Health : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            if(gameObject.tag == "Player")
-            {
-                GetComponent<PlayerMovement>().anim.SetTrigger("Death");
-                GetComponent<PlayerMovement>().playerDead = true;
-                Destroy(gameObject, 1f);
-                level.DeathScreen();
-            }
-            else if (gameObject.tag == "Enemy" && addedScore == false)
-            {
-                addedScore = true;
-                GetComponent<AIPatrol>().anim.SetTrigger("Death");
-                Destroy(gameObject, 0.5f);
-                gameSession.AddToScore(enemyPointValue);
-            }            
-        }
-        else
-        {
-            if (gameObject.tag == "Enemy")
-            {
-                GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
-            }
+            GetComponent<PlayerMovement>().anim.SetTrigger("Death");
+            GetComponent<PlayerMovement>().playerDead = true;
+            Destroy(gameObject, 1f);
+            level.DeathScreen();      
         }
     }
 

@@ -32,11 +32,12 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 0.1f;
     public float hangTime = 0.2f;
     public float jumpBufferLength = 0.1f;
-    //[SerializeField] float maxFallSpeed = 20f; 
+    [SerializeField] float maxFallSpeed = 20f; 
     [Header("Slide")]
     public float slideForce = 12f;
     [SerializeField] float slideDuration = 1f;
     [Header("Dodging")]
+    public float flipWaitTime = 0.5f;
     public float somersaultForceX = 20f;
     public float somersaultForceY = 12.5f;
     public float backflipForceX = 10f;
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
         grounded = true;
         currentAFKTime = AFKTimer;
         wasGrounded = grounded;
@@ -172,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         //Falling Check
         falling = (rb2d.velocity.y < 0) && (!ignoreFalling) && (!grounded) && (hangCounter <= 0) && (bladeHit == false);
         //Limit falling speed
-        //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
+        rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
 
         //Movement
         if (anim.GetBool("Slide") == false && !flipping && canMove)
@@ -340,14 +342,9 @@ public class PlayerMovement : MonoBehaviour
         else
             anim.SetBool("Crouch", false);
 
-        //Allow Shooting
-        /*if(anim.GetCurrentAnimatorStateInfo(2).IsName(""))
-        {
-            if(anim.GetCurrentAnimatorStateInfo(2).normalizedTime >= 0.5)
-            {
-                canShoot = true;
-            }
-        }*/
+        //Take Damage - Shot
+
+        //Take Damage - Lightning        
     }
     public bool CanShoot()
     {
@@ -396,9 +393,9 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator AllowMovement()
     {
-        float waitTime;
-        waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;
-        yield return new WaitForSeconds(waitTime);
+        /*float waitTime;
+        waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;*/
+        yield return new WaitForSeconds(flipWaitTime);
         flipping = false;
         canMove = true;
     }
