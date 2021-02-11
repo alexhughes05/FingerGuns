@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform firePoint;
 
     //Other Private Variables
+    private bool firstPass = true;
     private bool canMove = true;
     private bool standingUp = true;
     private bool canShoot = true;    
@@ -88,8 +89,8 @@ public class PlayerMovement : MonoBehaviour
         GetInput();
         PerformMovement();
         ChangeMaterials();
-        Animation();
         TakingDamage();
+        Animation();
     }
 
     /*private void OnCollisionEnter2D(Collision2D collision)
@@ -263,59 +264,47 @@ public class PlayerMovement : MonoBehaviour
                 rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
 
-        //Taking Damage
+        /*Taking Damage
         if (bladeHit)
         {
             StartCoroutine(WaitAndStand());
         }
+        */
     }    
 
     void TakingDamage()
     {
         if (bladeHit)
         {
+            if (firstPass) //This is used to keep force from being executed every time update is called.
+            {
+                firstPass = false;
+                Vector2 upOne = new Vector2(0, 1);
+
+                bool rightHit = Physics2D.OverlapCircle((Vector2)transform.position + upOne, 0.1f);
+                //RaycastHit2D rightHit = Physics2D.Raycast((Vector2)transform.position + upOne, transform.right, 1f);
+
+                if (rightHit)
+                {
+                    Debug.Log("Hit from right");
+                    if (facingRight)
+                    {
+                        anim.SetTrigger("Fall Back");
+                    }
+                    else
+                    {
+                        anim.SetTrigger("Fall Forward");
+                    }
+                    rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
+                }
+                canShoot = false;
+                canMove = false;
+                standingUp = false;
+                DisableFalling();
+                anim.ResetTrigger("Falling");
+            }
+
             StartCoroutine(WaitAndStand());
-
-            Vector2 upOne = new Vector2(0, 1);
-
-            RaycastHit2D leftHit = Physics2D.Raycast((Vector2)transform.position + upOne, -transform.right, 1f);
-            bool rightHit = Physics2D.OverlapCircle((Vector2)transform.position + upOne, 0.1f);
-            //RaycastHit2D rightHit = Physics2D.Raycast((Vector2)transform.position + upOne, transform.right, 1f);
-
-            if (leftHit)
-            {
-                if (leftHit.collider.CompareTag("Blade"))
-                {
-                    Debug.Log("Hit from left");
-                    rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);
-                }
-            }
-            else if (rightHit)
-            {
-                rightHit = false;
-                Debug.Log("Hit from right");
-                if(facingRight)
-                {
-                    anim.SetTrigger("Fall Back");
-                }
-                else
-                {
-                    anim.SetTrigger("Fall Forward");
-                }
-
-                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
-            }
-            canShoot = false;
-            canMove = false;
-            standingUp = false;
-            DisableFalling();
-            anim.ResetTrigger("Falling");
-            /*if (leftHit.collider)
-                anim.SetTrigger("Fall Back");
-            else if (rightHit.collider)
-            {
-                anim.SetTrigger("Fall Forward");
-            }*/
         }
     }
 
@@ -432,13 +421,20 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator WaitAndStand()
     {
+        Debug.Log("executed1");
         if (grounded)
         {
+            Debug.Log("executed2");
             StartCoroutine(AllowShooting());        
             yield return new WaitForSeconds(1);
-            anim.SetTrigger("Stand Up");
+            if (facingRight)
+                anim.SetTrigger("Stand Up");
+            else
+                anim.SetTrigger("StandUp_Forward");
+            bladeHit = false;
             canMove = true;
             standingUp = true;
+            firstPass = true;
             AllowFalling();            
         }
     }
