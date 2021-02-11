@@ -35,7 +35,7 @@ public class AIShoot : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {        
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.layer == 10)
         {
             firePoint.Rotate(collision.transform.position);
             //If player is not dead, enemy can shoot

@@ -602,8 +602,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   timeBeforeStrike: 0.3
-  minSpawnRateInSeconds: 12
-  maxSpawnRateInSeconds: 20
+  minSpawnRateInSeconds: 5
+  maxSpawnRateInSeconds: 5
   moveSpeed: 12
   numTimesExecPerSpawn: 0
   durationBtwEachAnim: 0

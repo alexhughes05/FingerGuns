@@ -56,9 +56,10 @@ public class Blade : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
+        if (collision.gameObject.layer == 10)
+        {            
+            collision.gameObject.GetComponent<PlayerMovement>().bladeHit = true;
+            //Destroy(gameObject, 1f);
         }
     }
 }

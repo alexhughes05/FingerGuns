@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public bool flipPlayer;
     public float AFKTimer = 10f;
     public bool facingRight = true;
+    public bool bladeHit = false;
     [SerializeField] float knockBackStrength = 10f;
     [Space()]
     [Header("Movement")]
@@ -49,8 +50,7 @@ public class PlayerMovement : MonoBehaviour
     //Other Private Variables
     private bool canMove = true;
     private bool standingUp = true;
-    private bool canShoot = true;
-    private bool bladeHit = false;
+    private bool canShoot = true;    
     private bool dontFlip = true;
     private bool wasGrounded;
     private bool grounded;
@@ -89,9 +89,10 @@ public class PlayerMovement : MonoBehaviour
         PerformMovement();
         ChangeMaterials();
         Animation();
+        TakingDamage();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Blade"))
         {
@@ -100,11 +101,13 @@ public class PlayerMovement : MonoBehaviour
 
             if(leftHit.collider.CompareTag("Blade"))
             {
-                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
+                Debug.Log("Hit from left");
+                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);                
             }
             else if (rightHit.collider.CompareTag("Blade")) //This method is never being executed.
             {
-                rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);
+                Debug.Log("Hit from right");
+                rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);                
             }
 
             canShoot = false;
@@ -120,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("Fall Forward");
             }
         }
-    }
+    }   */ 
 
     public void InitializeHitVariables()
     {
@@ -266,6 +269,55 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(WaitAndStand());
         }
     }    
+
+    void TakingDamage()
+    {
+        if (bladeHit)
+        {
+            StartCoroutine(WaitAndStand());
+
+            Vector2 upOne = new Vector2(0, 1);
+
+            RaycastHit2D leftHit = Physics2D.Raycast((Vector2)transform.position + upOne, -transform.right, 1f);
+            bool rightHit = Physics2D.OverlapCircle((Vector2)transform.position + upOne, 0.1f);
+            //RaycastHit2D rightHit = Physics2D.Raycast((Vector2)transform.position + upOne, transform.right, 1f);
+
+            if (leftHit)
+            {
+                if (leftHit.collider.CompareTag("Blade"))
+                {
+                    Debug.Log("Hit from left");
+                    rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);
+                }
+            }
+            else if (rightHit)
+            {
+                rightHit = false;
+                Debug.Log("Hit from right");
+                if(facingRight)
+                {
+                    anim.SetTrigger("Fall Back");
+                }
+                else
+                {
+                    anim.SetTrigger("Fall Forward");
+                }
+
+                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
+            }
+            canShoot = false;
+            canMove = false;
+            standingUp = false;
+            DisableFalling();
+            anim.ResetTrigger("Falling");
+            /*if (leftHit.collider)
+                anim.SetTrigger("Fall Back");
+            else if (rightHit.collider)
+            {
+                anim.SetTrigger("Fall Forward");
+            }*/
+        }
+    }
 
     void ChangeMaterials()
     {
