@@ -76,6 +76,10 @@ public class PlayerWeapon : MonoBehaviour
         {
             currentFireTime -= Time.deltaTime;
         }
+
+        if(!playerMovement.CanShoot())
+            currentFireTime = currentFireRate;
+
     }
 
     private void Aim()
