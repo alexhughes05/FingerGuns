@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
 
     //Private    
     private int currentHealth;
+    private bool isDead = false;
     //private bool addedScore;
     #endregion
 
@@ -36,12 +37,19 @@ public class EnemyHealth : MonoBehaviour
             //addedScore = true;
             GetComponent<AIPatrol>().anim.SetTrigger("Death");
             Destroy(gameObject, 0.5f);
-            gameSession.AddToScore(enemyPointValue);        
+            AddPoints();
+            isDead = true;
         }
         else
         {
             GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
         }
+    }
+
+    public void AddPoints()
+    {
+        if(!isDead)
+            gameSession.AddToScore(enemyPointValue);
     }
 
     public int GetHealth()

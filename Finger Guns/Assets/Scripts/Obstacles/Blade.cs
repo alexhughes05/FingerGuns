@@ -58,7 +58,7 @@ public class Blade : MonoBehaviour
     {
         if (collision.gameObject.layer == 10)
         {            
-            collision.gameObject.GetComponent<PlayerMovement>().bladeHit = true;
+            collision.gameObject.GetComponentInParent<PlayerMovement>().bladeHit = true;
             Destroy(gameObject);
         }
     }

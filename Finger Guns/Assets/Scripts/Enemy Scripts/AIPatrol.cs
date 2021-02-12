@@ -64,7 +64,7 @@ public class AIPatrol : MonoBehaviour
         groundCheck.localPosition = new Vector3(groundCheck.localPosition.x * -1f, 
             groundCheck.localPosition.y, groundCheck.localPosition.z);
         
-        //Move collider to other side of character due to the character not rotation on turn
+        //Move collider to other side of character due to the character not rotating on turn
         bodyCollider.offset = new Vector2(bodyCollider.offset.x * -1, bodyCollider.offset.y);
     }
 

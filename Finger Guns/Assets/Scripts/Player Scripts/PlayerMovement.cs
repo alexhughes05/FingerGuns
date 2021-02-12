@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //Components
     private Rigidbody2D rb2d;
     [HideInInspector] public Animator anim;
+    private PlayerHealth playerHealth;
     [Header("Components")]
     [SerializeField] PhysicsMaterial2D frictionMaterial;
     [SerializeField] PhysicsMaterial2D noFrictionMaterial;
@@ -59,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private float hangCounter;
     private float jumpBufferCounter;
     private bool isCoroutineStarted;
+    private bool knockDown;
 
     private bool slowDownInput;
     private float horizontalInput;
@@ -78,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         grounded = true;
         currentAFKTime = AFKTimer;
@@ -91,14 +95,7 @@ public class PlayerMovement : MonoBehaviour
         TakingDamage();
         ChangeMaterials();
         Animation();
-    }
-
-    public void InitializeHitVariables()
-    {
-        bladeHit = false;
-        canShoot = false;
-        canMove = false;
-    }
+    }    
     #endregion
 
     #region Private Methods
@@ -236,6 +233,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (bladeHit)
         {
+            knockDown = true;
+            bladeHit = false;
+
             if (firstPass)
             {
                 firstPass = false;
@@ -254,11 +254,16 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
+
+            playerHealth.ModifyHealth(-1);
+
             canShoot = false;
             canMove = false;
             standingUp = false;
+
             DisableFalling();
             anim.ResetTrigger("Falling");
+
             rb2d.velocity = new Vector2(-knockBackStrength, rb2d.velocity.y);
             StartCoroutine(WaitAndStand());
         }
@@ -342,11 +347,7 @@ public class PlayerMovement : MonoBehaviour
         //Take Damage - Shot
 
         //Take Damage - Lightning        
-    }
-    public bool CanShoot()
-    {
-        return canShoot;
-    }
+    }    
 
     void Flip()
     {
@@ -356,12 +357,24 @@ public class PlayerMovement : MonoBehaviour
         firePoint.Rotate(0f, 180f, 0f);
     }
 
-    private void AllowFalling()
+    public void InitializeHitVariables()
+    {
+        bladeHit = false;
+        canShoot = false;
+        canMove = false;
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
+    void AllowFalling()
     {
         ignoreFalling = false;
     }
 
-    private void DisableFalling()
+    void DisableFalling()
     {
         ignoreFalling = true;
     }
@@ -386,7 +399,7 @@ public class PlayerMovement : MonoBehaviour
             else
                 anim.SetTrigger("StandUp_Forward");
 
-            bladeHit = false;
+            knockDown = false;
             canMove = true;
             standingUp = true;
             firstPass = true;
@@ -396,8 +409,6 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator AllowMovement()
     {
-        /*float waitTime;
-        waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;*/
         yield return new WaitForSeconds(flipWaitTime);
             flipping = false;
             canMove = true;
@@ -407,9 +418,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float waitTime;
 
-        if (bladeHit)
+        if (knockDown)
         {
-            bladeHit = false;
+            knockDown = false;
             waitTime = anim.GetCurrentAnimatorStateInfo(2).length;
             yield return new WaitForSeconds(waitTime);
             canShoot = true;

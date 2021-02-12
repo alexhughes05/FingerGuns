@@ -19,7 +19,7 @@ public class EnemyProjectile : MonoBehaviour
         if (!GameObject.FindObjectOfType<PlayerMovement>().playerDead)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
-            target = new Vector2(player.position.x, player.position.y);
+            target = new Vector2(player.position.x, player.position.y + 1);
 
             //Point towards target position
             Vector3 relativePos = player.position - transform.position;
@@ -46,8 +46,8 @@ public class EnemyProjectile : MonoBehaviour
             collision.gameObject.layer != 9)
             Destroy(gameObject);
 
-        if (collision.gameObject.tag == "Player")
-            collision.GetComponent<PlayerHealth>().ModifyHealth(-1);
+        if (collision.gameObject.layer == 10)
+            collision.GetComponentInParent<PlayerHealth>().ModifyHealth(-1);
     }
     #endregion
 }
