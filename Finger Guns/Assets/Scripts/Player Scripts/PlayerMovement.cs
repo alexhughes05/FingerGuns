@@ -88,43 +88,10 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
         PerformMovement();
-        ChangeMaterials();
         TakingDamage();
+        ChangeMaterials();
         Animation();
     }
-
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Blade"))
-        {
-            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, -transform.right, 0.2f);
-            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, transform.right, 0.2f);
-
-            if(leftHit.collider.CompareTag("Blade"))
-            {
-                Debug.Log("Hit from left");
-                rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);                
-            }
-            else if (rightHit.collider.CompareTag("Blade")) //This method is never being executed.
-            {
-                Debug.Log("Hit from right");
-                rb2d.AddForce(new Vector2(knockBackStrength, 0), ForceMode2D.Impulse);                
-            }
-
-            canShoot = false;
-            canMove = false;
-            standingUp = false;
-            bladeHit = true;
-            DisableFalling();
-            anim.ResetTrigger("Falling");
-            if (leftHit.collider)
-                anim.SetTrigger("Fall Back");
-            else if (rightHit.collider)
-            {
-                anim.SetTrigger("Fall Forward");
-            }
-        }
-    }   */ 
 
     public void InitializeHitVariables()
     {
@@ -263,30 +230,20 @@ public class PlayerMovement : MonoBehaviour
             else if (!facingRight && horizontalInput < 0)
                 rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
-
-        /*Taking Damage
-        if (bladeHit)
-        {
-            StartCoroutine(WaitAndStand());
-        }
-        */
     }    
 
     void TakingDamage()
     {
         if (bladeHit)
         {
-            if (firstPass) //This is used to keep force from being executed every time update is called.
+            if (firstPass)
             {
                 firstPass = false;
                 Vector2 upOne = new Vector2(0, 1);
-
                 bool rightHit = Physics2D.OverlapCircle((Vector2)transform.position + upOne, 0.1f);
-                //RaycastHit2D rightHit = Physics2D.Raycast((Vector2)transform.position + upOne, transform.right, 1f);
 
                 if (rightHit)
                 {
-                    Debug.Log("Hit from right");
                     if (facingRight)
                     {
                         anim.SetTrigger("Fall Back");
@@ -295,15 +252,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         anim.SetTrigger("Fall Forward");
                     }
-                    rb2d.AddForce(new Vector2(-knockBackStrength, 0), ForceMode2D.Impulse);
                 }
-                canShoot = false;
-                canMove = false;
-                standingUp = false;
-                DisableFalling();
-                anim.ResetTrigger("Falling");
             }
-
+            canShoot = false;
+            canMove = false;
+            standingUp = false;
+            DisableFalling();
+            anim.ResetTrigger("Falling");
+            rb2d.velocity = new Vector2(-knockBackStrength, rb2d.velocity.y);
             StartCoroutine(WaitAndStand());
         }
     }
@@ -421,16 +377,15 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator WaitAndStand()
     {
-        Debug.Log("executed1");
         if (grounded)
         {
-            Debug.Log("executed2");
             StartCoroutine(AllowShooting());        
             yield return new WaitForSeconds(1);
             if (facingRight)
-                anim.SetTrigger("Stand Up");
+                anim.SetTrigger("Stand Up");    
             else
                 anim.SetTrigger("StandUp_Forward");
+
             bladeHit = false;
             canMove = true;
             standingUp = true;
@@ -444,8 +399,8 @@ public class PlayerMovement : MonoBehaviour
         /*float waitTime;
         waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 4;*/
         yield return new WaitForSeconds(flipWaitTime);
-        flipping = false;
-        canMove = true;
+            flipping = false;
+            canMove = true;
     }
 
     public IEnumerator AllowShooting()

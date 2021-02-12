@@ -648,7 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf792371dabac44bb23b6be35ae8db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPointValue: 80
   health: 5
   fullHeart: {fileID: -6776549129961857684, guid: 87d190747e3540045a212f8ef02145f4,
     type: 3}
@@ -680,6 +679,7 @@ MonoBehaviour:
   flipPlayer: 0
   AFKTimer: 12
   facingRight: 1
+  bladeHit: 0
   knockBackStrength: 10
   doubleTapWindow: 0.5
   movementSpeed: 15
@@ -691,8 +691,10 @@ MonoBehaviour:
   groundCheckDistance: 0.1
   hangTime: 0.2
   jumpBufferLength: 0.1
+  maxFallSpeed: 20
   slideForce: 12
   slideDuration: 0.5
+  flipWaitTime: 0.5
   somersaultForceX: 20
   somersaultForceY: 12.5
   backflipForceX: 12
