@@ -48,6 +48,12 @@ public class PlayerMovement : MonoBehaviour
     [Space()]    
     [Header("Weapon")]
     public Transform firePoint;
+    [Space()]
+    [Header("SFX")]    
+    private FMOD.Studio.EventInstance instance;
+    [FMODUnity.EventRef]
+    public string footstepSounds;
+    [SerializeField] float walkInterval = 0.25f;
 
     //Other Private Variables
     private bool firstPass = true;
@@ -60,8 +66,10 @@ public class PlayerMovement : MonoBehaviour
     private bool falling;
     private float hangCounter;
     private float jumpBufferCounter;
+    private float currentWalkInterval = 0;
     private bool isCoroutineStarted;
     private bool knockDown;
+    private bool walkingState;
 
     private bool slowDownInput;
     private float horizontalInput;
@@ -95,7 +103,13 @@ public class PlayerMovement : MonoBehaviour
         TakingDamage();
         ChangeMaterials();
         Animation();
-    }    
+        SFX();
+    }
+
+    private void OnDisable()
+    {
+        horizontalInput = 0;
+    }
     #endregion
 
     #region Private Methods
@@ -347,7 +361,32 @@ public class PlayerMovement : MonoBehaviour
         //Take Damage - Shot
 
         //Take Damage - Lightning        
-    }    
+    }
+
+    void SFX()
+    {
+        //Walking
+        walkingState = anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Walk");
+
+        if (walkingState && grounded)
+        {
+            if (currentWalkInterval <= 0)
+            {
+                instance = FMODUnity.RuntimeManager.CreateInstance(footstepSounds);
+                instance.start();
+                instance.release();
+                currentWalkInterval = walkInterval;
+            }
+            else
+            {
+                currentWalkInterval -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            currentWalkInterval = walkInterval;
+        }
+    }
 
     void Flip()
     {
@@ -355,6 +394,11 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         firePoint.Rotate(0f, 180f, 0f);
+    }    
+
+    public bool CanShoot()
+    {
+        return canShoot;
     }
 
     public void InitializeHitVariables()
@@ -362,11 +406,6 @@ public class PlayerMovement : MonoBehaviour
         bladeHit = false;
         canShoot = false;
         canMove = false;
-    }
-
-    public bool CanShoot()
-    {
-        return canShoot;
     }
 
     void AllowFalling()

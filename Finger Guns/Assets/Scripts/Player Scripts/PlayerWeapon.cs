@@ -31,6 +31,10 @@ public class PlayerWeapon : MonoBehaviour
     public Transform cameraTarget;
     public float lookAheadAmount = 5f, lookAheadSpeed = 4f;
     [Space()]
+    [Header("SFX")]    
+    private FMOD.Studio.EventInstance instance;
+    [FMODUnity.EventRef]
+    public string shootRegularSound;
 
     //Private Variables
     private Transform playerHand;
@@ -144,6 +148,11 @@ public class PlayerWeapon : MonoBehaviour
                 break;
         }
         anim.SetTrigger("Shoot");
+
+        //SFX
+        instance = FMODUnity.RuntimeManager.CreateInstance(shootRegularSound);
+        instance.start();
+        instance.release();
     }
     private void WeaponSwitch()
     {

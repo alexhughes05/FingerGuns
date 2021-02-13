@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Level : MonoBehaviour
 {
     GameSession gameSession;
+
     private void Awake()
     {
         gameSession = FindObjectOfType<GameSession>();
@@ -31,18 +32,18 @@ public class Level : MonoBehaviour
 
     public void EnterShop()
     {
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Shop");        
     }
 
     public void DeathScreen()
     {
-        StartCoroutine(DelayNextScene());
+        StartCoroutine(DelayNextScene());        
     }
 
     private IEnumerator DelayNextScene()
     {
         yield return new WaitForSeconds(delayAfterDeath);
-        SceneManager.LoadScene("Death");
+        SceneManager.LoadScene("Death");        
     }
 
     public void QuitGame()

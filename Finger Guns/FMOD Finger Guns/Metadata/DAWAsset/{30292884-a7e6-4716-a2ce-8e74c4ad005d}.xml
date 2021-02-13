@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DAWAsset" id="{30292884-a7e6-4716-a2ce-8e74c4ad005d}">
+		<property name="assetPath">
+			<value>FingerGuns_Prototype_Gritty Lit.rpp.link/Transition_145BPM.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6.6206874999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e22e4c50-09ac-4ef4-986b-8c98412ee9e2}</destination>
+		</relationship>
+		<relationship name="project">
+			<destination>{383524e5-f902-46af-b80d-1f165cfa8e00}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DAWAsset" id="{17d896d8-63cd-40a9-99b8-9dd1c55b89af}">
+		<property name="assetPath">
+			<value>FingerGuns_Prototyping.rpp.link/Single Footstep_2.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.22604166666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e22e4c50-09ac-4ef4-986b-8c98412ee9e2}</destination>
+		</relationship>
+		<relationship name="project">
+			<destination>{45ac298f-3a93-4cb0-9571-8ed810c601e8}</destination>
+		</relationship>
+	</object>
+</objects>
