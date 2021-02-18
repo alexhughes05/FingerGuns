@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float AFKTimer = 10f;
     public bool facingRight = true;
     public bool bladeHit = false;
-    [SerializeField] float knockBackStrength = 10f;
+    [SerializeField] float knockBackStrength = 15f;
     [Space()]
     [Header("Movement")]
     public float doubleTapWindow = 0.5f;
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 0.1f;
     public float hangTime = 0.2f;
     public float jumpBufferLength = 0.1f;
-    [SerializeField] float maxFallSpeed = 20f; 
+    [SerializeField] float maxFallSpeed = 20f;
     [Header("Slide")]
     public float slideForce = 12f;
     [SerializeField] float slideDuration = 1f;
@@ -45,22 +45,23 @@ public class PlayerMovement : MonoBehaviour
     public float somersaultForceY = 12.5f;
     public float backflipForceX = 10f;
     public float backflipForceY = 15f;
-    [Space()]    
+    [Space()]
     [Header("Weapon")]
     public Transform firePoint;
     [Space()]
-    [Header("SFX")]    
+    [Header("SFX")]
     private FMOD.Studio.EventInstance instance;
     [FMODUnity.EventRef]
     public string footstepSounds;
     [SerializeField] float walkInterval = 0.25f;
 
     //Other Private Variables
+    private bool interruptLeftFlip;
+    private bool interruptRightFlip;
     private bool firstPass = true;
     private bool canMove = true;
     private bool standingUp = true;
-    private bool canShoot = true;    
-    private bool dontFlip = true;
+    private bool canShoot = true;
     private bool wasGrounded;
     private bool grounded;
     private bool falling;
@@ -68,10 +69,8 @@ public class PlayerMovement : MonoBehaviour
     private float jumpBufferCounter;
     private float currentWalkInterval = 0;
     private bool isCoroutineStarted;
-    private bool knockDown;
     private bool walkingState;
 
-    private bool slowDownInput;
     private float horizontalInput;
     private bool jumpInput;
     private bool slideInput;
@@ -120,24 +119,36 @@ public class PlayerMovement : MonoBehaviour
         {
             //Movement            
             horizontalInput = Input.GetAxis("Horizontal");
-            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+
+            if ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.Space))) //need to set flipping to true here b/c if you wait till veleocity > 0 it's not instant
             {
-                dontFlip = true;
-            }
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-            {
-                dontFlip = false;
+                StopMovement();
                 DisableFalling();
                 if (standingUp)
                     canShoot = true;
             }
+
+
+            if (Input.GetKeyDown(KeyCode.A) && !grounded)
+            {
+                interruptRightFlip = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.D) && !grounded)
+            {
+                interruptLeftFlip = true;
+            }
+
+
             //Enable slowmotion
             if (Input.GetKeyDown(KeyCode.E))
             {
                 timeManager.DoSlowmotion();
             }
             //Jump
-            jumpInput = Input.GetButtonDown("Jump");           
+            jumpInput = Input.GetButtonDown("Jump");
+            if (jumpInput)
+                grounded = false;
             //Slide
             slideInput = Input.GetKeyDown(KeyCode.S);
             //Crouch
@@ -149,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
+
         if (grounded && standingUp)
         {
             standingUp = false;
@@ -159,13 +171,13 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -maxFallSpeed, maxFallSpeed));
 
         //Movement
-        if (anim.GetBool("Slide") == false && !flipping && canMove)
+        if (anim.GetBool("Slide") == false && canMove)
         {
             rb2d.velocity = new Vector2(horizontalInput * movementSpeed, rb2d.velocity.y);
         }
-        
+
         //Flip Player
-        if(flipPlayer)
+        if (flipPlayer)
             Flip();
 
         //Hang time
@@ -174,58 +186,55 @@ public class PlayerMovement : MonoBehaviour
         else
             hangCounter -= Time.deltaTime;
         //Jump Buffer
-        if(jumpInput)
+        if (jumpInput)
             jumpBufferCounter = jumpBufferLength;
         else
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if(jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0)
+        if (jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0)
         {
             //Regular jumpz
-            if (dontFlip)
+            if (!flipping)
             {
                 AllowFalling();
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
                 flipping = false;
             }
             //Somersault
-            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
+            else if (facingRight && Input.GetKey(KeyCode.D) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(somersaultForceX, somersaultForceY);
                 flipping = true;
-                StartCoroutine(AllowMovement());
                 StartCoroutine(AllowShooting());
             }
-            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
+            else if (!facingRight && Input.GetKey(KeyCode.A) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(-somersaultForceX, somersaultForceY);
                 flipping = true;
-                StartCoroutine(AllowMovement());
-                StartCoroutine(AllowShooting());
+                if (interruptLeftFlip)
+                    StartCoroutine(AllowShooting());
             }
             //Backflip
-            else if (facingRight && !dontFlip && Input.GetKey(KeyCode.A) && !flipping)
+            else if (facingRight && Input.GetKey(KeyCode.A) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
                 flipping = true;
-                StartCoroutine(AllowMovement());
                 StartCoroutine(AllowShooting());
             }
-            else if (!facingRight && !dontFlip && Input.GetKey(KeyCode.D) && !flipping)
+            else if (!facingRight && Input.GetKey(KeyCode.D) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(backflipForceX, backflipForceY);
                 flipping = true;
-                StartCoroutine(AllowMovement());
                 StartCoroutine(AllowShooting());
             }
-        }        
+        }
         //Short hops
-        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && dontFlip)
+        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && !flipping)
         {
             AllowFalling();
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
@@ -237,19 +246,30 @@ public class PlayerMovement : MonoBehaviour
             sliding = true;
 
             if (facingRight && horizontalInput > 0)
-                rb2d.AddForce (new Vector2(slideForce, 0), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(slideForce, 0), ForceMode2D.Impulse);
             else if (!facingRight && horizontalInput < 0)
                 rb2d.AddForce(new Vector2(-slideForce, 0), ForceMode2D.Impulse);
         }
-    }    
+
+        if (flipping && rb2d.velocity.x > 0 && interruptRightFlip)
+        {
+            canMove = true;
+            flipping = true;
+            interruptRightFlip = false;
+        }
+
+        if (flipping && rb2d.velocity.x < 0 && interruptLeftFlip)
+        {
+            canMove = true;
+            flipping = true;
+            interruptLeftFlip = false;
+        }
+    }
 
     void TakingDamage()
     {
         if (bladeHit)
         {
-            knockDown = true;
-            bladeHit = false;
-
             if (firstPass)
             {
                 firstPass = false;
@@ -269,8 +289,6 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            playerHealth.ModifyHealth(-1);
-
             canShoot = false;
             canMove = false;
             standingUp = false;
@@ -285,7 +303,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ChangeMaterials()
     {
-        if(grounded)
+        if (grounded)
             rb2d.sharedMaterial = frictionMaterial;
         else
             rb2d.sharedMaterial = noFrictionMaterial;
@@ -303,7 +321,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                currentAFKTime -= Time.deltaTime;                
+                currentAFKTime -= Time.deltaTime;
             }
         }
 
@@ -319,14 +337,18 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter = -0.1f;
             hangCounter = 0;
 
-            if (dontFlip)
+            if (!flipping)
                 anim.SetTrigger("Jump");
-            else if (facingRight && horizontalInput > 0 && !dontFlip || 
-                !facingRight && horizontalInput < 0 && !dontFlip)
+            else if (facingRight && Input.GetKey(KeyCode.D) && flipping ||
+                !facingRight && Input.GetKey(KeyCode.A) && flipping)
+            {
                 anim.SetTrigger("Somersault");
-            else if (facingRight && horizontalInput < 0 && !dontFlip || 
-                !facingRight && horizontalInput > 0 && !dontFlip)
+            }
+            else if (facingRight && Input.GetKey(KeyCode.A) && flipping ||
+                !facingRight && Input.GetKey(KeyCode.D) && flipping)
+            {
                 anim.SetTrigger("Backflip");
+            }
         }
         //Falling
         if (falling)
@@ -339,11 +361,12 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("Landing");
             anim.ResetTrigger("Falling");
-            wasGrounded = grounded;
+            if (!flipping)
+                wasGrounded = grounded;
         }
 
         //Slide
-        if (slideInput && horizontalInput != 0  && grounded && isCoroutineStarted == false)
+        if (slideInput && horizontalInput != 0 && grounded && isCoroutineStarted == false)
         {
             if (facingRight && horizontalInput > 0 || !facingRight && horizontalInput < 0)
             {
@@ -357,6 +380,20 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("Crouch", true);
         else
             anim.SetBool("Crouch", false);
+
+        if (flipping && rb2d.velocity.y < 0)
+        {
+            //Debug.Log("Grounded is " + grounded);
+            wasGrounded = false;
+            //Debug.Log("wasGrounded is now " + wasGrounded);
+        }
+
+        if (grounded && !wasGrounded && !bladeHit)
+        {
+            wasGrounded = true;
+            flipping = false;
+            canMove = true;
+        }
 
         //Take Damage - Shot
 
@@ -394,7 +431,7 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         firePoint.Rotate(0f, 180f, 0f);
-    }    
+    }
 
     public bool CanShoot()
     {
@@ -431,41 +468,48 @@ public class PlayerMovement : MonoBehaviour
     {
         if (grounded)
         {
-            StartCoroutine(AllowShooting());        
+            StartCoroutine(AllowShooting());
             yield return new WaitForSeconds(1);
             if (facingRight)
-                anim.SetTrigger("Stand Up");    
+                anim.SetTrigger("Stand Up");
             else
                 anim.SetTrigger("StandUp_Forward");
 
-            knockDown = false;
+            bladeHit = false;
             canMove = true;
             standingUp = true;
             firstPass = true;
-            AllowFalling();            
+            AllowFalling();
         }
     }
 
-    public IEnumerator AllowMovement()
+    public IEnumerator WaitAndAllowMovement()
     {
-        yield return new WaitForSeconds(flipWaitTime);
-            flipping = false;
-            canMove = true;
+        yield return new WaitForSeconds(0.5f);
+        flipping = false;
+        canMove = true;
+    }
+
+    public void StopMovement()
+    {
+        flipping = true;
+        canMove = false;
     }
 
     public IEnumerator AllowShooting()
     {
         float waitTime;
 
-        if (knockDown)
+        if (bladeHit)
         {
-            knockDown = false;
+            bladeHit = false;
             waitTime = anim.GetCurrentAnimatorStateInfo(2).length;
             yield return new WaitForSeconds(waitTime);
             canShoot = true;
         }
         else
         {
+            bladeHit = false;
             waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 2;
             yield return new WaitForSeconds(waitTime);
             canShoot = true;

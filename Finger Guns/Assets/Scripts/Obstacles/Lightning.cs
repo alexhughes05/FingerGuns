@@ -83,7 +83,7 @@ public class Lightning : MonoBehaviour
             currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
             currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
-            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowMovement());
+            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().WaitAndAllowMovement());
             StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowShooting());
         }
     }
