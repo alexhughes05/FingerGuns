@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     //Public Variables
     [Header("Controller")]
+    [HideInInspector]
+    public bool resetShooting = false;
     public TimeManager timeManager;
     public bool playerDead = false;
     public bool flipPlayer;
@@ -56,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkInterval = 0.25f;
 
     //Other Private Variables
+    private Lightning lightning;
+    private bool bladeHitSignal = false;
     private bool interruptLeftFlip;
     private bool interruptRightFlip;
     private bool firstPass = true;
@@ -86,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        lightning = FindObjectOfType<Lightning>();
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
@@ -120,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
             //Movement            
             horizontalInput = Input.GetAxis("Horizontal");
 
-            if ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.Space)) || (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.Space))) //need to set flipping to true here b/c if you wait till veleocity > 0 it's not instant
+            if ((Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space)) || (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space))) //need to set flipping to true here b/c if you wait till veleocity > 0 it's not instant
             {
                 StopMovement();
                 DisableFalling();
@@ -158,6 +163,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformMovement()
     {
+        if (!bladeHit && !bladeHitSignal)
+            ConfigureShooting();
+
         //Ground Check
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
 
@@ -192,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
 
         //Jump
-        if (jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0)
+        if (jumpBufferCounter >= 0 && hangCounter > 0 && rb2d.velocity.y <= 0 && !bladeHitSignal)
         {
             //Regular jumpz
             if (!flipping)
@@ -207,15 +215,12 @@ public class PlayerMovement : MonoBehaviour
                 canShoot = false;
                 rb2d.velocity = new Vector2(somersaultForceX, somersaultForceY);
                 flipping = true;
-                StartCoroutine(AllowShooting());
             }
             else if (!facingRight && Input.GetKey(KeyCode.A) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(-somersaultForceX, somersaultForceY);
-                flipping = true;
-                if (interruptLeftFlip)
-                    StartCoroutine(AllowShooting());
+                flipping = true;;
             }
             //Backflip
             else if (facingRight && Input.GetKey(KeyCode.A) && flipping)
@@ -223,18 +228,16 @@ public class PlayerMovement : MonoBehaviour
                 canShoot = false;
                 rb2d.velocity = new Vector2(-backflipForceX, backflipForceY);
                 flipping = true;
-                StartCoroutine(AllowShooting());
             }
             else if (!facingRight && Input.GetKey(KeyCode.D) && flipping)
             {
                 canShoot = false;
                 rb2d.velocity = new Vector2(backflipForceX, backflipForceY);
                 flipping = true;
-                StartCoroutine(AllowShooting());
             }
         }
         //Short hops
-        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && !flipping)
+        if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0 && !flipping && !bladeHitSignal)
         {
             AllowFalling();
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 2);
@@ -266,12 +269,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void ConfigureShooting()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip") || anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault"))
+        {
+            resetShooting = false;
+            canShoot = false;
+        }
+        else
+        {
+            Debug.Log("lightning not hit.");
+            resetShooting = true;
+            canShoot = true;
+        }
+    }
+
     void TakingDamage()
     {
         if (bladeHit)
         {
             if (firstPass)
             {
+                bladeHitSignal = true;
                 firstPass = false;
                 Vector2 upOne = new Vector2(0, 1);
                 bool rightHit = Physics2D.OverlapCircle((Vector2)transform.position + upOne, 0.1f);
@@ -288,7 +307,6 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-
             canShoot = false;
             canMove = false;
             standingUp = false;
@@ -296,7 +314,7 @@ public class PlayerMovement : MonoBehaviour
             DisableFalling();
             anim.ResetTrigger("Falling");
 
-            rb2d.velocity = new Vector2(-knockBackStrength, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(-knockBackStrength, -10);
             StartCoroutine(WaitAndStand());
         }
     }
@@ -332,7 +350,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jump, Somersault, & Backflip
-        if (jumpBufferCounter >= 0 && hangCounter > 0)
+        if (jumpBufferCounter >= 0 && hangCounter > 0 && !bladeHitSignal)
         {
             jumpBufferCounter = -0.1f;
             hangCounter = 0;
@@ -362,7 +380,9 @@ public class PlayerMovement : MonoBehaviour
             anim.SetTrigger("Landing");
             anim.ResetTrigger("Falling");
             if (!flipping)
-                wasGrounded = grounded;
+            {
+                wasGrounded = grounded;;
+            }
         }
 
         //Slide
@@ -382,19 +402,15 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("Crouch", false);
 
         if (flipping && rb2d.velocity.y < 0)
-        {
-            //Debug.Log("Grounded is " + grounded);
             wasGrounded = false;
-            //Debug.Log("wasGrounded is now " + wasGrounded);
-        }
+        
 
-        if (grounded && !wasGrounded && !bladeHit)
+        if (grounded && !wasGrounded && !bladeHitSignal)
         {
             wasGrounded = true;
             flipping = false;
             canMove = true;
         }
-
         //Take Damage - Shot
 
         //Take Damage - Lightning        
@@ -468,26 +484,38 @@ public class PlayerMovement : MonoBehaviour
     {
         if (grounded)
         {
-            StartCoroutine(AllowShooting());
+            bladeHit = false;
             yield return new WaitForSeconds(1);
             if (facingRight)
                 anim.SetTrigger("Stand Up");
             else
                 anim.SetTrigger("StandUp_Forward");
-
-            bladeHit = false;
+            ConfigureShooting();
             canMove = true;
             standingUp = true;
             firstPass = true;
             AllowFalling();
+            bladeHitSignal = false;
         }
     }
 
     public IEnumerator WaitAndAllowMovement()
     {
-        yield return new WaitForSeconds(0.5f);
+        canMove = false;
+        canShoot = false;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(ShootAfterLightning());
         flipping = false;
         canMove = true;
+    }
+
+    IEnumerator ShootAfterLightning()
+    {
+        Debug.Log("executed.");
+        yield return new WaitForSeconds(1);
+        lightning.lightningHit = false;
+        resetShooting = true;
+        canShoot = true;
     }
 
     public void StopMovement()
@@ -496,24 +524,6 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
     }
 
-    public IEnumerator AllowShooting()
-    {
-        float waitTime;
 
-        if (bladeHit)
-        {
-            bladeHit = false;
-            waitTime = anim.GetCurrentAnimatorStateInfo(2).length;
-            yield return new WaitForSeconds(waitTime);
-            canShoot = true;
-        }
-        else
-        {
-            bladeHit = false;
-            waitTime = anim.GetCurrentAnimatorStateInfo(2).length / 2;
-            yield return new WaitForSeconds(waitTime);
-            canShoot = true;
-        }
-    }
     #endregion
 }

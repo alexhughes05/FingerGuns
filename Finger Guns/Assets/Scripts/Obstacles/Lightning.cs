@@ -11,7 +11,8 @@ public class Lightning : MonoBehaviour
     public float circleRadius;
     public float maxDistance;
     public LayerMask layerMask;
-
+    [HideInInspector]
+    public bool lightningHit = false;
     [SerializeField] float timeBeforeStrike = 0.3f;
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
@@ -82,9 +83,10 @@ public class Lightning : MonoBehaviour
             currentHitObject = hit.transform.gameObject;
             currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
+            lightningHit = true;
             currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
             StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().WaitAndAllowMovement());
-            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().AllowShooting());
+            currentHitObject.GetComponent<PlayerMovement>().ConfigureShooting();
         }
     }
 }

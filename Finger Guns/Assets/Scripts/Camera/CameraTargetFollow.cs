@@ -6,7 +6,7 @@ public class CameraTargetFollow : MonoBehaviour
 {
     public Transform player;
 
-    void Update()
+    void LateUpdate()
     {
         if(player)
             transform.position = player.position;

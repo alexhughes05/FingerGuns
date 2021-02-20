@@ -68,7 +68,7 @@ public class PlayerWeapon : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         //Shooting
-        if (currentFireTime <= 0)
+        if (currentFireTime <= 0 || playerMovement.resetShooting)
         {
             if (Input.GetMouseButtonDown(0) && playerMovement.CanShoot())
             {
@@ -81,7 +81,7 @@ public class PlayerWeapon : MonoBehaviour
             currentFireTime -= Time.deltaTime;
         }
 
-        if(!playerMovement.CanShoot())
+        if(!playerMovement.CanShoot() && !playerMovement.resetShooting)
             currentFireTime = currentFireRate;
 
     }
