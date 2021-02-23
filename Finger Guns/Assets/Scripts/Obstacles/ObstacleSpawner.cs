@@ -28,7 +28,7 @@ public class ObstacleSpawner : MonoBehaviour
                 }
             }           
         }
-        while (looping && (FindObjectOfType<PlayerHealth>().GetHealth() > 0));
+        while (looping && (FindObjectOfType<PlayerHealth>()?.GetHealth() > 0));
     }
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)

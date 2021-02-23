@@ -83,7 +83,7 @@ public class Lightning : MonoBehaviour
             currentHitObject = hit.transform.gameObject;
             currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
-            lightningHit = true;
+            playerScript.hitByLightning = true;
             currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
             StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().WaitAndAllowMovement());
             currentHitObject.GetComponent<PlayerMovement>().ConfigureShooting();

@@ -17,7 +17,6 @@ public class EnemyHealth : MonoBehaviour
     //Private    
     private int currentHealth;
     private bool isDead = false;
-    //private bool addedScore;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -34,7 +33,6 @@ public class EnemyHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            //addedScore = true;
             GetComponent<AIPatrol>().anim.SetTrigger("Death");
             Destroy(gameObject, 0.5f);
             AddPoints();

@@ -10435,13 +10435,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982334996285233915, guid: c3e22ed8d3ed0dc44a6f0c763a604c77,
         type: 3}
+      propertyPath: isStationary
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982334996285233915, guid: c3e22ed8d3ed0dc44a6f0c763a604c77,
+        type: 3}
       propertyPath: maxSpawnRateInSeconds
-      value: 10000
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4982334996285233915, guid: c3e22ed8d3ed0dc44a6f0c763a604c77,
         type: 3}
       propertyPath: minSpawnRateInSeconds
-      value: 10000
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4982334996285233915, guid: c3e22ed8d3ed0dc44a6f0c763a604c77,
         type: 3}

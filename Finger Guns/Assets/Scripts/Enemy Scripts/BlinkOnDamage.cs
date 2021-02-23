@@ -26,10 +26,9 @@ public class BlinkOnDamage : MonoBehaviour
             mr.material = matDamage;
             if (health.GetHealth() > 0)
             {
-                Invoke("ResetMaterial", blinkDuration); //.1f
+                Invoke("ResetMaterial", blinkDuration); 
             }
             StartCoroutine(BlinkTwice());
-            //mr.material = matDamage;
         }
     }
 
@@ -39,7 +38,7 @@ public class BlinkOnDamage : MonoBehaviour
         mr.material = matDamage;
         if (health.GetHealth() > 0)
         {
-            Invoke("ResetMaterial", blinkDuration); //.1f
+            Invoke("ResetMaterial", blinkDuration); 
         }
     }
 

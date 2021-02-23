@@ -47,7 +47,10 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
 
         if (collision.gameObject.layer == 10)
+        {
+            collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
             collision.GetComponentInParent<PlayerHealth>().ModifyHealth(-1);
+        }
     }
     #endregion
 }

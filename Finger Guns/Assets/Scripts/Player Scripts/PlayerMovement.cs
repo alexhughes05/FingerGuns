@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     //Public Variables
     [Header("Controller")]
     [HideInInspector]
+    public bool hitByLightning = false;
+    [HideInInspector]
     public bool resetShooting = false;
     public TimeManager timeManager;
     public bool playerDead = false;
@@ -58,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkInterval = 0.25f;
 
     //Other Private Variables
-    private Lightning lightning;
     private bool bladeHitSignal = false;
     private bool interruptLeftFlip;
     private bool interruptRightFlip;
@@ -90,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        lightning = FindObjectOfType<Lightning>();
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
@@ -271,14 +271,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void ConfigureShooting()
     {
-        if (anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Backflip") || anim.GetCurrentAnimatorStateInfo(2).IsName("FingerGunMan_Rig|Somersault"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Backflip") || anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Somersault"))
+        {
+            resetShooting = false;
+            canShoot = false;
+        }
+        else if (hitByLightning)
         {
             resetShooting = false;
             canShoot = false;
         }
         else
         {
-            Debug.Log("lightning not hit.");
             resetShooting = true;
             canShoot = true;
         }
@@ -396,7 +400,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Crouch
-        if (crouchInput && horizontalInput == 0 && grounded)
+        if (crouchInput && horizontalInput <= 0 && grounded)
             anim.SetBool("Crouch", true);
         else
             anim.SetBool("Crouch", false);
@@ -504,16 +508,14 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         canShoot = false;
         yield return new WaitForSeconds(1);
-        StartCoroutine(ShootAfterLightning());
+        ShootAfterLightning();
         flipping = false;
         canMove = true;
     }
 
-    IEnumerator ShootAfterLightning()
+    void ShootAfterLightning()
     {
-        Debug.Log("executed.");
-        yield return new WaitForSeconds(1);
-        lightning.lightningHit = false;
+        hitByLightning = false;
         resetShooting = true;
         canShoot = true;
     }

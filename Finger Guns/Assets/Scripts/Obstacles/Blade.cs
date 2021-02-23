@@ -8,8 +8,7 @@ public class Blade : MonoBehaviour
     [SerializeField] int maxSpawnRateInSeconds;
     [SerializeField] float speedOfSpin;
     [SerializeField] float moveSpeed;
-    [SerializeField] int numTimesExecPerSpawn;
-    [SerializeField] float durationBtwEachAnim;
+    public bool isStationary;
     [SerializeField] GameObject[] pathsPrefab;
     [HideInInspector] public GameObject selectedPath;
     Rigidbody2D rgbd;
@@ -33,11 +32,6 @@ public class Blade : MonoBehaviour
         return maxSpawnRateInSeconds;
     }
 
-    public int getNumTimesExecPerSpawn()
-    {
-        return numTimesExecPerSpawn;
-    }
-
     public GameObject[] getPaths()
     {
         return pathsPrefab;
@@ -48,7 +42,7 @@ public class Blade : MonoBehaviour
         rgbd.velocity = new Vector2(-moveSpeed, 0);
         rgbd.rotation += speedOfSpin * Time.deltaTime;
         var destroyPos = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        if (transform.position.x <= destroyPos.x)
+        if (transform.position.x <= destroyPos.x && !isStationary)
         {
             Destroy(gameObject);
         }
