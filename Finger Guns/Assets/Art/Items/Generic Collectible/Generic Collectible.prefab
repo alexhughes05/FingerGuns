@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2283464748057938430}
   - component: {fileID: 4692049960019235317}
+  - component: {fileID: 1648453333593101936}
   m_Layer: 0
   m_Name: Generic Collectible
   m_TagString: Untagged
@@ -113,6 +114,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1648453333593101936
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7198411694280656255}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e78a809438933e24b9a385091f6ff80f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &6418106999144147729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +149,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017516782397681605, guid: 4224c24105402cc4d9199c4469772939,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5405624
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017516782397681605, guid: 4224c24105402cc4d9199c4469772939,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5405624
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017516782397681605, guid: 4224c24105402cc4d9199c4469772939,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5465687
       objectReference: {fileID: 0}
     - target: {fileID: 7017516782397681605, guid: 4224c24105402cc4d9199c4469772939,
         type: 3}
