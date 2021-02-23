@@ -53,7 +53,8 @@ public class Blade : MonoBehaviour
         if (collision.gameObject.layer == 10)
         {            
             collision.gameObject.GetComponentInParent<PlayerMovement>().bladeHit = true;
-            Destroy(gameObject);
+            if (!isStationary)
+                Destroy(gameObject);
         }
     }
 }
