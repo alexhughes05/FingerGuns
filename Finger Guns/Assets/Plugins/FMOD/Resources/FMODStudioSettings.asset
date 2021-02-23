@@ -358,7 +358,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 0
   sourceProjectPath: FMOD Finger Guns/FMOD Finger Guns.fspro
-  sourceBankPath: FMOD Finger Guns/Build/Desktop
+  sourceBankPath: Assets/FMODAssets/Desktop
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
@@ -377,7 +377,8 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
+  MasterBanks:
+  - Master
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
