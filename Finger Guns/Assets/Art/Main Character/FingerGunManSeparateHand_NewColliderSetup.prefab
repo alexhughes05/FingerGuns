@@ -672,15 +672,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  frictionMaterial: {fileID: 0}
-  noFrictionMaterial: {fileID: 0}
+  frictionMaterial: {fileID: 6200000, guid: bcd1c0fb9c7ab41499ea0bbdcce5d2a7, type: 2}
+  noFrictionMaterial: {fileID: 6200000, guid: 46207e1a4a8f8654f9198d161496849e, type: 2}
+  hitByLightning: 0
+  resetShooting: 0
   timeManager: {fileID: 0}
   playerDead: 0
   flipPlayer: 0
   AFKTimer: 12
   facingRight: 1
   bladeHit: 0
-  knockBackStrength: 10
+  knockBackStrength: 20
   doubleTapWindow: 0.5
   movementSpeed: 15
   jumpForce: 15
@@ -700,6 +702,8 @@ MonoBehaviour:
   backflipForceX: 12
   backflipForceY: 18
   firePoint: {fileID: 1420432067}
+  footstepSounds: event:/SFX/Footsteps
+  walkInterval: 0.25
 --- !u!114 &1096362836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,13 +799,13 @@ MonoBehaviour:
   sprayPoint1: {fileID: 315252452}
   sprayPoint2: {fileID: 1314095601}
   bullet: {fileID: 5858298368082820291, guid: 4ae755b6f0e7ea44684f1486e0522fa3, type: 3}
-  fastBullet: {fileID: 5211012516027292782, guid: 92305b857c2eef24fb51365bda8af9dc,
+  fastBullet: {fileID: 5858298368082820291, guid: 9cf1beea39a1bc14fbcf12e6fd50dcbd,
     type: 3}
-  homingBullet: {fileID: 427243681305756459, guid: 4d00905e811e7a743a46b28fdcb014d5,
+  homingBullet: {fileID: 5858298368082820291, guid: 29c46e902110a9e438e76c1a3af35e71,
     type: 3}
-  sprayBullet: {fileID: 2629858318538272960, guid: 8ecaffcbfbde2814999f93bd8ead96c9,
+  sprayBullet: {fileID: 5858298368082820291, guid: b6b564be508fd144ebf19b76a65f92a7,
     type: 3}
-  blastBullet: {fileID: 5211012516027292782, guid: eadf817b319b4f745bbee97d97970041,
+  blastBullet: {fileID: 5858298368082820291, guid: 18beec1946efbfb4a9e28057e57be260,
     type: 3}
   regularBulletRate: 0.3
   fastBulletRate: 0.1
@@ -811,6 +815,7 @@ MonoBehaviour:
   cameraTarget: {fileID: 0}
   lookAheadAmount: 7
   lookAheadSpeed: 4
+  shootRegularSound: event:/SFX/Shoot_Regular
 --- !u!1 &8439649981513447951
 GameObject:
   m_ObjectHideFlags: 0

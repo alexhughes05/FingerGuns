@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: 2776fddf558f4a5439473347ca8f3348
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6403288303064557398
+    second: Bubble Texture_Long 01
+  - first:
+      213: 6085419738185929216
+    second: Bubble Texture_Long 02
+  - first:
+      213: 1727694615618562321
+    second: Bubble Texture_Long 03
+  - first:
+      213: -8198121519202850144
+    second: Bubble Texture_Med 01
+  - first:
+      213: -5040509251421800376
+    second: Bubble Texture_Med 02
+  - first:
+      213: -1686651539026612324
+    second: Bubble Texture_Med 03
+  - first:
+      213: 4944405925226726779
+    second: Bubble Texture_Med 04
+  - first:
+      213: -1162380925754258497
+    second: Bubble Texture_Med Right Corner
+  - first:
+      213: -3299612951550497474
+    second: Bubble Texture_Med Left Corner
+  - first:
+      213: -951979931293480341
+    second: Bubble Texture_Left Corner
+  - first:
+      213: -1284593324121690218
+    second: Right Corner
+  - first:
+      213: -7768983569666113212
+    second: Bubble Texture_Small 01
+  - first:
+      213: 1971777255414142765
+    second: Bubble Texture_Small 02
+  - first:
+      213: 220686402400244539
+    second: Bubble Texture_Small 03
+  - first:
+      213: 6638262517908793137
+    second: Bubble Texture_Small 04
+  - first:
+      213: -4260053719587702162
+    second: Bubble Texture_Small 05
+  - first:
+      213: -479594647840507828
+    second: Bubble Texture_Small 06
+  - first:
+      213: 6267697219860124924
+    second: Bubble Texture_Long Chunky
+  - first:
+      213: 4534271323405142570
+    second: Bubble Texture_Accent 01
+  - first:
+      213: 7190537021667888815
+    second: Bubble Texture_Accent 02
+  - first:
+      213: 1494741206325945620
+    second: Bubble Texture_Accent 03
+  - first:
+      213: -1673069676943200105
+    second: Bubble Texture_Accent 04
+  - first:
+      213: -6671124542456288050
+    second: Bubble Texture_Curve 01
+  - first:
+      213: 7199102361267530639
+    second: Bubble Texture_Curve 02
+  - first:
+      213: 7932685350108737210
+    second: Bubble Texture_Curve 03
+  - first:
+      213: -6051316107154263523
+    second: Bubble Texture_Curve 04
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bubble Texture_Long 01
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 10
+        width: 490
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa85c65e633f227a0800000000000000
+      internalID: -6403288303064557398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Long 02
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 66
+        width: 500
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00219bb8201c37450800000000000000
+      internalID: 6085419738185929216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Long 03
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 112
+        width: 482
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 119ac4469110af710800000000000000
+      internalID: 1727694615618562321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med 01
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 165
+        width: 266
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aaad6ee9eb6a3e80800000000000000
+      internalID: -8198121519202850144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med 02
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 172
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848fee5aa838c0ab0800000000000000
+      internalID: -5040509251421800376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med 03
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 219
+        width: 166
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9fe37c8c5fc798e0800000000000000
+      internalID: -1686651539026612324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med 04
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 317
+        width: 248
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b75c97e0efe0e9440800000000000000
+      internalID: 4944405925226726779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med Right Corner
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 219
+        width: 264
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb4ab2e4b46edfe0800000000000000
+      internalID: -1162380925754258497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Med Left Corner
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 267
+        width: 248
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3ded8ea08b6532d0800000000000000
+      internalID: -3299612951550497474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Left Corner
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 327
+        width: 54
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6a83f9db43e9c2f0800000000000000
+      internalID: -951979931293480341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Right Corner
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 328
+        width: 53
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69f63e28d253c2ee0800000000000000
+      internalID: -1284593324121690218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 01
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 289
+        width: 40
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4418430fa960f2490800000000000000
+      internalID: -7768983569666113212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 02
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 284
+        width: 87
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27972587f82d5b10800000000000000
+      internalID: 1971777255414142765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 03
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 395
+        width: 46
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3353dd1d19001300800000000000000
+      internalID: 220686402400244539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 04
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 367
+        width: 132
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1376eb9c698df1c50800000000000000
+      internalID: 6638262517908793137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 05
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 382
+        width: 64
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ab4e776bf31e4c0800000000000000
+      internalID: -4260053719587702162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Small 06
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 377
+        width: 101
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48b94375332859f0800000000000000
+      internalID: -479594647840507828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Long Chunky
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 416
+        width: 501
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4577de9655bf650800000000000000
+      internalID: 6267697219860124924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Accent 01
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 390
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2acdcabeb7fcee30800000000000000
+      internalID: 4534271323405142570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Accent 02
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 387
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae4fc8f25be9c360800000000000000
+      internalID: 7190537021667888815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Accent 03
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 365
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415623a25336eb410800000000000000
+      internalID: 1494741206325945620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Accent 04
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 364
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 790b25d3eff08c8e0800000000000000
+      internalID: -1673069676943200105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Curve 01
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 485
+        width: 153
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecca082e2976b63a0800000000000000
+      internalID: -6671124542456288050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Curve 02
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 472
+        width: 132
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8be601847958e360800000000000000
+      internalID: 7199102361267530639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Curve 03
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 476
+        width: 96
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abe2d28fb4f861e60800000000000000
+      internalID: 7932685350108737210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bubble Texture_Curve 04
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 476
+        width: 71
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d127871df08650ca0800000000000000
+      internalID: -6051316107154263523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 1
+  pSDShowRemoveMatteOption: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
