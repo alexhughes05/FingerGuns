@@ -8269,7 +8269,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stationary Sawblade
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -757127942352852906, guid: c3e22ed8d3ed0dc44a6f0c763a604c77, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3e22ed8d3ed0dc44a6f0c763a604c77, type: 3}
 --- !u!1 &915980391
 GameObject:

@@ -315,6 +315,8 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             standingUp = false;
 
+            playerHealth.ModifyHealth(-1);
+
             DisableFalling();
             anim.ResetTrigger("Falling");
 
