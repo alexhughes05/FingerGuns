@@ -13,8 +13,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         do
         {
-            //UnityEngine.Random.Range(0, obstacles.Length)
-            GameObject obstacle = obstacles[0];
+            GameObject obstacle = obstacles[UnityEngine.Random.Range(0, obstacles.Length)];
             if (obstacle)
             {
                 if (obstacle.CompareTag("Blade"))
