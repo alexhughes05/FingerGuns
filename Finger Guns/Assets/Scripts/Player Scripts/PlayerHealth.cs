@@ -54,8 +54,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            GetComponent<PlayerMovement>().anim.SetTrigger("Death");
-            GetComponent<PlayerMovement>().playerDead = true;
+            GetComponent<FingerGunMan>().anim.SetTrigger("Death");
+            GetComponent<FingerGunMan>().playerDead = true;
             Destroy(gameObject, 1f);
             level.DeathScreen();      
         }

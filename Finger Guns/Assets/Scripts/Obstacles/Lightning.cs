@@ -20,7 +20,7 @@ public class Lightning : MonoBehaviour
     [SerializeField] int numTimesExecPerSpawn;
     [SerializeField] float durationBtwEachAnim;
     [SerializeField] GameObject player;
-    PlayerMovement playerScript;
+    FingerGunMan playerScript;
     private bool hasFinished;
 
     private Vector2 origin;
@@ -30,7 +30,7 @@ public class Lightning : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<Animator>();
-        playerScript = FindObjectOfType<PlayerMovement>();
+        playerScript = FindObjectOfType<FingerGunMan>();
     }
 
     // Update is called once per frame
@@ -83,10 +83,9 @@ public class Lightning : MonoBehaviour
             currentHitObject = hit.transform.gameObject;
             currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
-            playerScript.hitByLightning = true;
-            currentHitObject.GetComponent<PlayerMovement>().InitializeHitVariables();
-            StartCoroutine(currentHitObject.GetComponent<PlayerMovement>().WaitAndAllowMovement());
-            currentHitObject.GetComponent<PlayerMovement>().ConfigureShooting();
+            currentHitObject.GetComponent<FingerGunMan>().shootingEnabled = false;
+            currentHitObject.GetComponent<FingerGunMan>().externalForce = true;
+            StartCoroutine(currentHitObject.GetComponent<FingerGunMan>().WaitToMove());
         }
     }
 }

@@ -6,7 +6,7 @@ public class AIShoot : MonoBehaviour
 {
     #region Variables
     //Components
-    PlayerMovement playerMovement;
+    FingerGunMan playerMovement;
 
     //Public
     public Transform firePoint;
@@ -22,7 +22,7 @@ public class AIShoot : MonoBehaviour
     void Start()
     {
         currentTimeBtwShots = timeBtwShots;
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class AIShoot : MonoBehaviour
         {
             firePoint.Rotate(collision.transform.position);
             //If player is not dead, enemy can shoot
-            if(!collision.gameObject.GetComponentInParent<PlayerMovement>().playerDead)
+            if(!collision.gameObject.GetComponentInParent<FingerGunMan>().playerDead)
                 shooting = true;
         }
     }

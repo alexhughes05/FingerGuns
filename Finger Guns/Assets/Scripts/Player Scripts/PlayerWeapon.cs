@@ -4,7 +4,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     #region Variables
     //Components
-    PlayerMovement playerMovement;
+    FingerGunMan player;
     Animator anim;
 
     //Public
@@ -37,6 +37,7 @@ public class PlayerWeapon : MonoBehaviour
     public string shootRegularSound;
 
     //Private Variables
+    private PlayerControls playerControls;
     private Transform playerHand;
     private Vector3 mousePosition;
     [Range(1,5)]
@@ -48,9 +49,20 @@ public class PlayerWeapon : MonoBehaviour
     #region Monobehaviour Callbacks 
     private void Awake()
     {
+        playerControls = new PlayerControls();
         playerHand = gameObject.transform;
-        playerMovement = GetComponentInParent<PlayerMovement>();
+        player = GetComponentInParent<FingerGunMan>();
         anim = GetComponentInParent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -65,12 +77,12 @@ public class PlayerWeapon : MonoBehaviour
     private void GetInput()
     {
         //Get Mouse World Position
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(playerControls.Gameplay.Aim.ReadValue<Vector2>());
 
         //Shooting
-        if (currentFireTime <= 0 || playerMovement.resetShooting)
+        if (currentFireTime <= 0)
         {
-            if (Input.GetMouseButtonDown(0) && playerMovement.CanShoot())
+            if (playerControls.Gameplay.Shoot.triggered && player.shootingEnabled)
             {
                 Shoot();
                 currentFireTime = currentFireRate;
@@ -80,10 +92,6 @@ public class PlayerWeapon : MonoBehaviour
         {
             currentFireTime -= Time.deltaTime;
         }
-
-        if(!playerMovement.CanShoot() && !playerMovement.resetShooting)
-            currentFireTime = currentFireRate;
-
     }
 
     private void Aim()
@@ -91,7 +99,7 @@ public class PlayerWeapon : MonoBehaviour
         //Aim Hand
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle;
-        if (playerMovement.facingRight)
+        if (player.facingRight)
             angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         else
             angle = Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg;
@@ -104,19 +112,19 @@ public class PlayerWeapon : MonoBehaviour
             cameraTarget.localPosition.y, cameraTarget.localPosition.z);
 
         //Player Flip Conditions
-        if (playerMovement.facingRight)
+        if (player.facingRight)
         {
             if (angle < -90 || angle > 90)
-                playerMovement.flipPlayer = true;
+                player.flipPlayer = true;
             else
-                playerMovement.flipPlayer = false;
+                player.flipPlayer = false;
         }
         else
         {
             if (angle < -90 || angle > 90)
-                playerMovement.flipPlayer = true;
+                player.flipPlayer = true;
             else
-                playerMovement.flipPlayer = false;
+                player.flipPlayer = false;
         }
     }
 
@@ -156,7 +164,7 @@ public class PlayerWeapon : MonoBehaviour
     }
     private void WeaponSwitch()
     {
-        if(Input.GetButtonDown("Weapon1"))
+        /*if(Input.GetButtonDown("Weapon1"))
         {
             weaponSelect = 1;
         }
@@ -176,6 +184,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             weaponSelect = 5;
         }
+        */
     }
     #endregion
 }

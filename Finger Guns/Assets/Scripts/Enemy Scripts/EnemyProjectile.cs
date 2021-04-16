@@ -16,7 +16,7 @@ public class EnemyProjectile : MonoBehaviour
     #region Monobehaviour Callbacks
     void Start()
     {
-        if (!GameObject.FindObjectOfType<PlayerMovement>().playerDead)
+        if (!GameObject.FindObjectOfType<FingerGunMan>().playerDead)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
             target = new Vector2(player.position.x, player.position.y + 1);

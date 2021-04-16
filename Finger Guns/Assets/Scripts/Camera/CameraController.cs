@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
 
     //Private
     private float interpVelocity;
+	private Vector3 currentVel = Vector3.one;
     Vector3 targetPos;
     #endregion
 
@@ -20,7 +21,7 @@ public class CameraController : MonoBehaviour
 		targetPos = transform.position;
 	}
 
-	void FixedUpdate()
+	void LateUpdate()
 	{
 		if (target)
 		{
