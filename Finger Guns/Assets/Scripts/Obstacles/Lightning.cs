@@ -85,6 +85,7 @@ public class Lightning : MonoBehaviour
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
             currentHitObject.GetComponent<FingerGunMan>().shootingEnabled = false;
             currentHitObject.GetComponent<FingerGunMan>().externalForce = true;
+            currentHitObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             StartCoroutine(currentHitObject.GetComponent<FingerGunMan>().WaitToMove());
         }
     }
