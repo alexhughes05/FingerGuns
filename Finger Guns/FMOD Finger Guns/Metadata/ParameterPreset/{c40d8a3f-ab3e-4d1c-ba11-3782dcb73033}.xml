@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{c40d8a3f-ab3e-4d1c-ba11-3782dcb73033}">
+		<property name="name">
+			<value>TutorialShift</value>
+		</property>
+		<relationship name="folder">
+			<destination>{7cd889bf-ab2f-4754-8c9e-1d365fa30014}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{bb422dfe-b4c4-447a-af11-ad641f28c075}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{bb422dfe-b4c4-447a-af11-ad641f28c075}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

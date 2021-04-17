@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Blade
+  - Lightning
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -13,16 +17,16 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Platform
+  - Player
+  - Player Bullets
+  - Enemy
+  - Enemy Bullets
+  - Detection Circle
+  - Blade
+  - Lightning
+  - Text
   - 
   - 
   - 
@@ -40,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1513558609
+    locked: 0
+  - name: Foreground
+    uniqueID: 1911060357
     locked: 0

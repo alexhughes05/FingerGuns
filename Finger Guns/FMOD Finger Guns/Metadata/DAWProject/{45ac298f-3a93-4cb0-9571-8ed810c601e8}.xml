@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DAWProject" id="{45ac298f-3a93-4cb0-9571-8ed810c601e8}">
+		<property name="assetPath">
+			<value>FingerGuns_Prototyping.rpp.link/</value>
+		</property>
+		<property name="dawProjectPath">
+			<value>C:/Everything Musical/Reaper Projects/Game Audio/Finger Guns/FingerGuns_Prototyping/FingerGuns_Prototyping.rpp</value>
+		</property>
+		<property name="renderedAssetsPath">
+			<value>Bounces</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e22e4c50-09ac-4ef4-986b-8c98412ee9e2}</destination>
+		</relationship>
+	</object>
+</objects>
