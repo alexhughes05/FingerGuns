@@ -925,7 +925,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1616
+      value: -0.3673
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -985,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.y
-      value: 7.9970193
+      value: 7.174046
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -1622,7 +1622,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32422304
+      value: -0.6596
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -1682,7 +1682,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.y
-      value: 12.164844
+      value: 10.823202
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -1722,7 +1722,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32422304
+      value: -0.559
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -1782,7 +1782,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.y
-      value: 12.164844
+      value: 11.225695
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -3475,7 +3475,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66.75165
+      value: 66.9488
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -3535,7 +3535,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.x
-      value: 31.97694
+      value: 24.089931
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -3837,7 +3837,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8146
+      value: -1.1376
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -3897,7 +3897,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.y
-      value: 10.810067
+      value: 9.518145
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -3918,7 +3918,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh66578
+  m_Name: pb_Mesh18606
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4141,7 +4141,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh66688
+  m_Name: pb_Mesh18716
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4636,6 +4636,11 @@ PrefabInstance:
       propertyPath: cameraTarget
       value: 
       objectReference: {fileID: 460036166}
+    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: jumpForce
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: timeManager

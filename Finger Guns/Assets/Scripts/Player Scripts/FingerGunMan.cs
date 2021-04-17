@@ -155,6 +155,7 @@ public class FingerGunMan : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(externalForce);
         //If the player is moving and stops super quickly and jumps, there is a brief period where 2 buttons are being pressed (space and either a or d).
         //This would trigger the flip animation even when you want to jump. To eliminate this, a flip threshhold is created to specify a certain amount
         //of time the flip input must be help to be registered as a flip and not a jump.
@@ -169,7 +170,6 @@ public class FingerGunMan : MonoBehaviour
         //Flip Player and leaves dust effect if mouse goes to the other side of the player. Determined in PlayerWeapon Script.
         if (flipPlayer)
         {
-            //CreateDust();
             ChangeDirection();
         }
 
@@ -230,7 +230,10 @@ public class FingerGunMan : MonoBehaviour
             {
                 anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
             }
-            rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y);
+            if (playerCrouched)
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);
+            else
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y);
         }
         else if (!externalForce)
         {
@@ -462,8 +465,11 @@ public class FingerGunMan : MonoBehaviour
         Debug.DrawRay(col.bounds.center - new Vector3(0, col.bounds.extents.x, col.bounds.extents.y + extraHeight), Vector2.right * (col.bounds.extents.x), rayColor);
 
         //Manage hang time 
-        if (raycastHit.collider != null) //If grounded (raycast hit something)
+        if (raycastHit.collider != null) { //If grounded (raycast hit something)
+            if (rb2d.velocity.y <= 0) //Set flipping to false once you land. the == 0 accounts for flipping into a wall where your y velocity never becomes negative and landing is never triggered.
+                flipping = false;
             coyoteCounter = coyoteTime;
+        }
         else
         {
             coyoteCounter -= Time.deltaTime;

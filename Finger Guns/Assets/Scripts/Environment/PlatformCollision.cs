@@ -29,7 +29,7 @@ public class PlatformCollision : MonoBehaviour
         /* Else if player's feet don't touch a platform, ignore the collision
          * This enable the player to run through platforms 
          */
-        else if (!Physics2D.OverlapCircle(groundCheck.position, 1f, platformLayer))
+        else if (!Physics2D.OverlapCircle(groundCheck.position, 0.5f, platformLayer))
         {
             Physics2D.IgnoreLayerCollision(9, 10, true);
         }
