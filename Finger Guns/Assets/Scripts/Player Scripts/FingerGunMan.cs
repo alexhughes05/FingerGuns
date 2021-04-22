@@ -57,7 +57,7 @@ public class FingerGunMan : MonoBehaviour
     //[FMODUnity.EventRef]
     [SerializeField] string footstepSounds;
 
-    //Other Private Variables
+    //Private Variables
     private Rigidbody2D rb2d;
     private Collider2D col;
     private PlayerHealth health;
@@ -69,13 +69,20 @@ public class FingerGunMan : MonoBehaviour
     private bool flipRightInput;
     private bool flipLeftInput;
     private bool jumpInput;
+    private bool crouchInput;
+    private bool leftSlideInput;
+    private bool rightSlideInput;
     private bool playerCrouched;
     private bool playerSliding;
     private PlayerControls playerControls;
     [SerializeField] private LayerMask groundLayer;
     private float timeTillNextSlide;
+    private Coroutine co;
     private bool currentlyFalling;
+    private bool slowerMovementInAir;
     private bool flipping;
+    private bool inBackflip;
+    private bool inSomersault;
     private bool wasGrounded;
     private float currentAFKTime;
     private float jumpTimer;
@@ -129,21 +136,46 @@ public class FingerGunMan : MonoBehaviour
         //----------------------------------PLAYER INPUT EVENTS---------------------------------------// 
 
         //Jump
-        playerControls.Gameplay.Jump.performed += _ => jumpTimer = Time.time + jumpDelay;
+        playerControls.Gameplay.Jump.performed += _ =>
+        {
+            jumpTimer = Time.time + jumpDelay;
+            slowerMovementInAir = true;
+        };
 
         //Crouch
-        playerControls.Gameplay.Crouch.performed += _ => Crouch();
+        playerControls.Gameplay.Crouch.started += _ => crouchInput = true;
         playerControls.Gameplay.Crouch.canceled += _ =>
         {
+            crouchInput = false;
             playerCrouched = false;
             anim.SetBool("Crouch", false);
         };
 
         //SlideLeft
-        playerControls.Gameplay.SlideLeft.performed += _ => StartCoroutine(SlideLeft());
+        playerControls.Gameplay.SlideLeft.performed += _ => leftSlideInput = true;
+        playerControls.Gameplay.SlideLeft.canceled += _ =>
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            if (co != null)
+                StopCoroutine(co);
+            timeTillNextSlide = timeBtwSlides;
+            leftSlideInput = false;
+            playerSliding = false;
+            anim.SetBool("Slide", false);
+        };
 
         //SlideRight
-        playerControls.Gameplay.SlideRight.performed += _ => StartCoroutine(SlideRight());
+        playerControls.Gameplay.SlideRight.performed += _ => rightSlideInput = true;
+        playerControls.Gameplay.SlideRight.canceled += _ =>
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            if (co != null)
+                StopCoroutine(co);
+            timeTillNextSlide = timeBtwSlides;
+            rightSlideInput = false;
+            playerSliding = false;
+            anim.SetBool("Slide", false);
+        };
 
         //Left Flip
         playerControls.Gameplay.FlipLeft.started += _ => flipThreshholdTimer = 0;
@@ -155,7 +187,9 @@ public class FingerGunMan : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(externalForce);
+        //Checks to see if flipping animation is done. If it is, booleans are updated
+        CheckIfEndOfFlipAnim();
+
         //If the player is moving and stops super quickly and jumps, there is a brief period where 2 buttons are being pressed (space and either a or d).
         //This would trigger the flip animation even when you want to jump. To eliminate this, a flip threshhold is created to specify a certain amount
         //of time the flip input must be help to be registered as a flip and not a jump.
@@ -166,11 +200,12 @@ public class FingerGunMan : MonoBehaviour
         UpdateCoyoteCounter();  //Updates the coyoteCounter to allow hangtime when jumping off ledges.
         ResetInputs();  //Resets the jump, rightFlip, and leftFlip inputs to false.
         GetJumpOrFlipInput(); //Determines if the input pressed should be a jump, leftFlip, or rightFlip
+        PerformCrouch();  //Checks if the player is crouched, if they are the crouch animation is executed
 
         //Flip Player and leaves dust effect if mouse goes to the other side of the player. Determined in PlayerWeapon Script.
         if (flipPlayer)
         {
-            ChangeDirection();
+            ChangeDirection(); ;
         }
 
         //Decrements the slide timer. When it hits 0, the player is allowed to slide again.
@@ -193,6 +228,9 @@ public class FingerGunMan : MonoBehaviour
 
         //Performs either a jump or a flip depending on which was inputted by the player.
         PerformJumpOrFlip();
+
+        //Checks if the player is sliding, if they are ethe slide animation is executed.
+        PerformSlide();
     }
 
     public IEnumerator WaitToMove()
@@ -200,7 +238,6 @@ public class FingerGunMan : MonoBehaviour
         yield return new WaitForSeconds(1);
         shootingEnabled = true;
         externalForce = false;
-
     }
 
     #region Private Methods
@@ -226,16 +263,29 @@ public class FingerGunMan : MonoBehaviour
     {
         if (horizontalMovement.x != 0 && !externalForce)
         {
-            if (grounded)
+            if ((inSomersault && rb2d.velocity.x > 0 && facingRight) || (inSomersault && rb2d.velocity.x < 0 && !facingRight)) //When you Somersault and are facing the same direction (not moving backwards after you somersault)
             {
-                anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
+                //Debug.Log("Going faster.");
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed * 1.5f, rb2d.velocity.y); //Go slightly faster when you somersault
             }
-            if (playerCrouched)
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);
+            else if ((playerCrouched && !playerSliding) || inBackflip || slowerMovementInAir) //If you are either crouched, in a backflip, or jumping (jumping turns on slowerMovementInAir)
+            {
+                //Debug.Log("Going slower.");
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);  //Go half as fast when either of these are performed
+            }
+            else if (grounded) //When you're on the ground
+            {
+                //Debug.Log("Going normal.");
+                anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //Go normal speed when on the ground
+            }
             else
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y);
+            {
+                //Debug.Log("Going normal.");
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //If all these are false, go normal speed
+            }
         }
-        else if (!externalForce)
+        else if (!externalForce) //When no input, set walking speed back to 0
         {
             anim.SetFloat("Walking", 0);
             rb2d.velocity = new Vector2(0, rb2d.velocity.y);
@@ -267,19 +317,35 @@ public class FingerGunMan : MonoBehaviour
             Jump();
     }
 
+    private void PerformCrouch()
+    {
+        if (crouchInput && !playerCrouched && grounded)
+            Crouch();
+    }
+
+    private void PerformSlide()
+    {
+        if (leftSlideInput && !playerSliding && !flipping)
+            co = StartCoroutine(SlideLeft());
+        else if (rightSlideInput && !playerSliding && !flipping)
+            co = StartCoroutine(SlideRight());
+    }
+
     private void Jump()
     {
-        if (!flipping)
+        if (!flipping && !playerSliding)
         {
+            anim.SetBool("Crouch", false);
+            playerCrouched = false;
             anim.SetTrigger("Jump");
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+            rb2d.velocity = Vector2.zero;
             rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpTimer = 0;
         }
     }
     private void Crouch()
     {
-        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce)
+        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce && grounded)
         {
             playerCrouched = true;
             anim.SetBool("Crouch", true);
@@ -288,54 +354,74 @@ public class FingerGunMan : MonoBehaviour
 
     private void FlipLeft()
     {
-        if (!flipping)
+        if (!flipping && !playerSliding)
         {
+            rb2d.velocity = Vector2.zero;
+            anim.SetBool("Crouch", false);
+            playerCrouched = false;
             shootingEnabled = false;
             flipping = true;
             if (PlayerIsFacingRight())
             {
                 anim.SetTrigger("Backflip");
-                rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY));
+                rb2d.AddForce(new Vector2(-backflipForceX, backflipForceY), ForceMode2D.Impulse);
+                inBackflip = true;
             }
             else if (!PlayerIsFacingRight())
             {
                 anim.SetTrigger("Somersault");
-                rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY));
+                rb2d.AddForce(new Vector2(-somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+                inSomersault = true;
             }
         }
     }
     private void FlipRight()
     {
-        if (!flipping)
+        if (!flipping && !playerSliding)
         {
+            rb2d.velocity = Vector2.zero;
+            anim.SetBool("Crouch", false);
+            playerCrouched = false;
             shootingEnabled = false;
             flipping = true;
             if (PlayerIsFacingRight())
             {
                 anim.SetTrigger("Somersault");
-                rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY));
+                rb2d.AddForce(new Vector2(somersaultForceX, somersaultForceY), ForceMode2D.Impulse);
+                inSomersault = true;
             }
             else if (!PlayerIsFacingRight())
             {
                 anim.SetTrigger("Backflip");
-                rb2d.AddForce(new Vector2(backflipForceX, backflipForceY));
+                rb2d.AddForce(new Vector2(backflipForceX, backflipForceY), ForceMode2D.Impulse);
+                inBackflip = true;
             }
+        }
+    }
+    private void CheckIfEndOfFlipAnim()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Somersault") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f - jumpDelay)
+        {
+            inSomersault = false;
+            flipping = false;
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Backflip") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f - jumpDelay)
+        {
+            inBackflip = false;
+            flipping = false;
         }
     }
     private IEnumerator SlideRight()
     {
-        if (grounded && !externalForce && timeTillNextSlide <= 0 && !playerSliding && !playerCrouched)
+        if (grounded && !externalForce && timeTillNextSlide <= 0 && !playerCrouched)
         {
             if (PlayerIsFacingRight())
             {
-                rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-                externalForce = true;
                 playerSliding = true;
                 anim.SetBool("Slide", true);
                 rb2d.velocity = new Vector2(slideForce, rb2d.velocity.y);
                 yield return new WaitForSeconds(slideDuration);
-                rb2d.velocity = Vector2.zero;
-                externalForce = false;
+                rightSlideInput = false;
                 playerSliding = false;
                 anim.SetBool("Slide", false);
                 timeTillNextSlide = timeBtwSlides;
@@ -344,21 +430,18 @@ public class FingerGunMan : MonoBehaviour
     }
     private IEnumerator SlideLeft()
     {
-        if (grounded && !externalForce && timeTillNextSlide <= 0 && !playerSliding && !playerCrouched)
+        if (grounded && !externalForce && timeTillNextSlide <= 0 && !playerCrouched)
         {
             if (!PlayerIsFacingRight())
             {
-                rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-                externalForce = true;
                 playerSliding = true;
                 anim.SetBool("Slide", true);
                 rb2d.velocity = new Vector2(-slideForce, rb2d.velocity.y);
                 yield return new WaitForSeconds(slideDuration);
-                rb2d.velocity = Vector2.zero;
-                timeTillNextSlide = timeBtwSlides;
-                externalForce = false;
+                leftSlideInput = false;
                 playerSliding = false;
                 anim.SetBool("Slide", false);
+                timeTillNextSlide = timeBtwSlides;
             }
         }
     }
@@ -371,6 +454,10 @@ public class FingerGunMan : MonoBehaviour
             if (!collision.gameObject.GetComponent<Blade>().isStationary)
             {
                 health.ModifyHealth(-1);
+                anim.SetBool("Crouch", false);
+                anim.SetBool("Slide", false);
+                playerCrouched = false;
+                playerSliding = false;
                 shootingEnabled = false;
                 externalForce = true;
                 rb2d.velocity = new Vector2(-knockbackStrength, -10);
@@ -387,17 +474,18 @@ public class FingerGunMan : MonoBehaviour
     IEnumerator WaitAndStand()
     {
         bool looping = true;
+        yield return new WaitForSeconds(0.7f);
         while (looping)
         {
             if (grounded)
             {
-                yield return new WaitForSeconds(1);
                 shootingEnabled = true;
                 if (facingRight)
                     anim.SetTrigger("Stand Up");
                 else
                     anim.SetTrigger("StandUp_Forward");
                 looping = false;
+                yield return new WaitForSeconds(.2f);
                 externalForce = false;
             }
             else
@@ -407,7 +495,7 @@ public class FingerGunMan : MonoBehaviour
 
     private void DetermineIfPastFlipThreshhold()
     {
-        if (flipThreshholdTimer > .04f)
+        if (flipThreshholdTimer > .05f)
             flipInsteadOfJump = true;
         else
             flipInsteadOfJump = false;
@@ -443,7 +531,7 @@ public class FingerGunMan : MonoBehaviour
     }
     private void StopFrictionIfGrounded()
     {
-        if (grounded)
+        if (grounded && !flipping)
             rb2d.sharedMaterial = frictionMaterial;
         else
             rb2d.sharedMaterial = noFrictionMaterial;
@@ -465,9 +553,10 @@ public class FingerGunMan : MonoBehaviour
         Debug.DrawRay(col.bounds.center - new Vector3(0, col.bounds.extents.x, col.bounds.extents.y + extraHeight), Vector2.right * (col.bounds.extents.x), rayColor);
 
         //Manage hang time 
-        if (raycastHit.collider != null) { //If grounded (raycast hit something)
-            if (rb2d.velocity.y <= 0) //Set flipping to false once you land. the == 0 accounts for flipping into a wall where your y velocity never becomes negative and landing is never triggered.
-                flipping = false;
+        if (raycastHit.collider != null)
+        { //If grounded (raycast hit something)
+            //if (rb2d.velocity.y <= 0) //Set flipping to false once you land. the == 0 accounts for flipping into a wall where your y velocity never becomes negative and landing is never triggered.
+                //flipping = false; //need to change when flipping is set to false
             coyoteCounter = coyoteTime;
         }
         else
@@ -536,8 +625,7 @@ public class FingerGunMan : MonoBehaviour
 
     private bool PlayerFalling()
     {
-        //-2.8 chosen instead of 0 to make sure player is actually falling. Before sometimes it would glitch and trigger falling even when player wasn't actually falling.
-        if (rb2d.velocity.y < -2.8 && !grounded && !flipping && !externalForce)
+        if (rb2d.velocity.y < 0 && !grounded && !flipping && !externalForce)
         {
             currentlyFalling = true;
             return true;
@@ -551,12 +639,12 @@ public class FingerGunMan : MonoBehaviour
 
     private bool PlayerLanding()
     {
-        if (wasGrounded && grounded && rb2d.velocity.y == 0 && !externalForce) //came from the air, now grounded
+        if (wasGrounded && grounded && rb2d.velocity.y == 0 && !externalForce && !flipping) //came from the air, now grounded
         {
             shootingEnabled = true;
             currentlyFalling = false;
             wasGrounded = false;
-            flipping = false;
+            slowerMovementInAir = false;
             return true;
         }
         else
