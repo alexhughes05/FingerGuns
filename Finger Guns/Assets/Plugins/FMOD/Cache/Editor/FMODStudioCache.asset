@@ -34,7 +34,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.bank
   Name: Master
-  lastModified: 637542205947141083
+  lastModified: 637495411662456598
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -111,6 +111,26 @@ MonoBehaviour:
   m_Name: parameter:/Music/GameStarted
   m_EditorClassIdentifier: 
   Name: GameStarted
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &-5448026995881462040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/TutorialShift
+  m_EditorClassIdentifier: 
+  Name: TutorialShift
   Min: 0
   Max: 1
   Default: 0
@@ -301,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637542205947161349
+  lastModified: 637494168508531478
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -350,8 +370,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 4654850499458519636}
-  - {fileID: -9206883557345054837}
+  - {fileID: -5448026995881462040}
+  - {fileID: 1208713439846958571}
   MinDistance: 0
   MaxDistance: 0
   Length: 81103
@@ -419,7 +439,7 @@ MonoBehaviour:
   - {fileID: -8377310224905248757}
   StringsBanks:
   - {fileID: -1134781285750565579}
-  stringsBankWriteTime: 637542205947161349
+  stringsBankWriteTime: 637494168508531478
   cacheVersion: 5
 --- !u!114 &397295174097014226
 MonoBehaviour:
@@ -452,6 +472,26 @@ MonoBehaviour:
   m_Name: parameter:/Music/TutorialShift
   m_EditorClassIdentifier: 
   Name: TutorialShift
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &1208713439846958571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/GameStarted
+  m_EditorClassIdentifier: 
+  Name: GameStarted
   Min: 0
   Max: 1
   Default: 0
