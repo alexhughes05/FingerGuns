@@ -263,7 +263,13 @@ public class FingerGunMan : MonoBehaviour
     {
         if (horizontalMovement.x != 0 && !externalForce)
         {
-            if ((inSomersault && rb2d.velocity.x > 0 && facingRight) || (inSomersault && rb2d.velocity.x < 0 && !facingRight)) //When you Somersault and are facing the same direction (not moving backwards after you somersault)
+            if (grounded && !playerCrouched && !flipping) //When you're on the ground
+            {
+                //Debug.Log("Going normal.");
+                anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
+                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //Go normal speed when on the ground
+            }
+            else if ((inSomersault && rb2d.velocity.x > 0 && facingRight) || (inSomersault && rb2d.velocity.x < 0 && !facingRight)) //When you Somersault and are facing the same direction (not moving backwards after you somersault)
             {
                 //Debug.Log("Going faster.");
                 rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed * 1.5f, rb2d.velocity.y); //Go slightly faster when you somersault
@@ -272,12 +278,6 @@ public class FingerGunMan : MonoBehaviour
             {
                 //Debug.Log("Going slower.");
                 rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);  //Go half as fast when either of these are performed
-            }
-            else if (grounded) //When you're on the ground
-            {
-                //Debug.Log("Going normal.");
-                anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //Go normal speed when on the ground
             }
             else
             {
