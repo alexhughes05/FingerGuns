@@ -458,6 +458,9 @@ public class FingerGunMan : MonoBehaviour
                 anim.SetBool("Slide", false);
                 playerCrouched = false;
                 playerSliding = false;
+                flipping = false;
+                inBackflip = false;
+                inSomersault = false;
                 shootingEnabled = false;
                 externalForce = true;
                 rb2d.velocity = new Vector2(-knockbackStrength, -10);
