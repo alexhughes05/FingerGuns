@@ -4428,16 +4428,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerGunManSeparateHand_NewColliderSetup
       objectReference: {fileID: 0}
-    - target: {fileID: 6091807669124138299, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.004573509
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091807669124138299, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.0068176314
-      objectReference: {fileID: 0}
     - target: {fileID: 8618515013885771456, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: cameraTarget
@@ -4445,39 +4435,9 @@ PrefabInstance:
       objectReference: {fileID: 460036166}
     - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
-      propertyPath: jumpForce
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: slideForce
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 1611968135}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: backflipForceX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: backflipForceY
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: somersaultForceX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: somersaultForceY
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 8618515014950449448, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: hearts.Array.data[0]
@@ -4503,35 +4463,5 @@ PrefabInstance:
       propertyPath: hearts.Array.data[4]
       value: 
       objectReference: {fileID: 1113920499}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
-      value: 0.9104387
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].y
-      value: 0.9103802
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[1].m_ColliderPaths.Array.data[0].Array.data[0].Y
-      value: 4530877
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[1].m_ColliderPaths.Array.data[0].Array.data[1].Y
-      value: 9104387
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[1].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: 9104095
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[1].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: 4530878
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4647196bfadc0a84d92225139b383cfe, type: 3}

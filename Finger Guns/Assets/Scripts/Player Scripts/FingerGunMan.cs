@@ -260,7 +260,7 @@ public class FingerGunMan : MonoBehaviour
 
     private void PerformWalking()
     {
-        if (horizontalMovement.x != 0 && !externalForce)
+        if (horizontalMovement.x != 0 && !externalForce && !playerSliding)
         {
             if (grounded && !playerCrouched && !flipping) //When you're on the ground
             {
@@ -273,7 +273,7 @@ public class FingerGunMan : MonoBehaviour
                 //Debug.Log("Going faster.");
                 rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed * 1.5f, rb2d.velocity.y); //Go slightly faster when you somersault
             }
-            else if ((playerCrouched && !playerSliding) || inBackflip || slowerMovementInAir) //If you are either crouched, in a backflip, or jumping (jumping turns on slowerMovementInAir)
+            else if ((playerCrouched) || inBackflip || slowerMovementInAir) //If you are either crouched, in a backflip, or jumping (jumping turns on slowerMovementInAir)
             {
                 //Debug.Log("Going slower.");
                 rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);  //Go half as fast when either of these are performed
@@ -284,7 +284,7 @@ public class FingerGunMan : MonoBehaviour
                 rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //If all these are false, go normal speed
             }
         }
-        else if (!externalForce) //When no input, set walking speed back to 0
+        else if (!externalForce && !playerSliding) //When no input, set walking speed back to 0
         {
             anim.SetFloat("Walking", 0);
             rb2d.velocity = new Vector2(0, rb2d.velocity.y);
@@ -324,7 +324,15 @@ public class FingerGunMan : MonoBehaviour
 
     private void PerformSlide()
     {
-        if (leftSlideInput && !playerSliding && !flipping)
+        if (playerSliding && rb2d.velocity.x < 5) //If the player is sliding but runs into a wall and stops. Want to cancel the slide animation and go into a crouch.
+        {
+            leftSlideInput = false;
+            rightSlideInput = false;
+            playerSliding = false;
+            anim.SetBool("Slide", false);
+            Crouch();
+        }
+        else if (leftSlideInput && !playerSliding && !flipping)
             co = StartCoroutine(SlideLeft());
         else if (rightSlideInput && !playerSliding && !flipping)
             co = StartCoroutine(SlideRight());
@@ -557,8 +565,8 @@ public class FingerGunMan : MonoBehaviour
         //Manage hang time 
         if (raycastHit.collider != null)
         { //If grounded (raycast hit something)
-            //if (rb2d.velocity.y <= 0) //Set flipping to false once you land. the == 0 accounts for flipping into a wall where your y velocity never becomes negative and landing is never triggered.
-                //flipping = false; //need to change when flipping is set to false
+          //if (rb2d.velocity.y <= 0) //Set flipping to false once you land. the == 0 accounts for flipping into a wall where your y velocity never becomes negative and landing is never triggered.
+          //flipping = false; //need to change when flipping is set to false
             coyoteCounter = coyoteTime;
         }
         else
