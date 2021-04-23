@@ -189,7 +189,6 @@ public class FingerGunMan : MonoBehaviour
     {
         //Checks to see if flipping animation is done. If it is, booleans are updated
         CheckIfEndOfFlipAnim();
-
         //If the player is moving and stops super quickly and jumps, there is a brief period where 2 buttons are being pressed (space and either a or d).
         //This would trigger the flip animation even when you want to jump. To eliminate this, a flip threshhold is created to specify a certain amount
         //of time the flip input must be help to be registered as a flip and not a jump.
@@ -345,7 +344,7 @@ public class FingerGunMan : MonoBehaviour
     }
     private void Crouch()
     {
-        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce && grounded)
+        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce && grounded && !flipping)
         {
             playerCrouched = true;
             anim.SetBool("Crouch", true);
