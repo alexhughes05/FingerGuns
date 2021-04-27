@@ -10,6 +10,9 @@ public class FingerGunMan : MonoBehaviour
 
     //Public Variables'
     [Space()]
+    [Header("Testing Variables")]
+    [SerializeField] bool allowFlipDodging;
+    [Space()]
     [Header("BodyParts")]
     [SerializeField] Transform head;
     [SerializeField] Transform feet;
@@ -303,9 +306,22 @@ public class FingerGunMan : MonoBehaviour
         if (!flipping && !playerSliding)
         {
             if (flipRightInput)
+            {
+                if (allowFlipDodging)
+                {
+                    Debug.Log("executed.");
+                    Physics2D.IgnoreLayerCollision(10, 13, true);
+                }
                 FlipRight();
+            }
             else if (flipLeftInput)
+            {
+                if (allowFlipDodging)
+                {
+                    Physics2D.IgnoreLayerCollision(10, 13, true);
+                }
                 FlipLeft();
+            }
             else if (jumpInput)
                 Jump();
         }
@@ -409,11 +425,13 @@ public class FingerGunMan : MonoBehaviour
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Somersault") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f - jumpDelay)
         {
+            Physics2D.IgnoreLayerCollision(10, 13, false);
             inSomersault = false;
             flipping = false;
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("FingerGunMan_Rig|Backflip") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f - jumpDelay)
         {
+            Physics2D.IgnoreLayerCollision(10, 13, false);
             inBackflip = false;
             flipping = false;
         }
