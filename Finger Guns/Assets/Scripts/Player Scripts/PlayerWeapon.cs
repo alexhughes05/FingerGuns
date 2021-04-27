@@ -51,7 +51,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         playerControls = new PlayerControls();
         playerHand = gameObject.transform;
-        player = GetComponentInParent<FingerGunMan>();
+        player = FindObjectOfType<FingerGunMan>();
         anim = GetComponentInParent<Animator>();
     }
 

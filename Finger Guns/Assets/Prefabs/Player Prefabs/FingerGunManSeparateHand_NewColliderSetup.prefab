@@ -378,18 +378,18 @@ CompositeCollider2D:
   - m_Collider: {fileID: 6091807669124138299}
     m_ColliderPaths:
     - - X: 3591969
-        Y: 4530880
+        Y: 4530877
       - X: 3591969
-        Y: 9411743
+        Y: 9104387
       - X: -3592260
-        Y: 9411451
+        Y: 9104095
       - X: -3591967
-        Y: 4530881
+        Y: 4530878
   m_CompositePaths:
     m_Paths:
     - - {x: 0.35916752, y: 0.0083648}
-      - {x: 0.3591676, y: 0.9411743}
-      - {x: -0.35922602, y: 0.9411158}
+      - {x: 0.3591676, y: 0.9104387}
+      - {x: -0.35922602, y: 0.9103802}
       - {x: -0.35916752, y: 0.0083648}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
@@ -405,22 +405,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b92fcc77f80b694b933827e05ebf799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 6703250751403859292}
+  feet: {fileID: 4581092567451127662}
   frictionMaterial: {fileID: 6200000, guid: bcd1c0fb9c7ab41499ea0bbdcce5d2a7, type: 2}
   noFrictionMaterial: {fileID: 6200000, guid: 46207e1a4a8f8654f9198d161496849e, type: 2}
   maxSpeed: 15
-  jumpForce: 15
+  jumpForce: 13
   jumpDelay: 0.25
   coyoteTime: 0.2
-  somersaultForceX: 1500
-  somersaultForceY: 600
-  backflipForceX: 400
-  backflipForceY: 1000
+  somersaultForceX: 10
+  somersaultForceY: 12
+  backflipForceX: 10
+  backflipForceY: 20
   slideForce: 20
   slideDuration: 0.7
   timeBtwSlides: 0.2
   knockbackStrength: 20
   gravity: 4
   fallMultiplier: 2.5
+  maxFallSpeed: 35
   dust: {fileID: 8618515014351067276}
   dustEmissionRate: 15
   impactEffect: {fileID: 8618515014531358484}
@@ -481,7 +484,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 0.006971311, y: 0}
+  m_Offset: {x: 0.0068176314, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -492,7 +495,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0048808623, y: 0.0071845227}
+  m_Size: {x: 0.004573509, y: 0.0071845227}
   m_EdgeRadius: 0
 --- !u!1 &5594913861093351290
 GameObject:

@@ -6,7 +6,7 @@ public class AIShoot : MonoBehaviour
 {
     #region Variables
     //Components
-    FingerGunMan playerMovement;
+    FingerGunMan fingerGunMan;
 
     //Public
     public Transform firePoint;
@@ -15,19 +15,22 @@ public class AIShoot : MonoBehaviour
 
     //Private
     private float currentTimeBtwShots;
-    private bool shooting;
+    #endregion
+
+    #region Properties
+    public bool Shooting { get; set; }
     #endregion
 
     #region Monobehaviour Callbacks
     void Start()
     {
         currentTimeBtwShots = timeBtwShots;
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
+        fingerGunMan = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
     }
 
     void Update()
     {
-        if(shooting && !playerMovement.playerDead)
+        if(Shooting && !fingerGunMan.playerDead)
         {
             Shoot();
         }
@@ -39,14 +42,16 @@ public class AIShoot : MonoBehaviour
         {
             firePoint.Rotate(collision.transform.position);
             //If player is not dead, enemy can shoot
-            if(!collision.gameObject.GetComponentInParent<FingerGunMan>().playerDead)
-                shooting = true;
+            if (!collision.gameObject.GetComponentInParent<FingerGunMan>().playerDead && fingerGunMan.externalForce == false)
+                Shooting = true;
+            else
+                Shooting = false;
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        shooting = false;
+        Shooting = false;
     }
     #endregion
 
