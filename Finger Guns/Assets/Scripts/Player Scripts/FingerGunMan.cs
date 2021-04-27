@@ -352,7 +352,7 @@ public class FingerGunMan : MonoBehaviour
     }
     private void Crouch()
     {
-        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce && grounded)
+        if ((rb2d.velocity.x == 0 || MovingBackwards()) && !playerSliding && !externalForce && grounded && !flipping)
         {
             playerCrouched = true;
             anim.SetBool("Crouch", true);
