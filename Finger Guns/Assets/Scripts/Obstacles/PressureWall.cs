@@ -28,24 +28,23 @@ public class PressureWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shape = ps.shape;
+        shape = ps.shape;  //Alows you to modify the boundaries of the particle system
     }
 
     public float GetPressureWallXPos()
     {
-        return (transform.position.x + size);
+        return (transform.position.x + size); //The x position of the pressure wall is the current position + the size (however much it has expanded)
     }
 
     // Update is called once per frame
     void Update()
     {
-        size += (speedOfWall * Time.deltaTime);
-        offset = size * 0.5f;
-        col.offset = new Vector2(offset, col.offset.y);
-        col.size = new Vector2(size, col.size.y);
-        col.size = new Vector2(size, col.size.y);
+        size += (speedOfWall * Time.deltaTime); //The wall is expanded based on the speed. A higher speed will expand it faster
+        offset = size * 0.5f;  //In order to keep the collider bounded on the left, the offset has to be half the amount of the size. This will allow it to only expand in the right direction.
+        col.offset = new Vector2(offset, col.offset.y); //set the offset of the collider
+        col.size = new Vector2(size, col.size.y);  //set the size of the collider
         //particle effect
-        shape.position = new Vector2(offset * 2f, shape.position.y);
+        shape.position = new Vector2(offset * 2f, shape.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -53,7 +52,7 @@ public class PressureWall : MonoBehaviour
         if (collision.CompareTag("Player") && !playerDead && !coroutineStarted)
         {
             coroutineStarted = true;
-            co = StartCoroutine(HurtPlayer());
+            co = StartCoroutine(HurtPlayer());  //Do damage to the player when you are inside the pressure wall
         }
     }
 
@@ -61,7 +60,7 @@ public class PressureWall : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !playerDead)
         {
-            StopCoroutine(co);
+            StopCoroutine(co);  //Stop doing damage once out of the pressure wall
             coroutineStarted = false;
         }
     }
@@ -70,7 +69,7 @@ public class PressureWall : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(timeBtwDamageTicks);
+            yield return new WaitForSeconds(timeBtwDamageTicks); //How often the player should be damaged
             playerHealth.ModifyHealth(-1);
             if (playerHealth.GetHealth() <= 0)
             {

@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
     void Start()
     {
         fingerGunMan = FindObjectOfType<FingerGunMan>();
-        if (!fingerGunMan.playerDead)
+        if (!fingerGunMan.PlayerDead)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
             target = new Vector2(player.position.x, player.position.y + 1);
@@ -48,7 +48,7 @@ public class EnemyProjectile : MonoBehaviour
             collision.gameObject.layer != 9)
             Destroy(gameObject);
 
-        if (collision.gameObject.layer == 10 && fingerGunMan.externalForce == false)
+        if (collision.gameObject.layer == 10 && fingerGunMan.ExternalForce == false)
         {
             collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
             collision.GetComponentInParent<PlayerHealth>().ModifyHealth(-1);

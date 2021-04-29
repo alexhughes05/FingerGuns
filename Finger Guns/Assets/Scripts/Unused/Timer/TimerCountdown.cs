@@ -6,9 +6,9 @@ using TMPro;
 
 public class TimerCountdown : MonoBehaviour
 {
-    public TextMeshProUGUI textDisplay;
-    public int startTime = 30;
-    public bool takingAway = false;
+    [SerializeField] TextMeshProUGUI textDisplay;
+    [SerializeField] int startTime = 30;
+    [SerializeField] bool takingAway = false;
 
     [HideInInspector] public float timeLeft;
     private float currentTime;

@@ -30,7 +30,7 @@ public class AIShoot : MonoBehaviour
 
     void Update()
     {
-        if(Shooting && !fingerGunMan.playerDead)
+        if(Shooting && !fingerGunMan.PlayerDead)
         {
             Shoot();
         }
@@ -42,7 +42,7 @@ public class AIShoot : MonoBehaviour
         {
             firePoint.Rotate(collision.transform.position);
             //If player is not dead, enemy can shoot
-            if (!collision.gameObject.GetComponentInParent<FingerGunMan>().playerDead && fingerGunMan.externalForce == false)
+            if (!collision.gameObject.GetComponentInParent<FingerGunMan>().PlayerDead && fingerGunMan.ExternalForce == false)
                 Shooting = true;
             else
                 Shooting = false;

@@ -2289,6 +2289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
+      propertyPath: coyoteTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 0}
@@ -2296,6 +2301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxFallSpeed
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: allowFlipDodging
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8618515014950449448, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}

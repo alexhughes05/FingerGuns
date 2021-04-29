@@ -9,29 +9,19 @@ public class PlayerWeapon : MonoBehaviour
 
     //Public
     [Header("Firepoints")]
-    public Transform firePoint;
-    public Transform sprayPoint1;
-    public Transform sprayPoint2;
+    [SerializeField] Transform firePoint;
     [Space()]
     [Header("Bullet Prefabs")]
-    public GameObject bullet;
-    public GameObject fastBullet;
-    public GameObject homingBullet;
-    public GameObject sprayBullet;
-    public GameObject blastBullet;
+    [SerializeField] GameObject bullet;
     [Space()]
-    [Header("Firerates")]
-    public float regularBulletRate = 0.5f;
-    public float fastBulletRate = 0.5f;
-    public float homingBulletRate = 0.5f;
-    public float sprayBulletRate = 0.5f;
-    public float blastBulletRate = 0.5f;
+    [Header("Firerate")]
+    [SerializeField] float fireRate = 0.5f;
     [Space()]
     [Header("Camera")]
-    public Transform cameraTarget;
-    public float lookAheadAmount = 5f, lookAheadSpeed = 4f;
+    [SerializeField] Transform cameraTarget;
+    [SerializeField] float lookAheadAmount = 5f, lookAheadSpeed = 4f;
     [Space()]
-    [Header("SFX")]    
+    [Header("SFX")]
     private FMOD.Studio.EventInstance instance;
     [FMODUnity.EventRef]
     public string shootRegularSound;
@@ -40,8 +30,6 @@ public class PlayerWeapon : MonoBehaviour
     private PlayerControls playerControls;
     private Transform playerHand;
     private Vector3 mousePosition;
-    [Range(1,5)]
-    private int weaponSelect = 1;
     private float currentFireRate;
     private float currentFireTime;
     #endregion
@@ -69,7 +57,6 @@ public class PlayerWeapon : MonoBehaviour
     {
         GetInput();
         Aim();
-        WeaponSwitch();
     }
     #endregion
 
@@ -82,7 +69,7 @@ public class PlayerWeapon : MonoBehaviour
         //Shooting
         if (currentFireTime <= 0)
         {
-            if (playerControls.Gameplay.Shoot.triggered && player.shootingEnabled)
+            if (playerControls.Gameplay.Shoot.triggered && player.ShootingEnabled)
             {
                 Shoot();
                 currentFireTime = currentFireRate;
@@ -99,7 +86,7 @@ public class PlayerWeapon : MonoBehaviour
         //Aim Hand
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle;
-        if (player.facingRight)
+        if (player.FacingRight)
             angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         else
             angle = Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg;
@@ -112,79 +99,32 @@ public class PlayerWeapon : MonoBehaviour
             cameraTarget.localPosition.y, cameraTarget.localPosition.z);
 
         //Player Flip Conditions
-        if (player.facingRight)
+        if (player.FacingRight)
         {
             if (angle < -90 || angle > 90)
-                player.flipPlayer = true;
+                player.FlipPlayer = true;
             else
-                player.flipPlayer = false;
+                player.FlipPlayer = false;
         }
         else
         {
             if (angle < -90 || angle > 90)
-                player.flipPlayer = true;
+                player.FlipPlayer = true;
             else
-                player.flipPlayer = false;
+                player.FlipPlayer = false;
         }
     }
 
     private void Shoot()
-    {        
-        switch (weaponSelect)
-        {
-            case 1:
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
-                currentFireRate = regularBulletRate;
-                break;
-            case 2:
-                Instantiate(fastBullet, firePoint.position, firePoint.rotation);
-                currentFireRate = fastBulletRate;
-                break;
-            case 3:
-                Instantiate(homingBullet, firePoint.position, firePoint.rotation);
-                currentFireRate = homingBulletRate;
-                break;
-            case 4:
-                Instantiate(sprayBullet, firePoint.position, firePoint.rotation);
-                Instantiate(sprayBullet, sprayPoint1.position, sprayPoint1.rotation);
-                Instantiate(sprayBullet, sprayPoint2.position, sprayPoint2.rotation);
-                currentFireRate = sprayBulletRate;
-                break;
-            case 5:
-                Instantiate(blastBullet, firePoint.position, firePoint.rotation);
-                currentFireRate = blastBulletRate;
-                break;
-        }
+    {
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
+        currentFireRate = fireRate;
         anim.SetTrigger("Shoot");
 
         //SFX
         instance = FMODUnity.RuntimeManager.CreateInstance(shootRegularSound);
         instance.start();
         instance.release();
-    }
-    private void WeaponSwitch()
-    {
-        /*if(Input.GetButtonDown("Weapon1"))
-        {
-            weaponSelect = 1;
-        }
-        else if (Input.GetButtonDown("Weapon2"))
-        {
-            weaponSelect = 2;
-        }
-        else if (Input.GetButtonDown("Weapon3"))
-        {
-            weaponSelect = 3;
-        }
-        else if (Input.GetButtonDown("Weapon4"))
-        {
-            weaponSelect = 4;
-        }
-        else if (Input.GetButtonDown("Weapon5"))
-        {
-            weaponSelect = 5;
-        }
-        */
     }
     #endregion
 }

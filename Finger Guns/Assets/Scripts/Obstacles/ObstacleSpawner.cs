@@ -6,8 +6,8 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    Blade blade;
-    Lightning lightning;
+    private Blade blade;
+    private Lightning lightning;
     
     IEnumerator Start()
     {
