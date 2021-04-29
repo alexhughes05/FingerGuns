@@ -6,7 +6,7 @@ public class DetectionCircle : MonoBehaviour
 {
     private AIPatrol patrolScript;
 
-    void Start()
+    private void Awake()
     {
         patrolScript = GetComponentInParent<AIPatrol>();
     }
@@ -14,12 +14,12 @@ public class DetectionCircle : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-            patrolScript.patrolling = false;
+            patrolScript.Patrolling = false;
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-            patrolScript.patrolling = true;
+            patrolScript.Patrolling = true;
     }
 }

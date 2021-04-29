@@ -6,7 +6,7 @@ public class EnemyProjectile : MonoBehaviour
 {
     #region Variables
     //Public
-    public float speed;
+    [SerializeField] float speed;
 
     //Private
     private Transform player;
@@ -15,12 +15,16 @@ public class EnemyProjectile : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks
-    void Start()
+
+    private void Awake()
     {
         fingerGunMan = FindObjectOfType<FingerGunMan>();
+    }
+    void Start()
+    {
         if (!fingerGunMan.PlayerDead)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             target = new Vector2(player.position.x, player.position.y + 1);
 
             //Point towards target position
@@ -36,7 +40,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-        if(transform.position.x == target.x && transform.position.y == target.y)
+        if (transform.position.x == target.x && transform.position.y == target.y)
         {
             Destroy(gameObject);
         }
@@ -44,7 +48,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag != "Enemy" &&
+        if (!collision.gameObject.CompareTag("Enemy") &&
             collision.gameObject.layer != 9)
             Destroy(gameObject);
 

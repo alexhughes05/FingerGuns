@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class Blade : MonoBehaviour
 {
+    #region Variables
+    //public
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
     [SerializeField] float speedOfSpin;
     [SerializeField] float moveSpeed;
-    public bool isStationary;
     [SerializeField] GameObject[] pathsPrefab;
-    [HideInInspector] public GameObject selectedPath;
-    Rigidbody2D rgbd;
+    
+    //Components
+    private Rigidbody2D rgbd;
+    #endregion
 
-    public void Start()
+    private void Awake()
     {
         rgbd = GetComponent<Rigidbody2D>();
     }
 
-    public void Update()
+    void Update()
     {
         MoveBlade();
     }
@@ -42,9 +45,15 @@ public class Blade : MonoBehaviour
         rgbd.velocity = new Vector2(-moveSpeed, 0);
         rgbd.rotation += speedOfSpin * Time.deltaTime;
         var destroyPos = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        if (transform.position.x <= destroyPos.x && !isStationary)
+        if (transform.position.x <= destroyPos.x && !IsStationary)
         {
             Destroy(gameObject);
         }
     }
+
+    //Properties
+    public bool IsStationary { get; set; }
+
+    public GameObject SelectedPath { get; set; }
 }
+

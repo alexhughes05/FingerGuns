@@ -476,7 +476,7 @@ public class FingerGunMan : MonoBehaviour
     }
     private void UpsideDownCheck()
     {
-        if ((Mathf.Round((head.position.y - feet.position.y) * 100f) / 100f) < 1.75f) //if the y position between the head and feet is < 1.75 units, player is declared as upside down
+        if ((Mathf.Round((head.position.y - feet.position.y) * 100f) / 100f) < 1.75f && !ExternalForce) //if the y position between the head and feet is < 1.75 units, player is declared as upside down
             PlayerUpsideDown = true;
         else
             PlayerUpsideDown = false;
@@ -487,7 +487,7 @@ public class FingerGunMan : MonoBehaviour
         //THIS IS ONLY EXECUTED WHEN THE PLAYER IS HIT BY A BLADE
         if (collision.gameObject.layer == 15)
         {
-            if (!collision.gameObject.GetComponent<Blade>().isStationary)
+            if (!collision.gameObject.GetComponent<Blade>().IsStationary)
             {
                 health.ModifyHealth(-1);
                 Anim.SetBool("Crouch", false);
@@ -518,6 +518,7 @@ public class FingerGunMan : MonoBehaviour
         {
             if (grounded)
             {
+                Debug.Log("grounded");
                 ShootingEnabled = true;
                 if (FacingRight)
                     Anim.SetTrigger("Stand Up");
