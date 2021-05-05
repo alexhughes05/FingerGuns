@@ -263,7 +263,7 @@ public class FingerGunMan : MonoBehaviour
 
     private void PerformWalking()
     {
-        if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding)  //If external force is enabled (enabled by any obstacle such as a blade or lightning), the player is unable to move
+        if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.GetHealth() > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
         {
             if (grounded && !playerCrouched && !flipping)
             {

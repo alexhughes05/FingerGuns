@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     //Private
     private Level level;
     private int currentHealth;
+    private bool deathTriggered;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -53,8 +54,9 @@ public class PlayerHealth : MonoBehaviour
     public void ModifyHealth(int amount)
     {
         currentHealth += amount;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !deathTriggered)
         {
+            deathTriggered = true;
             GetComponent<FingerGunMan>().Anim.SetTrigger("Death");
             GetComponent<FingerGunMan>().PlayerDead = true;
             Destroy(gameObject, 1f);

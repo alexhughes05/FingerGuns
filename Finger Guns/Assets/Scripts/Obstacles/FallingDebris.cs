@@ -12,7 +12,6 @@ public class FallingDebris : MonoBehaviour
     [SerializeField] float durationOfDisaster;
     [SerializeField] float minDebrisSize;
     [SerializeField] float maxDebrisSize;
-    [SerializeField] float minSpacingBtwDebris;
     [SerializeField] float fallingRate;
     #endregion
 
@@ -34,8 +33,11 @@ public class FallingDebris : MonoBehaviour
             GameObject selectedDebris = fallingDebris[UnityEngine.Random.Range(0, fallingDebris.Length)];
             float sizeMultiplier = UnityEngine.Random.Range(minDebrisSize, maxDebrisSize);
             selectedDebris.transform.localScale = Vector2.one * sizeMultiplier;
-            Instantiate(selectedDebris, Vector3.one, Quaternion.identity); //need to change vector3.one
-            selectedDebris.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -fallingRate);
+            Vector2 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            Vector2 stageLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height));
+            Vector2 spawnLocation = new Vector2(UnityEngine.Random.Range(stageLeft.x + 1, stageDimensions.x - 1), stageDimensions.y + 1);
+            GameObject spawnedObject = Instantiate(selectedDebris, spawnLocation, Quaternion.identity);
+            spawnedObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -fallingRate);
             yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeBtwSpawns, maxTimeBtwSpawns));
         }
     }
