@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class ForegroundColliderCreation : MonoBehaviour
 {
-    #region Variables
-    
-    //public
-    [SerializeField] float padding = -0.1f;
+    public float padding = -0.1f;
 
-    //private
+    private int targetLayer;
     private float targetWidth;
     private float targetHeight;
 
     // Components
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
-    #endregion
 
     private void Awake()
     {
+        // Set gameObject's layer to "Default"
+        /*targetLayer = LayerMask.NameToLayer("Ground");
+        if (targetLayer < 0)
+        {
+            Debug.Log("Foreground objects are trying to assign themselves to the \"Ground\" layer for physics, but no such layer exists.");
+        }
+        else if (gameObject.layer != targetLayer)
+        {
+            gameObject.layer = targetLayer;
+        }*/
+
+        // Set up component dependencies
         if (GetComponent<SpriteRenderer>() == null)
         {
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
