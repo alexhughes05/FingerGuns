@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class FinishLevel : MonoBehaviour
 {
-    Level level;
-    TimerCountdown timer;
-    GameSession session;
+    #region Variables
+    //public
+    [SerializeField] int timeBonusMultiplier = 10;
 
-    public int timeBonusMultiplier = 10;
-
+    //private
+    private Level level;
+    private TimerCountdown timer;
+    private GameSession session;
+    #endregion
     void Awake()
     {
         level = FindObjectOfType<Level>();

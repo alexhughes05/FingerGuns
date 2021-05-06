@@ -1421,6 +1421,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1837733705501029835, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
+      propertyPath: heightPadding
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837733705501029835, guid: ea18fff2c09b45948a0c9072133f4747,
+        type: 3}
       propertyPath: platformThickness
       value: 0.1
       objectReference: {fileID: 0}
@@ -2465,6 +2470,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 980306056}
     m_Modifications:
+    - target: {fileID: 1837733705501029835, guid: ea18fff2c09b45948a0c9072133f4747,
+        type: 3}
+      propertyPath: heightPadding
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1837733705501029835, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: platformThickness
@@ -3794,7 +3804,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18614
+  m_Name: pb_Mesh19060
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4017,7 +4027,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18724
+  m_Name: pb_Mesh19170
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4375,6 +4385,11 @@ PrefabInstance:
     - target: {fileID: 4898762388483118181, guid: 975e1448a6ad8d94e8da24b1225265c1,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898762388483118184, guid: 975e1448a6ad8d94e8da24b1225265c1,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4898762388483118187, guid: 975e1448a6ad8d94e8da24b1225265c1,
@@ -4506,6 +4521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FingerGunManSeparateHand_NewColliderSetup
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618515013885771456, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: fireRate
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8618515013885771456, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
