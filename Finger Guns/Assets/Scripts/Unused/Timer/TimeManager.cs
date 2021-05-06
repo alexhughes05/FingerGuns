@@ -2,8 +2,8 @@
 
 public class TimeManager : MonoBehaviour
 {
-    public float slowdownFactor = 0.05f;
-    public float slowdownLength = 2f;
+    [SerializeField] float slowdownFactor = 0.05f;
+    [SerializeField] float slowdownLength = 2f;
 
     private void Update()
     {

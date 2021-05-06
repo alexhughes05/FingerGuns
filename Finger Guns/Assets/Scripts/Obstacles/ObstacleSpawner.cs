@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    #region Variables
+    //public
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    Blade blade;
-    Lightning lightning;
-    
+
+    //Components
+    private Blade blade;
+    private Lightning lightning;
+    #endregion
+
     IEnumerator Start()
     {
         do
@@ -34,8 +39,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
     {
-        blade.selectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
-        var spawnHeight = blade.selectedPath.transform.GetChild(0).position.y;
+        blade.SelectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
+        var spawnHeight = blade.SelectedPath.transform.GetChild(0).position.y;
 
         var spawnPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 5));
         spawnPoint.y = spawnHeight;
