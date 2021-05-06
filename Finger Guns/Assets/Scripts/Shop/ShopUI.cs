@@ -7,11 +7,11 @@ public class ShopUI : MonoBehaviour
 {
     #region Variables
     //Public
-    [SerializeField] TextMeshProUGUI scoreDisplay;
-    [SerializeField] GameObject confirmDialog;
-    [SerializeField] GameObject purchaseDialog;
-    [SerializeField] TextMeshProUGUI confirmMessage;
-    [SerializeField] TextMeshProUGUI purchaseMessage;
+    public TextMeshProUGUI scoreDisplay;
+    public GameObject confirmDialog;
+    public GameObject purchaseDialog;
+    public TextMeshProUGUI confirmMessage;
+    public TextMeshProUGUI purchaseMessage;
 
     //Private
     private int availablePoints;
