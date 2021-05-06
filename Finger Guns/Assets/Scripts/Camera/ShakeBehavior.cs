@@ -37,15 +37,12 @@ public class ShakeBehavior : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        if (pressureWall != null)
-        {
-            roughnessValue = 0f;
-            magnitudeValue = 0f;
-            pressureWallXPos = pressureWall.transform.position.x;
-            playerXPos = player.transform.position.x;
-            currentDistanceFromWall = playerXPos - pressureWallXPos;
-            prevDistanceFromWall = currentDistanceFromWall;
-        }
+        roughnessValue = 0f;
+        magnitudeValue = 0f;
+        pressureWallXPos = pressureWall.transform.position.x;
+        playerXPos = player.transform.position.x;
+        currentDistanceFromWall = playerXPos - pressureWallXPos;
+        prevDistanceFromWall = currentDistanceFromWall;
     }
 
     //Update is called once per frame

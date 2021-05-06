@@ -2378,11 +2378,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
-      propertyPath: coyoteTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 0}
@@ -2390,11 +2385,6 @@ PrefabInstance:
         type: 3}
       propertyPath: maxFallSpeed
       value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618515014389957236, guid: 4647196bfadc0a84d92225139b383cfe,
-        type: 3}
-      propertyPath: allowFlipDodging
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8618515014950449448, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
@@ -4389,7 +4379,7 @@ PrefabInstance:
     - target: {fileID: 6591448227755617196, guid: 561868666ca213040ad4a0652489a818,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 561868666ca213040ad4a0652489a818, type: 3}
@@ -4888,11 +4878,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pressure Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898762388483118181, guid: 975e1448a6ad8d94e8da24b1225265c1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4898762388483118184, guid: 975e1448a6ad8d94e8da24b1225265c1,
         type: 3}
@@ -7321,7 +7306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2109697656
 Transform:
   m_ObjectHideFlags: 0
