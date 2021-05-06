@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class BlinkOnDamage : MonoBehaviour
 {
-    //public
     [SerializeField] float blinkDuration = 0.05f;
     [SerializeField] float timeBetweenBlinks = 0.05f;
-
-    //components
-    private EnemyHealth health;
-    private SkinnedMeshRenderer mr;
-    
-    //private
+    EnemyHealth health;
     private Material matDamage;
     private Material matDefault;
-
-    private void Awake()
+    SkinnedMeshRenderer mr;
+    
+    void Start()
     {
         health = gameObject.GetComponent<EnemyHealth>();
         mr = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
-    }
-
-    void Start()
-    {
         matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
         matDefault = mr.material;
     }

@@ -6,7 +6,7 @@ public class EnemyProjectile : MonoBehaviour
 {
     #region Variables
     //Public
-    [SerializeField] float speed;
+    public float speed;
 
     //Private
     private Transform player;
@@ -15,16 +15,12 @@ public class EnemyProjectile : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks
-
-    private void Awake()
-    {
-        fingerGunMan = FindObjectOfType<FingerGunMan>();
-    }
     void Start()
     {
-        if (!fingerGunMan.PlayerDead)
+        fingerGunMan = FindObjectOfType<FingerGunMan>();
+        if (!fingerGunMan.playerDead)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform; //bug where player can't be found after death
             target = new Vector2(player.position.x, player.position.y + 1);
 
             //Point towards target position
@@ -40,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-        if (transform.position.x == target.x && transform.position.y == target.y)
+        if(transform.position.x == target.x && transform.position.y == target.y)
         {
             Destroy(gameObject);
         }
@@ -48,11 +44,11 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Enemy") &&
+        if(collision.gameObject.tag != "Enemy" &&
             collision.gameObject.layer != 9)
             Destroy(gameObject);
 
-        if (collision.gameObject.layer == 10 && fingerGunMan.ExternalForce == false)
+        if (collision.gameObject.layer == 10 && fingerGunMan.externalForce == false)
         {
             collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
             collision.GetComponentInParent<PlayerHealth>().ModifyHealth(-1);

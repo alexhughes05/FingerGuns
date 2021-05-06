@@ -9,9 +9,9 @@ public class AIShoot : MonoBehaviour
     FingerGunMan fingerGunMan;
 
     //Public
-    [SerializeField] Transform firePoint;
-    [SerializeField] GameObject enemyProjectile;
-    [SerializeField] float timeBtwShots;
+    public Transform firePoint;
+    public GameObject enemyProjectile;
+    public float timeBtwShots;
 
     //Private
     private float currentTimeBtwShots;
@@ -22,18 +22,15 @@ public class AIShoot : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks
-    private void Awake()
-    {
-        fingerGunMan = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
-    }
     void Start()
     {
         currentTimeBtwShots = timeBtwShots;
+        fingerGunMan = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
     }
 
     void Update()
     {
-        if(Shooting && !fingerGunMan.PlayerDead)
+        if(Shooting && !fingerGunMan.playerDead)
         {
             Shoot();
         }
@@ -45,7 +42,7 @@ public class AIShoot : MonoBehaviour
         {
             firePoint.Rotate(collision.transform.position);
             //If player is not dead, enemy can shoot
-            if (!collision.gameObject.GetComponentInParent<FingerGunMan>().PlayerDead && fingerGunMan.ExternalForce == false)
+            if (!collision.gameObject.GetComponentInParent<FingerGunMan>().playerDead && fingerGunMan.externalForce == false)
                 Shooting = true;
             else
                 Shooting = false;

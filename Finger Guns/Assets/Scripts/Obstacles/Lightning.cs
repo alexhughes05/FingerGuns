@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Lightning : MonoBehaviour
 {
-    #region Variables
-    //Public
-    [SerializeField] GameObject currentHitObject;
-    [SerializeField] float circleRadius;
-    [SerializeField] float maxDistance;
-    [SerializeField] LayerMask layerMask;
+    [HideInInspector]
+    public Animator controller;
+
+    public GameObject currentHitObject;
+    public float circleRadius;
+    public float maxDistance;
+    public LayerMask layerMask;
+    [HideInInspector]
+    public bool lightningHit = false;
     [SerializeField] float timeBeforeStrike = 0.3f;
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
@@ -17,19 +20,16 @@ public class Lightning : MonoBehaviour
     [SerializeField] int numTimesExecPerSpawn;
     [SerializeField] float durationBtwEachAnim;
     [SerializeField] GameObject player;
-    
-    //Components
     FingerGunMan playerScript;
-
-    //Private
     private bool hasFinished;
+
     private Vector2 origin;
     private Vector2 direction;
-    #endregion
+    private float currentHitDistance;
 
     private void Start()
     {
-        Controller = GetComponent<Animator>();
+        controller = GetComponent<Animator>();
         playerScript = FindObjectOfType<FingerGunMan>();
     }
 
@@ -75,7 +75,7 @@ public class Lightning : MonoBehaviour
     private IEnumerator WaitBeforeLightning()
     {
         yield return new WaitForSeconds(timeBeforeStrike);
-        Controller.SetTrigger("Lightning Strike");
+        controller.SetTrigger("Lightning Strike");
         RaycastHit2D hit;
         direction = Vector2.down;
         if (hit = Physics2D.CircleCast(origin, circleRadius, direction, maxDistance, layerMask))
@@ -83,17 +83,10 @@ public class Lightning : MonoBehaviour
             currentHitObject = hit.transform.gameObject;
             currentHitObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
             currentHitObject.GetComponent<Animator>().SetTrigger("Take Damage Electric");
-            currentHitObject.GetComponent<FingerGunMan>().ShootingEnabled = false;
-            currentHitObject.GetComponent<FingerGunMan>().ExternalForce = true;
+            currentHitObject.GetComponent<FingerGunMan>().shootingEnabled = false;
+            currentHitObject.GetComponent<FingerGunMan>().externalForce = true;
             currentHitObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             StartCoroutine(currentHitObject.GetComponent<FingerGunMan>().WaitToMove());
         }
     }
-
-    #region Properties
-    //Properties
-    public Animator Controller { get; set; }
-
-    public bool LightningHit { get; set; } = false;
-    #endregion
 }

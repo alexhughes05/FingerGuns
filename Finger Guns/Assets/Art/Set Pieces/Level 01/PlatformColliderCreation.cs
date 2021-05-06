@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class PlatformColliderCreation : MonoBehaviour
 {
-    #region Variables
+    public float heightPadding = -0.1f;
+    public float platformThickness = 0.1f;
 
-    //Public
-    [SerializeField] float heightPadding = -0.1f;
-    [SerializeField] float platformThickness = 0.1f;
-
-    // Private
+    private int targetLayer;
     private float targetWidth;
     private float targetYPos;
 
     // Components
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
-
-    #endregion
-
+    
     private void Awake()
     {
+        // Set gameObject's layer to "Platform"
+        /*targetLayer = LayerMask.NameToLayer("Platform");
+        if (targetLayer < 0)
+        {
+            Debug.Log("Platforms are trying to assign themselves to the \"Platform\" layer for platforming logic, but no such layer exists.");
+        }
+        else if (gameObject.layer != targetLayer)
+        {
+            gameObject.layer = targetLayer;
+        }*/
+
         // Set up component dependencies
         if(GetComponent<SpriteRenderer>() == null)
         {

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {    
-    private int score = 0;
+    int score = 0;
     
     void Awake()
     {
         SetUpSingleton();
     }
 
-    private void SetUpSingleton()
+    public void SetUpSingleton()
     {
         if (FindObjectsOfType<GameSession>().Length > 1)
         {
