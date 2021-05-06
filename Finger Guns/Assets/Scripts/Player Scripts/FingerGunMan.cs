@@ -518,7 +518,6 @@ public class FingerGunMan : MonoBehaviour
         {
             if (grounded)
             {
-                Debug.Log("grounded");
                 ShootingEnabled = true;
                 if (FacingRight)
                     Anim.SetTrigger("Stand Up");
