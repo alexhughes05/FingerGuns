@@ -8,7 +8,7 @@ public class FingerGunMan : MonoBehaviour
 {
     #region Variables
 
-    //Public Variables'
+    //Public Variables
     [Space()]
     [Header("Testing Variables")]
     [SerializeField] bool allowFlipDodging;

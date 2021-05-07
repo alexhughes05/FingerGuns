@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 1324328756329347444}
   - component: {fileID: 2724447332263753425}
   - component: {fileID: 156457343851659803}
-  - component: {fileID: 1579158738809093497}
+  - component: {fileID: 2615223510408646176}
+  - component: {fileID: 3522285280151384635}
+  - component: {fileID: -7334998031391087230}
   m_Layer: 0
   m_Name: Volcano Rock 03
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1813584301085172686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100.00001, y: 100, z: 100}
+  m_LocalScale: {x: 121.81784, y: 121.81784, z: 121.81784}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,22 +84,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &1579158738809093497
-Animator:
-  serializedVersion: 3
+--- !u!114 &2615223510408646176
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813584301085172686}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1eef306010b6073408ef2eb5a7fe6c40, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc76c4953dee9ab43b1ba8b9a4c01db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minRotationSpeed: 200
+  maxRotationSpeed: 250
+--- !u!50 &3522285280151384635
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813584301085172686}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &-7334998031391087230
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813584301085172686}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0000038437724, y: 0.0005883487}
+  serializedVersion: 2
+  m_Radius: 0.005148088
