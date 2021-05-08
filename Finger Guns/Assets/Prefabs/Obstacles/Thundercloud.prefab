@@ -384,6 +384,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -594,7 +595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd20ec7614267746b00ba3ce2a0ce44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   currentHitObject: {fileID: 0}
   circleRadius: 0.5
   maxDistance: 5
@@ -602,9 +602,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   timeBeforeStrike: 0.3
-  minSpawnRateInSeconds: 5
-  maxSpawnRateInSeconds: 5
-  moveSpeed: 12
+  minSpawnRateInSeconds: 7
+  maxSpawnRateInSeconds: 15
+  moveSpeed: 15
   numTimesExecPerSpawn: 0
   durationBtwEachAnim: 0
   player: {fileID: 5955457421823574222, guid: 7d1acc91180d5504e8d4049406b904c2, type: 3}

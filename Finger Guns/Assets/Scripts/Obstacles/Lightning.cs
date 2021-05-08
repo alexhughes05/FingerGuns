@@ -6,7 +6,6 @@ public class Lightning : MonoBehaviour
 {
     #region Variables
     //Public
-    [SerializeField] GameObject currentHitObject;
     [SerializeField] float circleRadius;
     [SerializeField] float maxDistance;
     [SerializeField] LayerMask layerMask;
@@ -14,21 +13,23 @@ public class Lightning : MonoBehaviour
     [SerializeField] int minSpawnRateInSeconds;
     [SerializeField] int maxSpawnRateInSeconds;
     [SerializeField] float moveSpeed;
-    [SerializeField] int numTimesExecPerSpawn;
-    [SerializeField] float durationBtwEachAnim;
     [SerializeField] GameObject player;
     
     //Components
-    FingerGunMan playerScript;
+    private FingerGunMan playerScript;
+    private Wind wind;
 
     //Private
+    private GameObject currentHitObject;
     private bool hasFinished;
     private Vector2 origin;
     private Vector2 direction;
+    private bool isMovingRight;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
+        wind = FindObjectOfType<Wind>();
         Controller = GetComponent<Animator>();
         playerScript = FindObjectOfType<FingerGunMan>();
     }
@@ -47,16 +48,24 @@ public class Lightning : MonoBehaviour
         return maxSpawnRateInSeconds;
     }
 
-    public int getNumTimesExecPerSpawn()
-    {
-        return numTimesExecPerSpawn;
-    }
     private void MoveCloud()
     {
         if (!hasFinished)
         {
             var targetPosition = playerScript.gameObject.transform.position;
             origin = targetPosition;
+
+            if (wind.WindActive)
+            {
+                if (transform.position.x < targetPosition.x)
+                    isMovingRight = true;
+
+                if ((isMovingRight && wind.currentWindForce < 0) || (!isMovingRight && wind.currentWindForce > 0)) //If wind is opposing your movement, you go slower
+                    ;//moveSpeed -= Mathf.Abs(wind.currentWindForce);
+                else if ((isMovingRight && wind.currentWindForce > 0) || (!isMovingRight && wind.currentWindForce < 0)) //If wind in the same direction as your movement, you go faster.
+                    ;//moveSpeed += Mathf.Abs(wind.currentWindForce);
+            }
+
             targetPosition.y = targetPosition.y + 1;
             var movementThisFrame = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);

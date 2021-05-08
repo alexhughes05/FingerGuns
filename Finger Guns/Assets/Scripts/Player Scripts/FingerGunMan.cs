@@ -72,9 +72,11 @@ public class FingerGunMan : MonoBehaviour
     private Rigidbody2D rb2d;
     private Collider2D col;
     private PlayerHealth health;
+    private Wind wind;
 
     //Private Variables
     private Vector3 horizontalMovement = Vector3.zero;
+    private float defaultMaxSpeed;
     private bool flipRightInput;
     private bool flipLeftInput;
     private bool jumpInput;
@@ -113,6 +115,7 @@ public class FingerGunMan : MonoBehaviour
         col = GetComponent<Collider2D>();
         Anim = GetComponent<Animator>();
         health = GetComponent<PlayerHealth>();
+        wind = FindObjectOfType<Wind>();
         playerControls = new PlayerControls();
 
         #endregion
@@ -136,6 +139,8 @@ public class FingerGunMan : MonoBehaviour
 
         //Allows us to access the emission variables for our dust particle effect.
         footEmission = dust.emission;
+
+        defaultMaxSpeed = maxSpeed; //assigns the defaultMaxSpeed to maxSpeed. Default max speed needed to revert to original maxSpeed once maxSpeed is altered
 
         #endregion
 
@@ -263,8 +268,18 @@ public class FingerGunMan : MonoBehaviour
 
     private void PerformWalking()
     {
+        maxSpeed = defaultMaxSpeed; //Sets maxSpeed back to default so sum doesn't accumulate every frame if the wind is active.
+
         if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.GetHealth() > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
         {
+            if (wind.WindActive)
+            {
+                if ((horizontalMovement.x > 0 && wind.currentWindForce < 0) || (horizontalMovement.x < 0 && wind.currentWindForce > 0)) //If wind is opposing your movement, you go slower
+                    maxSpeed -= Mathf.Abs(wind.currentWindForce);
+                else if ((horizontalMovement.x > 0 && wind.currentWindForce > 0) || (horizontalMovement.x < 0 && wind.currentWindForce < 0)) //If wind in the same direction as your movement, you go faster.
+                    maxSpeed += Mathf.Abs(wind.currentWindForce);
+            }
+
             if (grounded && !playerCrouched && !flipping)
             {
                 Anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
@@ -285,8 +300,8 @@ public class FingerGunMan : MonoBehaviour
         }
         else if (!ExternalForce && !playerSliding) //When no input, set walking speed back to 0
         {
-            Anim.SetFloat("Walking", 0);
-            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            Anim.SetFloat("Walking", 0 + wind.currentWindForce);
+            rb2d.velocity = new Vector2(0 + wind.currentWindForce, rb2d.velocity.y);
             if (currentAFKTime <= 0)
             {
                 Anim.SetTrigger("AFK");
