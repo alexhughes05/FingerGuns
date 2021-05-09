@@ -33,11 +33,12 @@ public class Wind : MonoBehaviour
         shape = rainPS.shape;
         rainVel.enabled = true;
         rainVel.x = -7.5f;
-        StartStorm();
     }
 
     public void StartStorm()
     {
+        StormStarted = true;
+        rainPS.Play();
         StartCoroutine(StartWindForDuration());
     }
 
@@ -46,6 +47,7 @@ public class Wind : MonoBehaviour
         Coroutine co = StartCoroutine(WindGustCycle());
         yield return new WaitForSeconds(durationOfStorm);
         StopCoroutine(co);
+        StormStarted = false;
     }
 
     private IEnumerator WindGustCycle()
@@ -85,4 +87,5 @@ public class Wind : MonoBehaviour
     //Property
     public bool WindActive { get; set; }
     public float currentWindForce { get; set; }
+    public bool StormStarted { get; set; }
 }
