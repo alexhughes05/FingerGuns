@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3269064704419088033
+--- !u!114 &-4437674289916947474
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,10 +20,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Portal
-  m_Shader: {fileID: -6465566751694194690, guid: b7e72b911d6907c409734a5240ec5598,
+  m_Name: DonutPortalExterior
+  m_Shader: {fileID: -6465566751694194690, guid: 5b7e34044f08ce141885da9eda713247,
     type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _GLOSSYREFLECTIONS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -33,12 +33,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_bc72d37abdbf40a98aec9af42d7a2fd2:
-        m_Texture: {fileID: 2800000, guid: d6e0214eb7a8bb242b18dfde5c4c4f60, type: 3}
+    - Texture2D_a62cebb47d384cfd9386e8be1ce16644:
+        m_Texture: {fileID: 2800000, guid: 7b8c78cd53dbbd04280a3fb2df3e3a3d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - Texture2D_d52e8c3866b84e8da60b47dcd6a45128:
-        m_Texture: {fileID: 2800000, guid: ff72610f7cc2b437e97633d6a59c55f8, type: 3}
+    - Texture2D_bc72d37abdbf40a98aec9af42d7a2fd2:
+        m_Texture: {fileID: 2800000, guid: 7b8c78cd53dbbd04280a3fb2df3e3a3d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -98,8 +98,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_390a5ebd652741b0b76322bdd12dc167: 100
+    - Vector1_77d4b990e85c4899befdd61880a3a6ca: 1
+    - Vector1_a399a0486d93428b9a7ab334ca66c2ed: 1
     - Vector1_b1bc03c74863478a8df08060f8d1b097: 0.02
-    - Vector1_b1bc03c74863478a8df08060f8d1b097_1: 0.01
+    - Vector1_b1bc03c74863478a8df08060f8d1b097_1: 0.005
     - Vector1_b1bc03c74863478a8df08060f8d1b097_2: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -116,6 +119,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -125,15 +129,16 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Vector2_47028399137d41ab8ad7efca262a5587: {r: 0.05, g: 0, b: 0, a: 0}
-    - Vector2_8a92873082844b99b95da3f551e946a4: {r: 0, g: 0.0125, b: 0, a: 0}
-    - Vector2_a533e337f2874063a4ff183cb8c12974: {r: 5.167, g: 2.437, b: 0, a: 0}
-    - Vector2_a533e337f2874063a4ff183cb8c12974_1: {r: 2.4365, g: 3.4365, b: 0, a: 0}
+    - Vector2_47028399137d41ab8ad7efca262a5587: {r: 0.01, g: 0.002, b: 0, a: 0}
+    - Vector2_8a92873082844b99b95da3f551e946a4: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_a533e337f2874063a4ff183cb8c12974: {r: 3.58, g: 2.65, b: 0, a: 0}
+    - Vector2_a533e337f2874063a4ff183cb8c12974_1: {r: 1.94, g: 2.78, b: 0, a: 0}
     - Vector2_a533e337f2874063a4ff183cb8c12974_2: {r: 0, g: 0, b: 0, a: 0}
-    - Vector2_d9ca0c89c1cd43fbb5879003722ef8ad: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_d9ca0c89c1cd43fbb5879003722ef8ad: {r: -0.002, g: 0.005, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
