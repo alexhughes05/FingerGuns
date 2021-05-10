@@ -52,6 +52,7 @@ public class Wind : MonoBehaviour
 
     private IEnumerator WindGustCycle()
     {
+
         while (true)
         {
             yield return WaitBeforeNextGust();

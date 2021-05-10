@@ -76,7 +76,6 @@ public class FingerGunMan : MonoBehaviour
 
     //Private Variables
     private Vector3 horizontalMovement = Vector3.zero;
-    private float defaultMaxSpeed;
     private bool flipRightInput;
     private bool flipLeftInput;
     private bool jumpInput;
@@ -719,6 +718,9 @@ public class FingerGunMan : MonoBehaviour
     public bool PlayerDead { get; set; }
     public Animator Anim { get; set; }
     public bool PlayerUpsideDown { get; set; }
+    public float playerXMovement { get { return horizontalMovement.x; } }
+
+    public float defaultMaxSpeed { get; set; }
 
     #endregion
 

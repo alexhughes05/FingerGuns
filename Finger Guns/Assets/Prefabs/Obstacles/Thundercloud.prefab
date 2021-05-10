@@ -595,18 +595,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd20ec7614267746b00ba3ce2a0ce44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHitObject: {fileID: 0}
-  circleRadius: 0.5
-  maxDistance: 5
+  circleRadius: 0.7
+  maxDistance: 50
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  timeBeforeStrike: 0.3
+  timeBeforeStrike: 0.07
   minSpawnRateInSeconds: 7
   maxSpawnRateInSeconds: 15
-  moveSpeed: 15
-  numTimesExecPerSpawn: 0
-  durationBtwEachAnim: 0
+  moveSpeed: 17
   player: {fileID: 5955457421823574222, guid: 7d1acc91180d5504e8d4049406b904c2, type: 3}
 --- !u!1 &3965239606815167674
 GameObject:

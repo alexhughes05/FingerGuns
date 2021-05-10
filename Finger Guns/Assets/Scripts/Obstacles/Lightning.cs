@@ -25,6 +25,7 @@ public class Lightning : MonoBehaviour
     private Vector2 origin;
     private Vector2 direction;
     private bool isMovingRight;
+    private float defaultMoveSpeed;
     #endregion
 
     private void Awake()
@@ -32,6 +33,11 @@ public class Lightning : MonoBehaviour
         wind = FindObjectOfType<Wind>();
         Controller = GetComponent<Animator>();
         playerScript = FindObjectOfType<FingerGunMan>();
+    }
+
+    private void Start()
+    {
+        defaultMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -50,6 +56,7 @@ public class Lightning : MonoBehaviour
 
     private void MoveCloud()
     {
+        moveSpeed = defaultMoveSpeed; //Set the move speed back to default so it doesn't keep constantly increasing or dercreasing it
         if (!hasFinished)
         {
             var targetPosition = playerScript.gameObject.transform.position;
@@ -57,16 +64,18 @@ public class Lightning : MonoBehaviour
 
             if (wind.WindActive)
             {
-                if (transform.position.x < targetPosition.x)
+                if (playerScript.playerXMovement > 0)
                     isMovingRight = true;
 
-                if ((isMovingRight && wind.currentWindForce < 0) || (!isMovingRight && wind.currentWindForce > 0)) //If wind is opposing your movement, you go slower
-                    ;//moveSpeed -= Mathf.Abs(wind.currentWindForce);
-                else if ((isMovingRight && wind.currentWindForce > 0) || (!isMovingRight && wind.currentWindForce < 0)) //If wind in the same direction as your movement, you go faster.
-                    ;//moveSpeed += Mathf.Abs(wind.currentWindForce);
+                if (playerScript.playerXMovement == 0) //If wind is blowing and player is not moving, cloud moves slightly faster than the new player speed
+                    moveSpeed += Mathf.Abs(wind.currentWindForce);
+                else if ((isMovingRight && wind.currentWindForce < 0) || (!isMovingRight && wind.currentWindForce > 0)) //If wind is opposing your movement, cloud goes slower
+                    moveSpeed = Mathf.Abs(moveSpeed - (moveSpeed - playerScript.defaultMaxSpeed) * 2 - wind.currentWindForce);
+                else if ((isMovingRight && wind.currentWindForce > 0) || (!isMovingRight && wind.currentWindForce < 0)) //If wind in the same direction as your movement, cloud goes faster.
+                    moveSpeed += Mathf.Abs(wind.currentWindForce);
             }
 
-            targetPosition.y = targetPosition.y + 1;
+            targetPosition.y++;
             var movementThisFrame = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);
             if (transform.position.x == targetPosition.x)
@@ -77,7 +86,7 @@ public class Lightning : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 1.5f);
         }
     }
 

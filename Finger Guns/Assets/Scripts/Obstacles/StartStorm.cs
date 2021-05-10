@@ -7,6 +7,9 @@ public class StartStorm : MonoBehaviour
     //Components
     private Wind wind;
 
+    //private
+    private bool alreadyExecuted;
+
     private void Awake()
     {
         wind = FindObjectOfType<Wind>();
@@ -14,7 +17,10 @@ public class StartStorm : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10 && !alreadyExecuted)
+        {
+            alreadyExecuted = true;
             wind.StartStorm();
+        }
     }
 }
