@@ -2352,6 +2352,11 @@ PrefabInstance:
       propertyPath: hearts.Array.data[9]
       value: 
       objectReference: {fileID: 10861271}
+    - target: {fileID: 8618515015065848200, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4647196bfadc0a84d92225139b383cfe, type: 3}
 --- !u!4 &670830299 stripped
@@ -2551,6 +2556,7 @@ Transform:
   - {fileID: 1305429428}
   - {fileID: 2109697656}
   - {fileID: 2129960877}
+  - {fileID: 1160319573}
   m_Father: {fileID: 135386765}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3747,6 +3753,57 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1159550961}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1160319571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160319573}
+  - component: {fileID: 1160319572}
+  m_Layer: 0
+  m_Name: Falling Debris
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1160319572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160319571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ccfffcfd70f79439cc2e18f8839d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingDebris:
+  - {fileID: 2699945585718490138, guid: 15b7ce3f86ae23e4084d5b8440dd7884, type: 3}
+  minTimeBtwSpawns: 0.1
+  maxTimeBtwSpawns: 0.5
+  durationOfDisaster: 20
+  minDebrisSize: 1
+  maxDebrisSize: 3
+  fallingRate: 10
+--- !u!4 &1160319573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160319571}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.544296, y: -2.2228196, z: -17.58461}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 694569693}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171010441
 GameObject:
   m_ObjectHideFlags: 0
