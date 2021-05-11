@@ -217,7 +217,7 @@ ModelImporter:
       takeName: Rig_Elemental|Flame Short
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -246,7 +246,7 @@ ModelImporter:
       takeName: Rig_Elemental|Flame Tall
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
