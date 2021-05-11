@@ -5,18 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
-    #region Variables
-    //public
-    [SerializeField] int delayAfterDeath = 2;
-
-    //private
-    private GameSession gameSession;
-    #endregion
+    GameSession gameSession;
 
     private void Awake()
     {
         gameSession = FindObjectOfType<GameSession>();
     }
+    [SerializeField] int delayAfterDeath = 2;
     public void LoadStartMenu()
     {
         SceneManager.LoadScene(0);

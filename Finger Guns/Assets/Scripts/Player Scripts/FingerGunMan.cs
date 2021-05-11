@@ -271,7 +271,7 @@ public class FingerGunMan : MonoBehaviour
 
         if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.GetHealth() > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
         {
-            if (wind.WindActive)
+            if (wind != null && wind.WindActive)
             {
                 if ((horizontalMovement.x > 0 && wind.currentWindForce < 0) || (horizontalMovement.x < 0 && wind.currentWindForce > 0)) //If wind is opposing your movement, you go slower
                     maxSpeed -= Mathf.Abs(wind.currentWindForce);
@@ -299,8 +299,16 @@ public class FingerGunMan : MonoBehaviour
         }
         else if (!ExternalForce && !playerSliding) //When no input, set walking speed back to 0
         {
-            Anim.SetFloat("Walking", 0 + wind.currentWindForce);
-            rb2d.velocity = new Vector2(0 + wind.currentWindForce, rb2d.velocity.y);
+            if (wind != null)
+            {
+                Anim.SetFloat("Walking", 0 + wind.currentWindForce);
+                rb2d.velocity = new Vector2(0 + wind.currentWindForce, rb2d.velocity.y);
+            }
+            else
+            {
+                Anim.SetFloat("Walking", 0);
+                rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            }
             if (currentAFKTime <= 0)
             {
                 Anim.SetTrigger("AFK");
@@ -331,7 +339,7 @@ public class FingerGunMan : MonoBehaviour
                 }
                 FlipRight(); //Performs the actual right flip Animation
             }
-            else if (flipLeftInput) 
+            else if (flipLeftInput)
             {
                 if (allowFlipDodging)
                 {
@@ -719,7 +727,6 @@ public class FingerGunMan : MonoBehaviour
     public Animator Anim { get; set; }
     public bool PlayerUpsideDown { get; set; }
     public float playerXMovement { get { return horizontalMovement.x; } }
-
     public float defaultMaxSpeed { get; set; }
 
     #endregion
