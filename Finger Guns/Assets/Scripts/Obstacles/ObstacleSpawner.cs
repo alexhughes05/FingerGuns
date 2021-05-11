@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    #region Variables
+    //public
     [SerializeField] bool looping = false;
     [SerializeField] GameObject[] obstacles;
-    Blade blade;
-    Lightning lightning;
-    
+
+    //Components
+    private Blade blade;
+    private Lightning lightning;
+    private Wind wind;
+    #endregion
+
+    private void Awake()
+    {
+        wind = FindObjectOfType<Wind>(); 
+    }
+
     IEnumerator Start()
     {
         do
         {
-            //UnityEngine.Random.Range(0, obstacles.Length)
-            GameObject obstacle = obstacles[0];
+            GameObject obstacle = obstacles[UnityEngine.Random.Range(0, obstacles.Length)];
             if (obstacle)
             {
                 if (obstacle.CompareTag("Blade"))
@@ -34,8 +44,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     private IEnumerator SpawnBlades(GameObject obstacle, Blade blade)
     {
-        blade.selectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
-        var spawnHeight = blade.selectedPath.transform.GetChild(0).position.y;
+        blade.SelectedPath = blade.getPaths()[UnityEngine.Random.Range(0, blade.getPaths().Length)];
+        var spawnHeight = blade.SelectedPath.transform.GetChild(0).position.y;
 
         var spawnPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 5));
         spawnPoint.y = spawnHeight;
@@ -45,15 +55,18 @@ public class ObstacleSpawner : MonoBehaviour
     }
     private IEnumerator SpawnLightning(GameObject obstacle, Lightning lightning)
     {
-        int randomNum = UnityEngine.Random.Range(0, 2);
-        if (randomNum == 0)
+        if (wind.StormStarted)
         {
-            Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5)), Quaternion.identity);
+            int randomNum = UnityEngine.Random.Range(0, 2);
+            if (randomNum == 0)
+            {
+                Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(0, 0.7f, 5)), Quaternion.identity);
+            }
+            else if (randomNum == 1)
+            {
+                Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(1, 0.7f, 5)), Quaternion.identity);
+            }
+            yield return new WaitForSeconds(UnityEngine.Random.Range(lightning.getMinSpawnRateInSeconds(), lightning.getMaxSpawnRateInSeconds()));
         }
-        else if (randomNum == 1)
-        {
-            Instantiate(obstacle, Camera.main.ViewportToWorldPoint(new Vector3(1, 0.7f, 5)), Quaternion.identity);
-        }
-        yield return new WaitForSeconds(UnityEngine.Random.Range(lightning.getMinSpawnRateInSeconds(), lightning.getMaxSpawnRateInSeconds()));
     }
 }

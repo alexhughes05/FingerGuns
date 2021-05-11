@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     #region Variables
+
+    //Public
+    [Header("Enemy")]
+    [SerializeField] int enemyPointValue = 100;
+    public int health;
+
     //Components
     private GameSession gameSession;
-
-    [Header("Enemy")]
-    //Public
-    [SerializeField] int enemyPointValue = 100;    
-    public int health;
 
     //Private    
     private int currentHealth;
@@ -33,14 +34,14 @@ public class EnemyHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            GetComponent<AIPatrol>().anim.SetTrigger("Death");
+            GetComponent<AIPatrol>().Anim.SetTrigger("Death");
             Destroy(gameObject, 0.5f);
             AddPoints();
             isDead = true;
         }
         else
         {
-            GetComponent<AIPatrol>().anim.SetTrigger("Take Damage");
+            GetComponent<AIPatrol>().Anim.SetTrigger("Take Damage");
         }
     }
 

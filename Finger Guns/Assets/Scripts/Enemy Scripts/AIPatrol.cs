@@ -5,35 +5,37 @@ using UnityEngine;
 public class AIPatrol : MonoBehaviour
 {
     #region Variables
-    //Components
-    private Rigidbody2D rb2d;
-    [HideInInspector] public Animator anim;
-    [SerializeField] private BoxCollider2D bodyCollider;
 
     //Public
-    public float walkSpeed;
-    public bool patrolling;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
-    public float groundCheckDistance = 0.1f;
+    [SerializeField] float walkSpeed;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] float groundCheckDistance = 0.1f;
+    [SerializeField] BoxCollider2D bodyCollider;
+
+    //Components
+    private Rigidbody2D rb2d;
 
     //Private
     private bool turnAround;
-    private bool facingRight;
     #endregion
 
     #region Monobehaviour Callbacks
-    void Start()
+
+    private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
+    }
 
-        patrolling = true;
+    void Start()
+    {
+        Patrolling = true;
     }
 
     void Update()
     {
-        if(patrolling)
+        if(Patrolling)
         {
             Patrol();
         }
@@ -43,7 +45,7 @@ public class AIPatrol : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (patrolling)
+        if (Patrolling)
         {
             turnAround = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
         }
@@ -70,7 +72,11 @@ public class AIPatrol : MonoBehaviour
 
     void CharacterAnimation()
     {
-        anim.SetFloat("Movement", rb2d.velocity.x);
+        Anim.SetFloat("Movement", rb2d.velocity.x);
     }
     #endregion
+
+    //Properties
+    public bool Patrolling { get; set; }
+    public Animator Anim { get; set; }
 }
