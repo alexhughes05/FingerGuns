@@ -6,27 +6,25 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     #region Variables
+    //Components
+    private Level level;
+
     //Public
-    [SerializeField] int health;
-    [SerializeField] Sprite fullHeart;
-    [SerializeField] Sprite emptyHeart;
-    [SerializeField] Image[] hearts;
+    public int health;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
+    public Image[] hearts;    
 
     //Private
-    private Level level;
     private int currentHealth;
-    private bool deathTriggered;
+    private bool addedScore;
     #endregion
 
     #region Monobehaviour Callbacks
-
-    private void Awake()
-    {
-        level = FindObjectOfType<Level>();
-    }
     void Start()
     {
         currentHealth = health;
+        level = FindObjectOfType<Level>();
     }
 
     private void Update()
@@ -54,11 +52,10 @@ public class PlayerHealth : MonoBehaviour
     public void ModifyHealth(int amount)
     {
         currentHealth += amount;
-        if (currentHealth <= 0 && !deathTriggered)
+        if (currentHealth <= 0)
         {
-            deathTriggered = true;
-            GetComponent<FingerGunMan>().Anim.SetTrigger("Death");
-            GetComponent<FingerGunMan>().PlayerDead = true;
+            GetComponent<FingerGunMan>().anim.SetTrigger("Death");
+            GetComponent<FingerGunMan>().playerDead = true;
             Destroy(gameObject, 1f);
             level.DeathScreen();      
         }
