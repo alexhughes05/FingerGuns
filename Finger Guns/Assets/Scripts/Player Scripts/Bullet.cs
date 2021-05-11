@@ -33,7 +33,19 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.layer == 12)
         {
-            collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
+            if (collision.gameObject.GetComponent<EnemyHealth>() != null)
+                collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
+            else
+            {
+                foreach (Transform child in collision.transform.root.gameObject.transform) //gets the parent node, then loops through all the children to check for the EnemyHealth component
+                {
+                    if (child.GetComponent<EnemyHealth>() != null)
+                    {
+                        child.GetComponent<EnemyHealth>().ModifyHealth(-damage);
+                        break;
+                    }
+                }
+            }
             Destroy(gameObject);
         }
     }

@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 969924541914915913}
   - component: {fileID: 792462311745438628}
-  m_Layer: 0
+  - component: {fileID: -255455098959069479}
+  - component: {fileID: 2030498998}
+  - component: {fileID: 236906747830592565}
+  m_Layer: 12
   m_Name: ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +56,55 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &-255455098959069479
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449811959160110835}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &2030498998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449811959160110835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44105ac2519ac574a816e26355d7e2af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkDuration: 0.05
+  timeBetweenBlinks: 0.05
+--- !u!114 &236906747830592565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449811959160110835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ea33b6fdc65f446976129e791227d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPointValue: 150
+  health: 4
 --- !u!1 &1526139427325790351
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +116,7 @@ GameObject:
   - component: {fileID: 3456786163883001378}
   - component: {fileID: 8651733654868894422}
   - component: {fileID: 9049400425048387195}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ExplodeyOne Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +144,7 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526139427325790351}
-  serializedVersion: 6
+  serializedVersion: 7
   lengthInSec: 0.2
   simulationSpeed: 1
   stopAction: 0
@@ -2187,6 +2239,62 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+  LifetimeByEmitterSpeedModule:
+    enabled: 0
+    m_Curve:
+      serializedVersion: 2
+      minMaxState: 1
+      scalar: 1
+      minScalar: 1
+      maxCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: -0.8
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0.2
+          inSlope: -0.8
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      minCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    m_Range: {x: 0, y: 1}
   ForceModule:
     enabled: 0
     x:
@@ -3617,19 +3725,20 @@ ParticleSystem:
     range: {x: 0, y: 1}
   CollisionModule:
     enabled: 0
-    serializedVersion: 3
+    serializedVersion: 4
     type: 0
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
     multiplyColliderForceByCollisionAngle: 1
-    plane0: {fileID: 0}
-    plane1: {fileID: 0}
-    plane2: {fileID: 0}
-    plane3: {fileID: 0}
-    plane4: {fileID: 0}
-    plane5: {fileID: 0}
+    m_Planes:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
@@ -3803,17 +3912,20 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 0
-    collisionShape0: {fileID: 0}
-    collisionShape1: {fileID: 0}
-    collisionShape2: {fileID: 0}
-    collisionShape3: {fileID: 0}
-    collisionShape4: {fileID: 0}
-    collisionShape5: {fileID: 0}
+    serializedVersion: 2
     inside: 1
     outside: 0
     enter: 0
     exit: 0
+    colliderQueryMode: 0
     radiusScale: 1
+    primitives:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   SubModule:
     serializedVersion: 2
     enabled: 0
@@ -4768,11 +4880,11 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 93c192f455eec7447b13c3c4278f3d48, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4810,6 +4922,8 @@ ParticleSystemRenderer:
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
+  m_FreeformStretching: 0
+  m_RotateWithStretchDirection: 1
   m_VertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
@@ -4825,7 +4939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4294049266163812359}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mouth_Frown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4857,7 +4971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6905087836754260783}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eyes_X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4889,7 +5003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55194224330915970}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eyes_Dots_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4919,7 +5033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044860608663045148}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eyes_X_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4950,7 +5064,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3540350864204416430}
   - component: {fileID: 3443865208435737957}
-  m_Layer: 0
+  - component: {fileID: 2016641683}
+  m_Layer: 12
   m_Name: ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4965,7 +5080,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2782485038727147275}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.083, y: 0.945, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 969924541914915913}
@@ -4986,6 +5101,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5033,6 +5149,22 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.010548361, y: -0.00009999785, z: 0.0013143918}
     m_Extent: {x: 0.0052542016, y: 0.00020000059, z: 0.0060202354}
   m_DirtyAABB: 0
+--- !u!58 &2016641683
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782485038727147275}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0013143873, y: -6974.1997}
+  serializedVersion: 2
+  m_Radius: 0.005188848
 --- !u!1 &3326738056787457280
 GameObject:
   m_ObjectHideFlags: 0
@@ -5042,7 +5174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4692208432384630089}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mouth_Frown_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5072,7 +5204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334165300196247327}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mouth_Flat_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5102,7 +5234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 143680844943659871}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Main Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5133,7 +5265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6961701839996067262}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Head Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5168,7 +5300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3983043169234116493}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5198,7 +5330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3412721729930224946}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5229,7 +5361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6713471156104233589}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5260,7 +5392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2497753205975674137}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eyes_Dots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5292,7 +5424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4169164569672947339}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5323,7 +5455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4505479323401502940}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mouth_Flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5355,7 +5487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8293231973946649956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mouths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5387,7 +5519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6918364478072763540}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.000_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5417,7 +5549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583793128117049779}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bubble.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5447,7 +5579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363877640596627319}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5479,7 +5611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2389409446806722761}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rig _ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
