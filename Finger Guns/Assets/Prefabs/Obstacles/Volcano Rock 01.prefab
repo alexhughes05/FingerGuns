@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3466007473738257283}
   - component: {fileID: 2069236941864633224}
   - component: {fileID: 2062388724313063870}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Volcano Rock 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3769739913032361408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 66.66569, y: 66.66569, z: 66.66569}
+  m_LocalScale: {x: 183.08287, y: 183.08287, z: 183.08287}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
