@@ -10,10 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 969924541914915913}
   - component: {fileID: 792462311745438628}
-  - component: {fileID: -255455098959069479}
-  - component: {fileID: 2030498998}
-  - component: {fileID: 236906747830592565}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,55 +53,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!50 &-255455098959069479
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449811959160110835}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &2030498998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449811959160110835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44105ac2519ac574a816e26355d7e2af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkDuration: 0.05
-  timeBetweenBlinks: 0.05
---- !u!114 &236906747830592565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449811959160110835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ea33b6fdc65f446976129e791227d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPointValue: 150
-  health: 4
 --- !u!1 &1526139427325790351
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +64,7 @@ GameObject:
   - component: {fileID: 3456786163883001378}
   - component: {fileID: 8651733654868894422}
   - component: {fileID: 9049400425048387195}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ExplodeyOne Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +101,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -220,7 +168,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -273,7 +221,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -388,9 +336,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
-      minScalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -441,7 +389,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -494,7 +442,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -764,7 +712,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 10
     angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -970,7 +918,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 200
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1087,13 +1035,13 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 3.2544646
-          outSlope: 3.2544646
+          value: 0.50164795
+          inSlope: 0.000025921116
+          outSlope: 0.000025921116
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.09862845
+          outWeight: 0.16992427
         - serializedVersion: 3
           time: 0.5006944
           value: 0.5006944
@@ -2796,7 +2744,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4884,7 +4832,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93c192f455eec7447b13c3c4278f3d48, type: 2}
+  - {fileID: 2100000, guid: 8d8224e13e396114b81b76224091981f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4939,7 +4887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4294049266163812359}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mouth_Frown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +4919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6905087836754260783}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Eyes_X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,7 +4951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55194224330915970}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Eyes_Dots_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5033,7 +4981,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044860608663045148}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Eyes_X_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,8 +5012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3540350864204416430}
   - component: {fileID: 3443865208435737957}
-  - component: {fileID: 2016641683}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5080,7 +5027,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2782485038727147275}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.083, y: 0.945, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 969924541914915913}
@@ -5149,22 +5096,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.010548361, y: -0.00009999785, z: 0.0013143918}
     m_Extent: {x: 0.0052542016, y: 0.00020000059, z: 0.0060202354}
   m_DirtyAABB: 0
---- !u!58 &2016641683
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2782485038727147275}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0013143873, y: -6974.1997}
-  serializedVersion: 2
-  m_Radius: 0.005188848
 --- !u!1 &3326738056787457280
 GameObject:
   m_ObjectHideFlags: 0
@@ -5174,7 +5105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4692208432384630089}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mouth_Frown_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5204,7 +5135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334165300196247327}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mouth_Flat_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5234,7 +5165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 143680844943659871}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Main Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5265,7 +5196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6961701839996067262}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Head Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5300,7 +5231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3983043169234116493}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5330,7 +5261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3412721729930224946}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5361,7 +5292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6713471156104233589}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5392,7 +5323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2497753205975674137}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Eyes_Dots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5424,7 +5355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4169164569672947339}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5455,7 +5386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4505479323401502940}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mouth_Flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5487,7 +5418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8293231973946649956}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mouths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5519,7 +5450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6918364478072763540}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.000_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5549,7 +5480,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583793128117049779}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Bubble.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5579,7 +5510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363877640596627319}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5611,7 +5542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2389409446806722761}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Rig _ExplodeyOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1847,6 +1847,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 572644651}
     m_Modifications:
+    - target: {fileID: 4778936265826939479, guid: 9a1a87a7f5f05de45900779fae327287,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5027034942422085394, guid: 9a1a87a7f5f05de45900779fae327287,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -21
+      objectReference: {fileID: 0}
     - target: {fileID: 5027034942745933080, guid: 9a1a87a7f5f05de45900779fae327287,
         type: 3}
       propertyPath: m_RootOrder
@@ -1914,6 +1924,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a1a87a7f5f05de45900779fae327287, type: 3}
+--- !u!1 &1110519719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5027034942745933083, guid: 9a1a87a7f5f05de45900779fae327287,
+    type: 3}
+  m_PrefabInstance: {fileID: 1110519718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1110519720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110519719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0743f0d2857d49e489003be70261dd94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1159550961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2019,10 +2047,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingDebris:
-  - {fileID: 3769739913032361408, guid: 75213c0e48e352e43a0650de3133e78c, type: 3}
-  - {fileID: 2817277289047744509, guid: ef871f2e00614f245a3aaeaed17ae18a, type: 3}
-  - {fileID: 1813584301085172686, guid: ff7c76adf2e98734d8d03c6971440042, type: 3}
-  - {fileID: 4856517158399783478, guid: fb69daaa29389c4478a36eee2ef4fa01, type: 3}
+  - {fileID: 3769739913032361408, guid: 00663dd220ede0742aaf632143d14687, type: 3}
+  - {fileID: 2817277289047744509, guid: 75c8fd2f9c47a9f43b312621ac9917db, type: 3}
+  - {fileID: 1813584301085172686, guid: 12c7865ee4a6a0c4ea525815fd74900c, type: 3}
+  - {fileID: 4856517158399783478, guid: dbe377feda3781e4a95afcb30d6a3fb6, type: 3}
   minTimeBtwSpawns: 0.07
   maxTimeBtwSpawns: 0.1
   minDebrisSize: 0.5
