@@ -2,12 +2,16 @@
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
+    #region Variables
+    //public
+    [SerializeField] Transform target;
+    [SerializeField] float smoothSpeed = 0.125f;
+    [SerializeField] Vector3 offset;
 
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
+    //private
     private Vector3 velocity = Vector3.zero;
 
+    #endregion
     public void LateUpdate()
     {
         var desiredPos = target.position + offset;

@@ -8,15 +8,19 @@ public class AIPatrol : MonoBehaviour
     #region Variables
 
     //Public
-    [SerializeField] bool patrolling;
-    [SerializeField] bool onPlatform;
-    [SerializeField] float walkSpeed;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float groundCheckDistance = 0.1f;
     [SerializeField] BoxCollider2D bodyCollider;
+    [HideInInspector]
+    [SerializeField] bool patrolling;
+    [HideInInspector]
+    [SerializeField] bool onPlatform;
+    [HideInInspector]
     [SerializeField] float turnAroundDistance;
-
+    [HideInInspector]
+    [SerializeField] float walkSpeed;
+  
     //Components
     private Rigidbody2D rb2d;
 
@@ -104,5 +108,6 @@ public class AIPatrol : MonoBehaviour
 
     //Properties
     public bool Patrolling { get { return patrolling; } set { patrolling = value; } }
+    public bool OnPlatform { get { return onPlatform; } set { patrolling = value; } }
     public Animator Anim { get; set; }
 }

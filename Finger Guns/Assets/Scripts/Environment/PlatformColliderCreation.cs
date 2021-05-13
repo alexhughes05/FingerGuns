@@ -2,33 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForegroundColliderCreation : MonoBehaviour
+public class PlatformColliderCreation : MonoBehaviour
 {
-    public float padding = -0.1f;
+    #region Variables
 
-    private int targetLayer;
+    //Public
+    [SerializeField] float heightPadding = -0.1f;
+    [SerializeField] float platformThickness = 0.1f;
+
+    // Private
     private float targetWidth;
-    private float targetHeight;
+    private float targetYPos;
 
     // Components
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
 
+    #endregion
+
     private void Awake()
     {
-        // Set gameObject's layer to "Default"
-        /*targetLayer = LayerMask.NameToLayer("Ground");
-        if (targetLayer < 0)
-        {
-            Debug.Log("Foreground objects are trying to assign themselves to the \"Ground\" layer for physics, but no such layer exists.");
-        }
-        else if (gameObject.layer != targetLayer)
-        {
-            gameObject.layer = targetLayer;
-        }*/
-
         // Set up component dependencies
-        if (GetComponent<SpriteRenderer>() == null)
+        if(GetComponent<SpriteRenderer>() == null)
         {
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
@@ -48,11 +43,12 @@ public class ForegroundColliderCreation : MonoBehaviour
 
         // Set variables to be used in manipulating the BoxCollider2D
         targetWidth = spriteRenderer.size.x;
-        targetHeight = spriteRenderer.size.y;
-        targetWidth += padding;
-        targetHeight += padding;
+        targetYPos = (spriteRenderer.size.y / 2);
+        targetYPos -= (platformThickness / 2);
+        targetYPos += heightPadding;
 
         // Set BoxCollider2D values to match the SpriteRenderer
-        boxCollider.size = new Vector2(targetWidth, targetHeight);
+        boxCollider.size = new Vector2(targetWidth, platformThickness);
+        boxCollider.offset = new Vector2(0.0f, targetYPos);
     }
 }

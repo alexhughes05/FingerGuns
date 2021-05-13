@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6535521085681344220}
   - component: {fileID: 6535521085681344223}
-  - component: {fileID: 2674022423000907617}
+  - component: {fileID: 7879019855436046115}
   m_Layer: 8
   m_Name: Foreground Obstacle
   m_TagString: Untagged
@@ -47,6 +47,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2674022423000907617
+--- !u!114 &7879019855436046115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +92,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6535521085681344222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd7727249f0ab6e47ae3a23e88c6a306, type: 3}
+  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  padding: -0.1
+  heightPadding: -0.1
+  platformThickness: 0.1

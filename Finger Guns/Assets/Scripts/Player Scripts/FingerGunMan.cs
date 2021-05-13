@@ -309,6 +309,7 @@ public class FingerGunMan : MonoBehaviour
                 Anim.SetFloat("Walking", 0);
                 rb2d.velocity = new Vector2(0, rb2d.velocity.y);
             }
+
             if (currentAFKTime <= 0)
             {
                 Anim.SetTrigger("AFK");
@@ -339,7 +340,7 @@ public class FingerGunMan : MonoBehaviour
                 }
                 FlipRight(); //Performs the actual right flip Animation
             }
-            else if (flipLeftInput)
+            else if (flipLeftInput) 
             {
                 if (allowFlipDodging)
                 {
@@ -727,6 +728,7 @@ public class FingerGunMan : MonoBehaviour
     public Animator Anim { get; set; }
     public bool PlayerUpsideDown { get; set; }
     public float playerXMovement { get { return horizontalMovement.x; } }
+
     public float defaultMaxSpeed { get; set; }
 
     #endregion
