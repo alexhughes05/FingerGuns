@@ -411,6 +411,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -668,15 +669,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf85ca53612cc274389528f9f8914030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  bodyCollider: {fileID: 3930181855921769380}
+  patrolling: 1
+  onPlatform: 1
   walkSpeed: 100
-  patrolling: 0
   groundCheck: {fileID: 3930181855507638778}
   groundLayer:
     serializedVersion: 2
     m_Bits: 768
   groundCheckDistance: 0.1
+  bodyCollider: {fileID: 3930181855921769380}
+  turnAroundDistance: 0
 --- !u!114 &3930181855921769377
 MonoBehaviour:
   m_ObjectHideFlags: 0

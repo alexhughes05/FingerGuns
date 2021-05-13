@@ -5,14 +5,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     #region Variables
-    //Components
-    CapsuleCollider2D bulletCollider;
-    Rigidbody2D rb2d;
-
     //Public
-    [SerializeField] int damage = 5;
+    [SerializeField] int damage = 2;
     [SerializeField] float speed = 500f;
-    [SerializeField] float range = 2f;
+    [SerializeField] float range = 0.3f;
+
+    //Components
+    private CapsuleCollider2D bulletCollider;
+    private Rigidbody2D rb2d;
+
+    //private
+    private bool alreadyCollided;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -31,23 +34,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 12)
+        if (collision.gameObject.layer == 12 && !alreadyCollided)
         {
-            if (collision.gameObject.GetComponent<EnemyHealth>() != null)
-                collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
-            else
-            {
-                foreach (Transform child in collision.transform.root.gameObject.transform) //gets the parent node, then loops through all the children to check for the EnemyHealth component
-                {
-                    if (child.GetComponent<EnemyHealth>() != null)
-                    {
-                        child.GetComponent<EnemyHealth>().ModifyHealth(-damage);
-                        break;
-                    }
-                }
-            }
-            Destroy(gameObject);
+            alreadyCollided = true; //Needed becomes sometimes it registers as a collision twice
+            var currentGameObjectTransform = collision.gameObject.transform;
+            EnemyHealth enemyHealth;
+            //Since the modifyHealth script isn't always on the same gameobject as the collider, keep checking its parent till you find it
+            while ((enemyHealth = currentGameObjectTransform.gameObject.GetComponent<EnemyHealth>()) == null)
+                currentGameObjectTransform = currentGameObjectTransform.transform.parent;
+
+            enemyHealth.ModifyHealth(-damage);
         }
+        Destroy(gameObject); //Destroy the bullet
     }
     #endregion
 }
