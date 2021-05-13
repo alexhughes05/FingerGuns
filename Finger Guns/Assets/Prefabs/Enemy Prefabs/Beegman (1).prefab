@@ -30,6 +30,66 @@ Transform:
   m_Father: {fileID: 8407148360135512174}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &243136314715616024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8389661955161499326}
+  - component: {fileID: 8672677984370239849}
+  - component: {fileID: 3509757664442587387}
+  m_Layer: 12
+  m_Name: DetectionArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8389661955161499326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243136314715616024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7756172158756723932}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8672677984370239849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243136314715616024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a58461ca455e648b53736e29d02cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &3509757664442587387
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243136314715616024}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 7
 --- !u!1 &446763595895872276
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +624,7 @@ Transform:
   m_Children:
   - {fileID: 3779228009020995535}
   - {fileID: 6388891443807229698}
+  - {fileID: 8389661955161499326}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -647,16 +708,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf85ca53612cc274389528f9f8914030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolling: 1
-  onPlatform: 0
-  walkSpeed: 100
   groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 768
   groundCheckDistance: 0.1
   bodyCollider: {fileID: 7793984935603136590}
+  detectionRange: 47.2
+  patrolling: 1
+  onPlatform: 0
   turnAroundDistance: 25
+  walkSpeed: 100
 --- !u!1 &7230753622924032480
 GameObject:
   m_ObjectHideFlags: 0

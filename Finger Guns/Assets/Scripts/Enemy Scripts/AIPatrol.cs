@@ -8,10 +8,14 @@ public class AIPatrol : MonoBehaviour
     #region Variables
 
     //Public
+    [Space]
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float groundCheckDistance = 0.1f;
+    [Space]
     [SerializeField] BoxCollider2D bodyCollider;
+    [HideInInspector]
+    [SerializeField] float detectionRange;
     [HideInInspector]
     [SerializeField] bool patrolling;
     [HideInInspector]
@@ -20,8 +24,9 @@ public class AIPatrol : MonoBehaviour
     [SerializeField] float turnAroundDistance;
     [HideInInspector]
     [SerializeField] float walkSpeed;
-  
+
     //Components
+    private DetectionCircle detectionScript;
     private Rigidbody2D rb2d;
 
     //Private
@@ -35,12 +40,15 @@ public class AIPatrol : MonoBehaviour
 
     private void Awake()
     {
+        detectionScript = GetComponentInChildren<DetectionCircle>();
         rb2d = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
     }
 
     private void Start()
     {
+        Debug.Log(detectionRange);
+        detectionScript.DetectionRadius = detectionRange;
         currentXPos = transform.position.x;
         prevXPos = currentXPos;
     }
@@ -58,9 +66,14 @@ public class AIPatrol : MonoBehaviour
         }
 
         if (Patrolling)
+        {
+            Anim.SetFloat("Movement", rb2d.velocity.x);
             Patrol();
-
-        CharacterAnimation();
+        }
+        else
+        {
+            Anim.SetFloat("Movement", 0); //Need to follow Player. Logic should be done in beegman script
+        }
     }
 
     void FixedUpdate()
@@ -98,11 +111,6 @@ public class AIPatrol : MonoBehaviour
             newScale.x *= -1;
             transform.localScale = newScale;
         }
-    }
-
-    void CharacterAnimation()
-    {
-        Anim.SetFloat("Movement", rb2d.velocity.x);
     }
     #endregion
 

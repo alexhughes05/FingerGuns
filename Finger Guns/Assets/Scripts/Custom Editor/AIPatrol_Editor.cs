@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,6 +10,7 @@ using UnityEditor;
 [CustomEditor(typeof(AIPatrol))]
 public class AIPatrol_Editor : Editor
 {
+    SerializedProperty detectionRange;
     SerializedProperty patrolling;
     SerializedProperty onPlatform;
     SerializedProperty walkSpeed;
@@ -18,6 +20,7 @@ public class AIPatrol_Editor : Editor
     void OnEnable()
     {
         script = (AIPatrol)target;
+        detectionRange = serializedObject.FindProperty("detectionRange");
         patrolling = serializedObject.FindProperty("patrolling");
         onPlatform = serializedObject.FindProperty("onPlatform");
         walkSpeed = serializedObject.FindProperty("walkSpeed");
@@ -27,8 +30,12 @@ public class AIPatrol_Editor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector(); // for other non-HideInInspector fields
-
         serializedObject.Update();
+
+        EditorGUILayout.Space();
+
+        detectionRange.floatValue = EditorGUILayout.Slider(detectionRange.displayName, detectionRange.floatValue, 0, 100);
+
         EditorGUILayout.Space();
 
         patrolling.boolValue = EditorGUILayout.Toggle(patrolling.displayName, patrolling.boolValue);
@@ -39,6 +46,8 @@ public class AIPatrol_Editor : Editor
                 walkSpeed.floatValue = EditorGUILayout.FloatField(walkSpeed.displayName, walkSpeed.floatValue);
             }
         }
+
+        EditorGUILayout.Space();
 
         onPlatform.boolValue = EditorGUILayout.Toggle(onPlatform.displayName, onPlatform.boolValue);
         if (!onPlatform.boolValue)
