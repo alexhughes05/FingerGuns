@@ -26,6 +26,8 @@ public class AIPatrol : MonoBehaviour
     [SerializeField] float walkSpeed;
 
     //Components
+    private Coroutine co;
+    private Beegman beegmanScript;
     private DetectionCircle detectionScript;
     private Rigidbody2D rb2d;
 
@@ -40,6 +42,7 @@ public class AIPatrol : MonoBehaviour
 
     private void Awake()
     {
+        beegmanScript = GetComponent<Beegman>();
         detectionScript = GetComponentInChildren<DetectionCircle>();
         rb2d = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
@@ -47,10 +50,11 @@ public class AIPatrol : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(detectionRange);
-        detectionScript.DetectionRadius = detectionRange;
+        if (detectionScript != null)
+            detectionScript.DetectionRadius = detectionRange;
         currentXPos = transform.position.x;
         prevXPos = currentXPos;
+        doneInitializing = true;
     }
 
     void Update()
@@ -65,14 +69,22 @@ public class AIPatrol : MonoBehaviour
                 turnAround = true;
         }
 
-        if (Patrolling)
+        if (Patrolling) //Not in aggro range of enemy
         {
+            if (beegmanScript)
+            {
+                if (co != null)
+                    StopCoroutine(co);
+                beegmanScript.StartAttackingPlayer = false;
+            }
             Anim.SetFloat("Movement", rb2d.velocity.x);
             Patrol();
         }
         else
         {
-            Anim.SetFloat("Movement", 0); //Need to follow Player. Logic should be done in beegman script
+            if (name.ToLower().Contains("beegman"))
+                if (beegmanScript && beegmanScript.StartAttackingPlayer == false)
+                    co = StartCoroutine(beegmanScript.HeadButtCharge());  //If enemy is beegman and in range. Charge the player
         }
     }
 
@@ -93,7 +105,7 @@ public class AIPatrol : MonoBehaviour
             Flip();
     }
 
-    void Flip()
+    public void Flip()
     {
         turnAround = false;
         distanceTraveledSinceTurn = 0;
@@ -117,5 +129,7 @@ public class AIPatrol : MonoBehaviour
     //Properties
     public bool Patrolling { get { return patrolling; } set { patrolling = value; } }
     public bool OnPlatform { get { return onPlatform; } set { patrolling = value; } }
+    public bool doneInitializing { get; set; }
     public Animator Anim { get; set; }
+    public BoxCollider2D BodyCollider { get { return bodyCollider; } }
 }

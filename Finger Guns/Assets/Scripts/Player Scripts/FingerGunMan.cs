@@ -138,8 +138,7 @@ public class FingerGunMan : MonoBehaviour
 
         //Allows us to access the emission variables for our dust particle effect.
         footEmission = dust.emission;
-
-        defaultMaxSpeed = maxSpeed; //assigns the defaultMaxSpeed to maxSpeed. Default max speed needed to revert to original maxSpeed once maxSpeed is altered
+        defaultMaxSpeed = MaxSpeed; //assigns the defaultMaxSpeed to MaxSpeed. Default max speed needed to revert to original MaxSpeed once MaxSpeed is altered
 
         #endregion
 
@@ -267,34 +266,34 @@ public class FingerGunMan : MonoBehaviour
 
     private void PerformWalking()
     {
-        maxSpeed = defaultMaxSpeed; //Sets maxSpeed back to default so sum doesn't accumulate every frame if the wind is active.
+        MaxSpeed = defaultMaxSpeed; //Sets MaxSpeed back to default so sum doesn't accumulate every frame if the wind is active.
 
         if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.GetHealth() > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
         {
             if (wind != null && wind.WindActive)
             {
                 if ((horizontalMovement.x > 0 && wind.currentWindForce < 0) || (horizontalMovement.x < 0 && wind.currentWindForce > 0)) //If wind is opposing your movement, you go slower
-                    maxSpeed -= Mathf.Abs(wind.currentWindForce);
+                    MaxSpeed -= Mathf.Abs(wind.currentWindForce);
                 else if ((horizontalMovement.x > 0 && wind.currentWindForce > 0) || (horizontalMovement.x < 0 && wind.currentWindForce < 0)) //If wind in the same direction as your movement, you go faster.
-                    maxSpeed += Mathf.Abs(wind.currentWindForce);
+                    MaxSpeed += Mathf.Abs(wind.currentWindForce);
             }
 
             if (grounded && !playerCrouched && !flipping)
             {
                 Anim.SetFloat("Walking", Mathf.Abs(horizontalMovement.x));
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //Go normal speed when on the ground
+                rb2d.velocity = new Vector2(horizontalMovement.x * MaxSpeed, rb2d.velocity.y); //Go normal speed when on the ground
             }
             else if ((inSomersault && rb2d.velocity.x > 0 && FacingRight) || (inSomersault && rb2d.velocity.x < 0 && !FacingRight)) //When you Somersault and are facing the same direction (not moving backwards after you somersault)
             {
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed * 1.5f, rb2d.velocity.y); //Go slightly faster when you somersault
+                rb2d.velocity = new Vector2(horizontalMovement.x * MaxSpeed * 1.5f, rb2d.velocity.y); //Go slightly faster when you somersault
             }
             else if (playerCrouched || inBackflip || slowerMovementInAir) //If you are either crouched, in a backflip, or jumping (jumping turns on slowerMovementInAir)
             {
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed / 2, rb2d.velocity.y);  //Go half as fast when either of these are performed
+                rb2d.velocity = new Vector2(horizontalMovement.x * MaxSpeed / 2, rb2d.velocity.y);  //Go half as fast when either of these are performed
             }
             else
             {
-                rb2d.velocity = new Vector2(horizontalMovement.x * maxSpeed, rb2d.velocity.y); //If all these are false, go normal speed
+                rb2d.velocity = new Vector2(horizontalMovement.x * MaxSpeed, rb2d.velocity.y); //If all these are false, go normal speed
             }
         }
         else if (!ExternalForce && !playerSliding) //When no input, set walking speed back to 0
@@ -727,9 +726,9 @@ public class FingerGunMan : MonoBehaviour
     public bool PlayerDead { get; set; }
     public Animator Anim { get; set; }
     public bool PlayerUpsideDown { get; set; }
-    public float playerXMovement { get { return horizontalMovement.x; } }
-
-    public float defaultMaxSpeed { get; set; }
+    public float playerXMovement { get { return horizontalMovement.x; } } //Value btw -1 and 1.
+    public float defaultMaxSpeed { get; set; } //Max speed the player starts with and will go back to.
+    public float MaxSpeed { get { return maxSpeed; } set { maxSpeed = value; } } //Current max speed the player is moving. Needed because wind can modify player's max speed
 
     #endregion
 

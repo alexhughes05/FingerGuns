@@ -13,8 +13,9 @@ public class DetectionCircle : MonoBehaviour
         patrolScript = GetComponentInParent<AIPatrol>();
     }
 
-    private void Update()
+    private IEnumerator Start()
     {
+        yield return new WaitUntil(() => patrolScript.doneInitializing);
         DetectionCol.radius = DetectionRadius;
     }
 
