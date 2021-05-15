@@ -507,10 +507,11 @@ public class FingerGunMan : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //THIS IS ONLY EXECUTED WHEN THE PLAYER IS HIT BY A BLADE
-        if (collision.gameObject.layer == 15)
+        if (collision.gameObject.layer == 15  && !ExternalForce || collision.gameObject.layer == 12 && !ExternalForce)
         {
-            if (!collision.gameObject.GetComponent<Blade>().IsStationary)
+            if (collision.gameObject.layer == 12 || !collision.gameObject.GetComponent<Blade>().IsStationary) //IsStionary is used so you don't get thrown back if blade isn't moving
             {
+                ExternalForce = true; //External force means the player cannot move
                 health.ModifyHealth(-1);
                 Anim.SetBool("Crouch", false);
                 Anim.SetBool("Slide", false);
@@ -520,13 +521,32 @@ public class FingerGunMan : MonoBehaviour
                 inBackflip = false;
                 inSomersault = false;
                 ShootingEnabled = false;
-                ExternalForce = true; //External force means the player cannot move
-                rb2d.velocity = new Vector2(-knockbackStrength, -10);
-                if (FacingRight)
-                    Anim.SetTrigger("Fall Back");
-                else
-                    Anim.SetTrigger("Fall Forward");
-                Destroy(collision.gameObject); //Destroy blade after player is hit
+
+                if (collision.gameObject.layer == 12)
+                {
+                    var playerOnRightOfEnemy = false;
+                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<Beegman>().PlayerOnRightOfEnemy)
+                        playerOnRightOfEnemy = true;
+
+                    if (playerOnRightOfEnemy)
+                        rb2d.velocity = new Vector2(knockbackStrength, -10);
+                    else
+                        rb2d.velocity = new Vector2(-knockbackStrength, -10);
+
+                    if ((FacingRight && !playerOnRightOfEnemy && !PlayerDead) || (!FacingRight && playerOnRightOfEnemy))
+                        Anim.SetTrigger("Fall Back");
+                    else if ((FacingRight && playerOnRightOfEnemy && !PlayerDead) || (!FacingRight && !playerOnRightOfEnemy))
+                        Anim.SetTrigger("Fall Forward");
+                }
+                else if (collision.gameObject.layer == 15)
+                {
+                    rb2d.velocity = new Vector2(-knockbackStrength, -10);
+                    if (FacingRight && !PlayerDead)
+                        Anim.SetTrigger("Fall Back");
+                    else if (!FacingRight && !PlayerDead)
+                        Anim.SetTrigger("Fall Forward");
+                    Destroy(collision.gameObject);
+                }
                 StartCoroutine(WaitAndStand());
             }
         }

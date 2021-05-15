@@ -2689,6 +2689,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 732606250}
     m_Modifications:
+    - target: {fileID: -4166637548412664815, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 243136314715616024, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
         type: 3}
       propertyPath: m_Layer
@@ -2717,7 +2722,7 @@ PrefabInstance:
     - target: {fileID: 7756172158756723932, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.04
+      value: -48.4
       objectReference: {fileID: 0}
     - target: {fileID: 7756172158756723932, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
         type: 3}
@@ -2762,6 +2767,16 @@ PrefabInstance:
     - target: {fileID: 7756172158756723932, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793984935603136576, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793984935603136590, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8725354098638250197, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
@@ -3206,6 +3221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81720d1218cd9884b8422565898ec22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chargeDistancePastPlayer: 0
   minTimeBtwCharge: 3
   maxTimeBtwCharge: 3
 --- !u!1 &2109697655
