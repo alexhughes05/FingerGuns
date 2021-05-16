@@ -15,12 +15,13 @@ public class Beegman : MonoBehaviour
     private Animator anim;
 
     //private
+    private bool playerOnRightOfEnemy;
+    private bool enemyFacingRight;
     private bool playerHit;
     private Vector2 targetPos;
     private float playerXPos;
     private float distanceBeyondPlayer = 5;
     private bool inCharge;
-    private bool enemyFacingRight;
 
     void Awake()
     {
@@ -37,32 +38,25 @@ public class Beegman : MonoBehaviour
             targetPos = new Vector2(playerXPos + distanceBeyondPlayer, transform.position.y);
             if (inCharge)
             {
-                //Debug.Log("Current enemy xPos is " + transform.position.x + ". Curent targetPosX is " + targetPos.x);
                 var moveSpeed = playerScript.MaxSpeed + 5;
                 var movementThisFrame = moveSpeed * Time.deltaTime;
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
                 anim.SetFloat("Movement", moveSpeed);
                 if (Vector2.Distance(transform.position, targetPos) <= 0.1 || playerHit)
                 {
+                    anim.SetBool("Charge", false);
                     anim.SetFloat("Movement", 0);
-                    if (!playerHit)
-                        patrolScript.Flip();
                     inCharge = false;
                     playerHit = false;
-                    Debug.Log("no longer charging.");
                 }
-                Debug.Log("currently charging.");
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 10) //hits player
-        {
+        if (collision.gameObject.layer == 10 && inCharge) //hits player
             playerHit = true;
-            Debug.Log("hit player");
-        }
     }
 
     public IEnumerator HeadButtCharge()
@@ -72,7 +66,6 @@ public class Beegman : MonoBehaviour
         {
             anim.SetFloat("Movement", 0);
             yield return new WaitUntil(() => !inCharge);
-            Debug.Log("can charge again starting timer.");
             yield return WaitForNextCharge();
         }
     }
@@ -81,46 +74,18 @@ public class Beegman : MonoBehaviour
     {
         var chargeTime = UnityEngine.Random.Range(minTimeBtwCharge, maxTimeBtwCharge);
         yield return new WaitForSeconds(chargeTime);
-        Debug.Log("charging now.");
-
-        DetermineEnemyFacingDirection();
-        DeterminePlayerDirection();
-        if (PlayerOnRightOfEnemy)
-        {
-            Debug.Log("player on right");
-            if (!enemyFacingRight)
-                patrolScript.Flip();
+        anim.SetBool("Charge", true);
+        enemyFacingRight = patrolScript.EnemyFacingRight();
+        playerOnRightOfEnemy = patrolScript.PlayerOnRightOfEnemey();
+        
+        if (playerOnRightOfEnemy)
             distanceBeyondPlayer = chargeDistancePastPlayer;
-        }
-        else if (!PlayerOnRightOfEnemy)
-        {
-            Debug.Log("player not on right.");
-            if (enemyFacingRight)
-                patrolScript.Flip();
+        else
             distanceBeyondPlayer = -chargeDistancePastPlayer;
-            Debug.Log("distance beyond player is " + distanceBeyondPlayer);
-            Debug.Log("player xPos is " + playerXPos);
-        }
 
         inCharge = true;
     }
 
-    private void DeterminePlayerDirection()
-    {
-        if (playerScript.gameObject.transform.position.x > transform.position.x)
-            PlayerOnRightOfEnemy = true;
-        else
-            PlayerOnRightOfEnemy = false;
-    }
-    private void DetermineEnemyFacingDirection()
-    {
-        if (transform.localScale.x < 0)
-            enemyFacingRight = true;
-        else
-            enemyFacingRight = false;
-    }
-
     //Properties
     public bool StartAttackingPlayer { get; set; }
-    public bool PlayerOnRightOfEnemy { get; set; }
 }

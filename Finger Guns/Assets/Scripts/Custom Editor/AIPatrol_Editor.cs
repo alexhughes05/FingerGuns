@@ -12,7 +12,7 @@ public class AIPatrol_Editor : Editor
 {
     SerializedProperty detectionRange;
     SerializedProperty patrolling;
-    SerializedProperty onPlatform;
+    SerializedProperty nearestEdge;
     SerializedProperty walkSpeed;
     SerializedProperty turnAroundDistance;
     AIPatrol script;
@@ -22,7 +22,7 @@ public class AIPatrol_Editor : Editor
         script = (AIPatrol)target;
         detectionRange = serializedObject.FindProperty("detectionRange");
         patrolling = serializedObject.FindProperty("patrolling");
-        onPlatform = serializedObject.FindProperty("onPlatform");
+        nearestEdge = serializedObject.FindProperty("walkToNearestEdge");
         walkSpeed = serializedObject.FindProperty("walkSpeed");
         turnAroundDistance = serializedObject.FindProperty("turnAroundDistance");
     }
@@ -49,8 +49,8 @@ public class AIPatrol_Editor : Editor
 
         EditorGUILayout.Space();
 
-        onPlatform.boolValue = EditorGUILayout.Toggle(onPlatform.displayName, onPlatform.boolValue);
-        if (!onPlatform.boolValue)
+        nearestEdge.boolValue = EditorGUILayout.Toggle(nearestEdge.displayName, nearestEdge.boolValue);
+        if (!nearestEdge.boolValue)
         {
             using (new EditorGUI.IndentLevelScope())
             {

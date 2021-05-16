@@ -507,7 +507,7 @@ public class FingerGunMan : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //THIS IS ONLY EXECUTED WHEN THE PLAYER IS HIT BY A BLADE
-        if (collision.gameObject.layer == 15  && !ExternalForce || collision.gameObject.layer == 12 && !ExternalForce)
+        if (collision.gameObject.layer == 15  && !ExternalForce || (collision.gameObject.layer == 12 && !collision.gameObject.name.ToLower().Contains("explodeyone") && !ExternalForce))
         {
             if (collision.gameObject.layer == 12 || !collision.gameObject.GetComponent<Blade>().IsStationary) //IsStionary is used so you don't get thrown back if blade isn't moving
             {
@@ -525,7 +525,7 @@ public class FingerGunMan : MonoBehaviour
                 if (collision.gameObject.layer == 12)
                 {
                     var playerOnRightOfEnemy = false;
-                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<Beegman>().PlayerOnRightOfEnemy)
+                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<AIPatrol>().PlayerOnRightOfEnemey())
                         playerOnRightOfEnemy = true;
 
                     if (playerOnRightOfEnemy)

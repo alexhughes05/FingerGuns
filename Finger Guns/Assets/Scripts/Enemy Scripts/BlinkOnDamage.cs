@@ -42,15 +42,15 @@ public class BlinkOnDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerBullet"))
-        {
-            mr.material = matDamage;
-            if (health.GetHealth() > 0)
+            if (collision.gameObject.CompareTag("PlayerBullet"))
             {
-                Invoke("ResetMaterial", blinkDuration);
+                mr.material = matDamage;
+                if (health.GetHealth() > 0)
+                {
+                    Invoke("ResetMaterial", blinkDuration);
+                }
+                StartCoroutine(BlinkTwice());
             }
-            StartCoroutine(BlinkTwice());
-        }
     }
 
     IEnumerator BlinkTwice()

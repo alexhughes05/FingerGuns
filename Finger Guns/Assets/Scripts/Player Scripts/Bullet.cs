@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.gameObject.layer == 12 && !alreadyCollided)
         {
             alreadyCollided = true; //Needed becomes sometimes it registers as a collision twice
@@ -42,10 +43,9 @@ public class Bullet : MonoBehaviour
             //Since the modifyHealth script isn't always on the same gameobject as the collider, keep checking its parent till you find it
             while ((enemyHealth = currentGameObjectTransform.gameObject.GetComponent<EnemyHealth>()) == null)
                 currentGameObjectTransform = currentGameObjectTransform.transform.parent;
-
             enemyHealth.ModifyHealth(-damage);
+            Destroy(gameObject); //Destroy the bullet
         }
-        Destroy(gameObject); //Destroy the bullet
     }
     #endregion
 }

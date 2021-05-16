@@ -329,7 +329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3930181855507638779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4972155062557877806}
@@ -545,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4972155062557877806
 Transform:
   m_ObjectHideFlags: 0
@@ -618,7 +618,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.30390728, y: 0.9}
+  m_Offset: {x: 0.0038913488, y: 0.9}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -629,7 +629,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7078145, y: 1.3999999}
+  m_Size: {x: 1.0922172, y: 1.3999999}
   m_EdgeRadius: 0
 --- !u!61 &3930181855921769379
 BoxCollider2D:
@@ -669,16 +669,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf85ca53612cc274389528f9f8914030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolling: 1
-  onPlatform: 1
-  walkSpeed: 100
   groundCheck: {fileID: 3930181855507638778}
   groundLayer:
     serializedVersion: 2
     m_Bits: 768
   groundCheckDistance: 0.1
   bodyCollider: {fileID: 3930181855921769380}
-  turnAroundDistance: 0
+  detectionRange: 10
+  patrolling: 1
+  walkToNearestEdge: 1
+  turnAroundDistance: 25
+  walkSpeed: 100
 --- !u!114 &3930181855921769377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,6 +1080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5676947281593763434}
   - component: {fileID: 518672737139516452}
+  - component: {fileID: 359373194}
   m_Layer: 14
   m_Name: DetectionArea
   m_TagString: Untagged
@@ -1116,6 +1118,18 @@ CircleCollider2D:
   m_Offset: {x: -0.04, y: 0.8}
   serializedVersion: 2
   m_Radius: 10
+--- !u!114 &359373194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847323000128460480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a58461ca455e648b53736e29d02cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8914890014296323571
 GameObject:
   m_ObjectHideFlags: 0
