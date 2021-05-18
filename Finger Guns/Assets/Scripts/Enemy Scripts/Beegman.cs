@@ -5,6 +5,7 @@ using UnityEngine;
 public class Beegman : MonoBehaviour
 {
     //public
+    [SerializeField] float chargeSpeed;
     [SerializeField] float chargeDistancePastPlayer;
     [SerializeField] float minTimeBtwCharge;
     [SerializeField] float maxTimeBtwCharge;
@@ -38,10 +39,10 @@ public class Beegman : MonoBehaviour
             targetPos = new Vector2(playerXPos + distanceBeyondPlayer, transform.position.y);
             if (inCharge)
             {
-                var moveSpeed = playerScript.MaxSpeed + 5;
-                var movementThisFrame = moveSpeed * Time.deltaTime;
+                //var moveSpeed = playerScript.MaxSpeed + 5;
+                var movementThisFrame = chargeSpeed * Time.deltaTime;
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
-                anim.SetFloat("Movement", moveSpeed);
+                anim.SetFloat("Movement", chargeSpeed);
                 if (Vector2.Distance(transform.position, targetPos) <= 0.1 || playerHit)
                 {
                     anim.SetBool("Charge", false);

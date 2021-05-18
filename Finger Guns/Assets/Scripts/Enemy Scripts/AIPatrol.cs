@@ -100,7 +100,6 @@ public class AIPatrol : MonoBehaviour
             }
             else if (name.ToLower().Contains("explodeyone"))
             {
-                Debug.Log("moving towards me");
                 if (explodeyScript && explodeyScript.MoveTowardsPlayer == false)
                     explodeyScript.MoveTowardsPlayer = true;
             }

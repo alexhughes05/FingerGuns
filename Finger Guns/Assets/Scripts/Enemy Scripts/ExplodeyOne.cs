@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ExplodeyOne : MonoBehaviour
 {
-    [SerializeField] FingerGunMan player;
     [SerializeField] CircleCollider2D explosionAreaCollider;
     [SerializeField] float moveSpeed;
 
@@ -32,11 +31,7 @@ public class ExplodeyOne : MonoBehaviour
     {
         if (MoveTowardsPlayer)
         {
-            playerXPos = playerScript.gameObject.transform.position.x;
-            targetPos = new Vector2(playerXPos, playerScript.gameObject.transform.position.y);
-            var movementThisFrame = moveSpeed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
-            anim.SetFloat("Movement", moveSpeed);
+            TriggerMoveTowards();
         }
 
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("Rig _ExplodeyOne|Death"))
@@ -52,7 +47,7 @@ public class ExplodeyOne : MonoBehaviour
                 GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
                 explosion.Play();
                 if (inExplosionRadius)
-                    player.GetComponent<PlayerHealth>().ModifyHealth(-1);
+                    playerScript.gameObject.GetComponent<PlayerHealth>().ModifyHealth(-1);
                 Destroy(gameObject, 0.7f);
             }
         }
@@ -64,7 +59,6 @@ public class ExplodeyOne : MonoBehaviour
         {
             if (collision.gameObject.layer == 10)
             {
-                Debug.Log("executed death");
                 inExplosionRadius = true;
                 anim.SetTrigger("Death");
             }
@@ -76,6 +70,15 @@ public class ExplodeyOne : MonoBehaviour
         {
             inExplosionRadius = false;
         }
+    }
+
+    private void TriggerMoveTowards()
+    {
+        playerXPos = playerScript.gameObject.transform.position.x;
+        targetPos = new Vector2(playerXPos, playerScript.gameObject.transform.position.y);
+        var movementThisFrame = moveSpeed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
+        anim.SetFloat("Movement", moveSpeed);
     }
     
     //Properties

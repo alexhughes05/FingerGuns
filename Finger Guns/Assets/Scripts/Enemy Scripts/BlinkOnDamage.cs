@@ -42,6 +42,9 @@ public class BlinkOnDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            Debug.Log("reached inside.");
             if (collision.gameObject.CompareTag("PlayerBullet"))
             {
                 mr.material = matDamage;
@@ -51,6 +54,7 @@ public class BlinkOnDamage : MonoBehaviour
                 }
                 StartCoroutine(BlinkTwice());
             }
+        }
     }
 
     IEnumerator BlinkTwice()

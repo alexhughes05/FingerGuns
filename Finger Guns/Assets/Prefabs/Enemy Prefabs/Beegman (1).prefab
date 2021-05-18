@@ -641,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7756172158756723932
 Transform:
   m_ObjectHideFlags: 0
@@ -745,9 +745,9 @@ MonoBehaviour:
     m_Bits: 768
   groundCheckDistance: 0.1
   bodyCollider: {fileID: 7793984935603136590}
-  detectionRange: 7.5
+  detectionRange: 14.4
   patrolling: 1
-  walkToNearestEdge: 1
+  walkToNearestEdge: 0
   turnAroundDistance: 10
   walkSpeed: 100
 --- !u!114 &2030625174
@@ -762,6 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81720d1218cd9884b8422565898ec22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
   chargeDistancePastPlayer: 15
   minTimeBtwCharge: 3
   maxTimeBtwCharge: 3
