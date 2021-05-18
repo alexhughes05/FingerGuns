@@ -2164,6 +2164,18 @@ PrefabInstance:
       propertyPath: chargeSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2030625174, guid: 16fd3aa8e243fe64bb0a71559bceaf95, type: 3}
+      propertyPath: maxTimeBtwCharge
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030625174, guid: 16fd3aa8e243fe64bb0a71559bceaf95, type: 3}
+      propertyPath: minTimeBtwCharge
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030625174, guid: 16fd3aa8e243fe64bb0a71559bceaf95, type: 3}
+      propertyPath: chargeDistancePastPlayer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1918483487409938915, guid: 16fd3aa8e243fe64bb0a71559bceaf95,
         type: 3}
       propertyPath: m_LocalPosition.x
