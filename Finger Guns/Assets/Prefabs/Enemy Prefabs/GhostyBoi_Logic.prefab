@@ -675,7 +675,7 @@ MonoBehaviour:
     m_Bits: 768
   groundCheckDistance: 0.1
   bodyCollider: {fileID: 3930181855921769380}
-  detectionRange: 10
+  detectionRange: 20
   patrolling: 1
   walkToNearestEdge: 1
   turnAroundDistance: 25

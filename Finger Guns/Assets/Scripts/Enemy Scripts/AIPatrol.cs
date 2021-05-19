@@ -160,7 +160,7 @@ public class AIPatrol : MonoBehaviour
 
     public bool PlayerOnRightOfEnemey()
     {
-        if (playerScript != null && playerScript.gameObject.transform.position.x > transform.position.x)
+        if (playerScript.gameObject.transform.position.x > transform.position.x)
             return true;
         else
             return false;

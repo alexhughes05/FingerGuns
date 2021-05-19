@@ -397,7 +397,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4177589398922818777}
   m_LocalRotation: {x: 0.00000008940697, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0001, y: 0.004, z: -0}
+  m_LocalPosition: {x: -0, y: 0.004, z: -0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 7793984935603136577}
@@ -747,7 +747,7 @@ MonoBehaviour:
   bodyCollider: {fileID: 7793984935603136590}
   detectionRange: 10
   patrolling: 1
-  walkToNearestEdge: 0
+  walkToNearestEdge: 1
   turnAroundDistance: 10
   walkSpeed: 100
 --- !u!114 &2030625174
@@ -763,9 +763,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeSpeed: 15
-  chargeDistancePastPlayer: 15
-  minTimeBtwCharge: 3
-  maxTimeBtwCharge: 3
+  chargeDistancePastPlayer: 7
+  minTimeBtwCharge: 1.5
+  maxTimeBtwCharge: 5
 --- !u!1 &7230753622924032480
 GameObject:
   m_ObjectHideFlags: 0

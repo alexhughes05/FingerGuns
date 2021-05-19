@@ -42,7 +42,6 @@ public class BlinkOnDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             mr.material = matDamage;
