@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
 
     //Components
     private GameSession gameSession;
+    private Animator anim;
 
     //Private    
     private int currentHealth;
@@ -21,10 +22,15 @@ public class EnemyHealth : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks
+
+    private void Awake()
+    {
+        anim = gameObject.GetComponent<Animator>();
+        gameSession = FindObjectOfType<GameSession>();
+    }
     void Start()
     {
         currentHealth = health;
-        gameSession = FindObjectOfType<GameSession>();
     }
     #endregion
 
@@ -34,15 +40,18 @@ public class EnemyHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth <= 0)
         {
-            GetComponent<AIPatrol>().Anim.SetTrigger("Death");
-            Destroy(gameObject, 0.5f);
+            anim.SetTrigger("Death");
+            if (gameObject.name.Contains("ExplodeyOne"))
+            {
+                Destroy(gameObject, 1);
+            }
+            else
+                Destroy(gameObject, 0.5f);
             AddPoints();
             isDead = true;
         }
         else
-        {
-            GetComponent<AIPatrol>().Anim.SetTrigger("Take Damage");
-        }
+            anim.SetTrigger("Take Damage");
     }
 
     public void AddPoints()
