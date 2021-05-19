@@ -884,6 +884,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 192031513}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &199204349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6535521085681344222, guid: ea18fff2c09b45948a0c9072133f4747,
+    type: 3}
+  m_PrefabInstance: {fileID: 1000482997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &199204350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199204349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightPadding: -0.1
+  platformThickness: 0.1
 --- !u!1001 &241413910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -992,7 +1012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7727249f0ab6e47ae3a23e88c6a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  padding: -0.1
 --- !u!1001 &344964557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2530,7 +2549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7727249f0ab6e47ae3a23e88c6a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  padding: -0.1
 --- !u!1 &694569692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3094,7 +3112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7727249f0ab6e47ae3a23e88c6a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  padding: -0.1
 --- !u!1001 &965489175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3393,7 +3410,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1837733705501029835, guid: ea18fff2c09b45948a0c9072133f4747, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea18fff2c09b45948a0c9072133f4747, type: 3}
 --- !u!4 &1000482998 stripped
 Transform:
@@ -5906,8 +5924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ade859aa14ccd4db199ad48955521e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
 --- !u!1001 &1767819699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7183,8 +7199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ade859aa14ccd4db199ad48955521e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
 --- !u!1001 &2103232575
 PrefabInstance:
   m_ObjectHideFlags: 0
