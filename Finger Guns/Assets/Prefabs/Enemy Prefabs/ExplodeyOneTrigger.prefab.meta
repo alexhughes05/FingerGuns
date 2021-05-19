@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Finger Guns/Assets/Scripts/Custom Editor.meta
+guid: 39e86a9a55113db4fa30a4a354233889
+folderAsset: yes
+DefaultImporter:
+=======
 guid: a04c0e91a88bd1d41bffa7e8dfe5fa28
 PrefabImporter:
+>>>>>>> main:Finger Guns/Assets/Prefabs/Enemy Prefabs/ExplodeyOneTrigger.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
