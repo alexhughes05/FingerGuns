@@ -6,6 +6,9 @@ public class BeegmanAnimationTest : MonoBehaviour
 {
     private Animator animator;
 
+    public ParticleSystem stompParticles;
+    public ParticleSystem stompLandParticles;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -51,6 +54,13 @@ public class BeegmanAnimationTest : MonoBehaviour
         if (Input.GetKeyDown("m"))
         {
             animator.SetBool("Mouth Open", false);
+        }
+
+        if (Input.GetKeyDown("z"))
+        {
+            animator.SetTrigger("Stomp");
+            stompParticles.Play();
+            stompLandParticles.Play();
         }
     }
 }
