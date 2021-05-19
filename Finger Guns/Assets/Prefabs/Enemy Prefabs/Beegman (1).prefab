@@ -745,7 +745,7 @@ MonoBehaviour:
     m_Bits: 768
   groundCheckDistance: 0.1
   bodyCollider: {fileID: 7793984935603136590}
-  detectionRange: 14.4
+  detectionRange: 10
   patrolling: 1
   walkToNearestEdge: 0
   turnAroundDistance: 10
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81720d1218cd9884b8422565898ec22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  chargeSpeed: 15
   chargeDistancePastPlayer: 15
   minTimeBtwCharge: 3
   maxTimeBtwCharge: 3
@@ -932,7 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7793984935603136577}
   - component: {fileID: 7793984935603136590}
-  m_Layer: 17
+  m_Layer: 12
   m_Name: Box Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
