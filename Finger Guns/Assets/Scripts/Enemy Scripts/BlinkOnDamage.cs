@@ -11,7 +11,7 @@ public class BlinkOnDamage : MonoBehaviour
     //components
     private EnemyHealth health;
     private SkinnedMeshRenderer mr;
-    
+
     //private
     private Material matDamage;
     private Material matDefault;
@@ -19,12 +19,24 @@ public class BlinkOnDamage : MonoBehaviour
     private void Awake()
     {
         health = gameObject.GetComponent<EnemyHealth>();
-        mr = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                mr = child.GetComponent<SkinnedMeshRenderer>();
+                break;
+            }
+        }
     }
 
     void Start()
     {
-        matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
+        if (gameObject.name.Contains("GhostyBoi"))
+            matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
+        else if (gameObject.name.Contains("Beegman"))
+            matDamage = Resources.Load("BeegmanDamaged", typeof(Material)) as Material;
+        else if (gameObject.name.Contains("ExplodeyOne"))
+            matDamage = Resources.Load("ExplodeyOneDamaged", typeof(Material)) as Material;
         matDefault = mr.material;
     }
 
@@ -32,12 +44,16 @@ public class BlinkOnDamage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
-            mr.material = matDamage;
-            if (health.GetHealth() > 0)
+            Debug.Log("reached inside.");
+            if (collision.gameObject.CompareTag("PlayerBullet"))
             {
-                Invoke("ResetMaterial", blinkDuration); 
+                mr.material = matDamage;
+                if (health.GetHealth() > 0)
+                {
+                    Invoke("ResetMaterial", blinkDuration);
+                }
+                StartCoroutine(BlinkTwice());
             }
-            StartCoroutine(BlinkTwice());
         }
     }
 
@@ -47,7 +63,7 @@ public class BlinkOnDamage : MonoBehaviour
         mr.material = matDamage;
         if (health.GetHealth() > 0)
         {
-            Invoke("ResetMaterial", blinkDuration); 
+            Invoke("ResetMaterial", blinkDuration);
         }
     }
 
