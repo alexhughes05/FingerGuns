@@ -34,7 +34,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.bank
   Name: Master
-  lastModified: 637542205947141083
+  lastModified: 637538305266950251
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-7459170298884378225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637542205947161349
+  lastModified: 637538305267099356
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -470,8 +470,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -7511117072197907173}
-  - {fileID: 8988885028188889414}
+  - {fileID: 1865387806145023937}
+  - {fileID: 1431135433912669514}
   MinDistance: 0
   MaxDistance: 0
   Length: 81103
@@ -559,7 +559,7 @@ MonoBehaviour:
   - {fileID: -8377310224905248757}
   StringsBanks:
   - {fileID: -1134781285750565579}
-  stringsBankWriteTime: 637542205947161349
+  stringsBankWriteTime: 637538305267099356
   cacheVersion: 5
 --- !u!114 &397295174097014226
 MonoBehaviour:
@@ -639,6 +639,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &1431135433912669514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/GameStarted
+  m_EditorClassIdentifier: 
+  Name: GameStarted
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &1624651176238820132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +676,26 @@ MonoBehaviour:
   lastModified: 637487590193930569
   LoadResult: 0
   FileSizes: []
+  Exists: 1
+--- !u!114 &1865387806145023937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/TutorialShift
+  m_EditorClassIdentifier: 
+  Name: TutorialShift
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
   Exists: 1
 --- !u!114 &2179027733108749099
 MonoBehaviour:
@@ -876,7 +916,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &9158566927789642126
 MonoBehaviour:
   m_ObjectHideFlags: 0
