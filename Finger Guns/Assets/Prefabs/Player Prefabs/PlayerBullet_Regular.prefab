@@ -49,7 +49,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -137,4 +136,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   speed: 40
-  range: 0.3
+  range: 2
+  homingShot: 0
+  homingSpeed: 10
+  blastShot: 0
+  blastExplosion: {fileID: 0}
+  closestEnemy: {fileID: 0}

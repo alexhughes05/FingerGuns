@@ -11,7 +11,7 @@ public class BlinkOnDamage : MonoBehaviour
     //components
     private EnemyHealth health;
     private SkinnedMeshRenderer mr;
-
+    
     //private
     private Material matDamage;
     private Material matDefault;
@@ -19,36 +19,23 @@ public class BlinkOnDamage : MonoBehaviour
     private void Awake()
     {
         health = gameObject.GetComponent<EnemyHealth>();
-        foreach (Transform child in transform)
-        {
-            if (child.GetComponent<SkinnedMeshRenderer>() != null)
-            {
-                mr = child.GetComponent<SkinnedMeshRenderer>();
-                break;
-            }
-        }
+        mr = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
     }
 
     void Start()
     {
-        if (gameObject.name.Contains("GhostyBoi"))
-            matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
-        else if (gameObject.name.Contains("Beegman"))
-            matDamage = Resources.Load("BeegmanDamaged", typeof(Material)) as Material;
-        else if (gameObject.name.Contains("ExplodeyOne"))
-            matDamage = Resources.Load("ExplodeyOneDamaged", typeof(Material)) as Material;
+        matDamage = Resources.Load("GhostyBoiDamaged", typeof(Material)) as Material;
         matDefault = mr.material;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             mr.material = matDamage;
             if (health.GetHealth() > 0)
             {
-                Invoke("ResetMaterial", blinkDuration);
+                Invoke("ResetMaterial", blinkDuration); 
             }
             StartCoroutine(BlinkTwice());
         }
@@ -60,7 +47,7 @@ public class BlinkOnDamage : MonoBehaviour
         mr.material = matDamage;
         if (health.GetHealth() > 0)
         {
-            Invoke("ResetMaterial", blinkDuration);
+            Invoke("ResetMaterial", blinkDuration); 
         }
     }
 

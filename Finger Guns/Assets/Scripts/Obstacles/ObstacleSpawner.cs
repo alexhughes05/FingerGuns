@@ -55,7 +55,7 @@ public class ObstacleSpawner : MonoBehaviour
     }
     private IEnumerator SpawnLightning(GameObject obstacle, Lightning lightning)
     {
-        if (wind != null && wind.StormStarted)
+        if (wind.StormStarted)
         {
             int randomNum = UnityEngine.Random.Range(0, 2);
             if (randomNum == 0)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4982334996285233915}
   - component: {fileID: 8104634879469252744}
   - component: {fileID: 4155125744483935020}
+  - component: {fileID: -757127942352852906}
   m_Layer: 15
   m_Name: Sawblade
   m_TagString: Blade
@@ -49,7 +50,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,10 +101,14 @@ MonoBehaviour:
   maxSpawnRateInSeconds: 5
   speedOfSpin: 500
   moveSpeed: 15
+  numTimesExecPerSpawn: 0
+  durationBtwEachAnim: 0
   pathsPrefab:
   - {fileID: 6511349331371463512, guid: 21dc768631d65c645a7b9cff71b6d5af, type: 3}
   - {fileID: 4799639990497653289, guid: 6516e8a584e0ee34db2f34b9090728f1, type: 3}
   - {fileID: 8209564550454882195, guid: f8ebafbe4849c1648a8ef3fad0136064, type: 3}
+  selectedPath: {fileID: 6511349331371463512, guid: 21dc768631d65c645a7b9cff71b6d5af,
+    type: 3}
 --- !u!58 &8104634879469252744
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,3 +146,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-757127942352852906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601261908118081095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057f08c1aa964824fac769f7da3bfb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1

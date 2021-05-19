@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {    
-    private int score = 0;
+    int score = 0;
     
     void Awake()
     {
         SetUpSingleton();
     }
 
-    private void SetUpSingleton()
+    public void SetUpSingleton()
     {
         if (FindObjectsOfType<GameSession>().Length > 1)
         {
@@ -20,7 +20,7 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            DontDestroyChildOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -42,18 +42,5 @@ public class GameSession : MonoBehaviour
     public void ResetGame()
     {
         Destroy(gameObject);
-    }
-
-    public static void DontDestroyChildOnLoad(GameObject child)
-    {
-        Transform parentTransform = child.transform;
-
-        // If this object doesn't have a parent then its the root transform.
-        while (parentTransform.parent != null)
-        {
-            // Keep going up the chain.
-            parentTransform = parentTransform.parent;
-        }
-        GameObject.DontDestroyOnLoad(parentTransform.gameObject);
     }
 }

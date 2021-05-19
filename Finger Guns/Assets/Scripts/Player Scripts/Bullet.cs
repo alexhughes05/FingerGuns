@@ -5,17 +5,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     #region Variables
-    //Public
-    [SerializeField] int damage = 2;
-    [SerializeField] float speed = 500f;
-    [SerializeField] float range = 0.3f;
-
     //Components
-    private CapsuleCollider2D bulletCollider;
-    private Rigidbody2D rb2d;
+    CapsuleCollider2D bulletCollider;
+    Rigidbody2D rb2d;
 
-    //private
-    private bool alreadyCollided;
+    //Public
+    [SerializeField] int damage = 5;
+    [SerializeField] float speed = 500f;
+    [SerializeField] float range = 2f;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -34,17 +31,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if (collision.gameObject.layer == 12 && !alreadyCollided)
+        if (collision.gameObject.layer == 12)
         {
-            alreadyCollided = true; //Needed becomes sometimes it registers as a collision twice
-            var currentGameObjectTransform = collision.gameObject.transform;
-            EnemyHealth enemyHealth;
-            //Since the modifyHealth script isn't always on the same gameobject as the collider, keep checking its parent till you find it
-            while ((enemyHealth = currentGameObjectTransform.gameObject.GetComponent<EnemyHealth>()) == null)
-                currentGameObjectTransform = currentGameObjectTransform.transform.parent;
-            enemyHealth.ModifyHealth(-damage);
-            Destroy(gameObject); //Destroy the bullet
+            collision.gameObject.GetComponent<EnemyHealth>().ModifyHealth(-damage);
+            Destroy(gameObject);
         }
     }
     #endregion

@@ -6,11 +6,11 @@ using TMPro;
 
 public class DisplayScore : MonoBehaviour
 {
-    private TextMeshProUGUI scoreText;
-    private GameSession gameSession;
+    TextMeshProUGUI scoreText;
+    GameSession gameSession;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         scoreText = GetComponent<TextMeshProUGUI>();
         gameSession = FindObjectOfType<GameSession>();
