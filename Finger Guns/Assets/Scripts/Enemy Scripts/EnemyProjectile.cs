@@ -54,8 +54,12 @@ public class EnemyProjectile : MonoBehaviour
 
         if (collision.gameObject.layer == 10 && fingerGunMan.ExternalForce == false)
         {
-            collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
-            collision.GetComponentInParent<PlayerHealth>().ModifyHealth(-1);
+            var playerHealthScript = collision.gameObject.GetComponentInParent<PlayerHealth>();
+            if (playerHealthScript.GetHealth() > 0)
+            {
+                collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
+                playerHealthScript.ModifyHealth(-1);
+            }
         }
     }
     #endregion

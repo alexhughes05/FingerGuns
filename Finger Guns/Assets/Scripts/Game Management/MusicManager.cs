@@ -15,7 +15,7 @@ public class MusicManager : MonoBehaviour
         if(managerInstance == null)
         {
             managerInstance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyChildOnLoad(gameObject);
         }
         else
         {
@@ -37,5 +37,17 @@ public class MusicManager : MonoBehaviour
     public void TutorialShift()
     {
         instance.setParameterByName("TutorialShift", 1f);
+    }
+    public static void DontDestroyChildOnLoad(GameObject child)
+    {
+        Transform parentTransform = child.transform;
+
+        // If this object doesn't have a parent then its the root transform.
+        while (parentTransform.parent != null)
+        {
+            // Keep going up the chain.
+            parentTransform = parentTransform.parent;
+        }
+        GameObject.DontDestroyOnLoad(parentTransform.gameObject);
     }
 }
