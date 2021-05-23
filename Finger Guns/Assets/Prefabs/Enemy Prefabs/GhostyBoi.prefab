@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: -1900746559706937268}
   - component: {fileID: 1983751314}
   m_Layer: 12
-  m_Name: GhostyBoi_Logic
+  m_Name: GhostyBoi
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -695,7 +695,7 @@ MonoBehaviour:
   firePoint: {fileID: 3930181855950825401}
   enemyProjectile: {fileID: 5410862014141978629, guid: 9024f2d7127182a4996fe354dd170897,
     type: 3}
-  timeBtwShots: 0.6
+  timeBtwShots: 1
 --- !u!114 &-1900746559706937268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPointValue: 100
-  health: 6
+  health: 4
 --- !u!114 &1983751314
 MonoBehaviour:
   m_ObjectHideFlags: 0
