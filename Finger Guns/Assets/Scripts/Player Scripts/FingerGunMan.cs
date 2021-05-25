@@ -525,7 +525,7 @@ public class FingerGunMan : MonoBehaviour
                 if (collision.gameObject.layer == 12)
                 {
                     var playerOnRightOfEnemy = false;
-                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<AIPatrol>().PlayerOnRightOfEnemey())
+                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<AIPatrol>().PlayerOnRightOfEnemy())
                         playerOnRightOfEnemy = true;
 
                     if (playerOnRightOfEnemy)

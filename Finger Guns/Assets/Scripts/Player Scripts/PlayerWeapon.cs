@@ -19,7 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     [Space()]
     [Header("Camera")]
     [SerializeField] Transform cameraTarget;
-    [SerializeField] float lookAheadAmount = 5f, lookAheadSpeed = 4f;
+    [SerializeField] float lookAheadAmount, lookAheadSpeed;
     [Space()]
     [Header("SFX")]
     private FMOD.Studio.EventInstance instance;

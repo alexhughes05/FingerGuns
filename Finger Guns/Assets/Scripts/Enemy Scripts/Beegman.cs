@@ -17,12 +17,12 @@ public class Beegman : MonoBehaviour
 
     //private
     private bool playerOnRightOfEnemy;
-    private bool enemyFacingRight;
     private bool playerHit;
     private Vector2 targetPos;
     private float playerXPos;
     private float distanceBeyondPlayer = 5;
     private bool inCharge;
+    private bool needNewChargeTime = true;
 
     void Awake()
     {
@@ -39,7 +39,6 @@ public class Beegman : MonoBehaviour
             targetPos = new Vector2(playerXPos + distanceBeyondPlayer, transform.position.y);
             if (inCharge)
             {
-                //var moveSpeed = playerScript.MaxSpeed + 5;
                 var movementThisFrame = chargeSpeed * Time.deltaTime;
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
                 anim.SetFloat("Movement", chargeSpeed);
@@ -47,6 +46,7 @@ public class Beegman : MonoBehaviour
                 {
                     anim.SetBool("Charge", false);
                     anim.SetFloat("Movement", 0);
+                    needNewChargeTime = true;
                     inCharge = false;
                     playerHit = false;
                 }
@@ -73,11 +73,17 @@ public class Beegman : MonoBehaviour
 
     private IEnumerator WaitForNextCharge()
     {
-        var chargeTime = UnityEngine.Random.Range(minTimeBtwCharge, maxTimeBtwCharge);
-        yield return new WaitForSeconds(chargeTime);
+        ChargeEnteredTime = Time.time;
+        if (needNewChargeTime)
+        {
+            needNewChargeTime = false;
+            ChargeRemainingTime = Random.Range(minTimeBtwCharge, maxTimeBtwCharge);
+            ChargeStartTime = Time.time;
+        }
+
+        yield return new WaitForSeconds(ChargeRemainingTime);
         anim.SetBool("Charge", true);
-        enemyFacingRight = patrolScript.EnemyFacingRight();
-        playerOnRightOfEnemy = patrolScript.PlayerOnRightOfEnemey();
+        playerOnRightOfEnemy = patrolScript.PlayerOnRightOfEnemy();
         
         if (playerOnRightOfEnemy)
             distanceBeyondPlayer = chargeDistancePastPlayer;
@@ -89,4 +95,7 @@ public class Beegman : MonoBehaviour
 
     //Properties
     public bool StartAttackingPlayer { get; set; }
+    public float ChargeRemainingTime { get; set; }
+    public float ChargeEnteredTime { get; set; }
+    public float ChargeStartTime { get; set; }
 }
