@@ -26,6 +26,7 @@ public class AIPatrol : MonoBehaviour
     [SerializeField] float walkSpeed;
 
     //Components
+    private AIShoot shootScript;
     private FingerGunMan playerScript;
     private Coroutine co;
     private Beegman beegmanScript;
@@ -46,6 +47,7 @@ public class AIPatrol : MonoBehaviour
 
     private void Awake()
     {
+        shootScript = GetComponent<AIShoot>();
         playerScript = FindObjectOfType<FingerGunMan>();
         beegmanScript = GetComponent<Beegman>();
         explodeyScript = GetComponent<ExplodeyOne>();
@@ -115,8 +117,7 @@ public class AIPatrol : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Patrolling)
-            signalTurn = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
+        signalTurn = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer); //better if put either when in a charge or patrolling
     }
     #endregion
 
@@ -136,6 +137,11 @@ public class AIPatrol : MonoBehaviour
     {
         if ((PlayerOnRightOfEnemy() && !EnemyFacingRight) || (!PlayerOnRightOfEnemy() && EnemyFacingRight))
         {
+            if (beegmanScript != null)
+                beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
+
+            Debug.Log("facing player now."); //This shouldnt be executed more than once at a time. Need to fix.
+
             EnemyHasBeenFlipped = !EnemyHasBeenFlipped;
             EnemyFacingRight = !EnemyFacingRight;
 
@@ -171,14 +177,19 @@ public class AIPatrol : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.layer == 6) //if enemy runs into a wall, turn around
+        if (collision.gameObject.layer == 6 && !EnemyAttack) //if enemy runs into a wall, turn around
         {
+            Debug.Log("hit wall.");
             Flip();
         }
     }
 
     public void Flip()
     {
+        if (shootScript != null)
+            shootScript.FirePoint.transform.localPosition = new Vector2(-shootScript.FirePoint.transform.localPosition.x, shootScript.FirePoint.transform.localPosition.y);
+        if (beegmanScript != null)
+            beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
         distanceTraveledSinceTurn = 0;
         walkSpeed *= -1f;
         groundCheck.localPosition = new Vector3(groundCheck.localPosition.x * -1f, groundCheck.localPosition.y, groundCheck.localPosition.z);
@@ -186,9 +197,12 @@ public class AIPatrol : MonoBehaviour
         //Flip scale for beegman
         if (name.ToLower().Contains("beegman") || name.ToLower().Contains("explodeyone"))
         {
-            Vector3 newScale = transform.localScale;
-            newScale.x *= -1;
-            transform.localScale = newScale;
+            if (!EnemyAttack)
+            {
+                Vector3 newScale = transform.localScale;
+                newScale.x *= -1;
+                transform.localScale = newScale;
+            }
         }
 
         StartCoroutine(ResetTurnAround());

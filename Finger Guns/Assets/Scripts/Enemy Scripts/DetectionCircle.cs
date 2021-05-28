@@ -44,6 +44,8 @@ public class DetectionCircle : MonoBehaviour
 
         if (patrolScript.EnemyHasBeenFlipped)
         {
+            if (beegmanScript)
+                beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
             patrolScript.EnemyHasBeenFlipped = false;
             patrolScript.EnemyFacingRight = !patrolScript.EnemyFacingRight;
             Vector3 newScale = transform.parent.gameObject.transform.localScale;

@@ -70,6 +70,13 @@ public class Wind : MonoBehaviour
             rainSlantMag = Mathf.Clamp(currentWindForce * 4, -maxRainSlant, -7.5f);
             rainVel.x = rainSlantMag;
             shape.position = new Vector2((rainSlantMag * -1) + 5f, shape.position.y);
+            //var i = 0.0f;
+            //while (i < 1.0)
+            //{
+            //   i += Time.deltaTime;
+            //   shape.position = Vector3.Lerp(shape.position, new Vector3((rainSlantMag * -1) + 5f, shape.position.y, shape.position.z), i);
+            //}
+
         }
         else
         {

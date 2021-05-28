@@ -31,11 +31,12 @@ public class AIShoot : MonoBehaviour
 
     void Update()
     {
-        if(Shooting && !fingerGunMan.PlayerDead)
+        if (Shooting && !fingerGunMan.PlayerDead)
         {
             Shoot();
         }
     }
+
 
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -57,7 +58,7 @@ public class AIShoot : MonoBehaviour
 
     #region Private Methods
     void Shoot()
-    {        
+    {
         if (currentTimeBtwShots <= 0)
         {
             Instantiate(enemyProjectile, firePoint.position, Quaternion.identity);
@@ -72,5 +73,6 @@ public class AIShoot : MonoBehaviour
 
     #region Properties
     public bool Shooting { get; set; }
+    public Transform FirePoint { get { return firePoint; } set { firePoint = value; } }
     #endregion
 }
