@@ -23,5 +23,14 @@ public class TempAnimationTest : MonoBehaviour
         {
             animator.SetFloat("Movement", 1.0f);
         }
+
+        if (Input.GetKeyDown("c"))
+        {
+            animator.SetBool("Test", false);
+        }
+        if (Input.GetKeyDown("v"))
+        {
+            animator.SetBool("Test", true);
+        }
     }
 }
