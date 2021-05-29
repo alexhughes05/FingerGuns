@@ -163,14 +163,14 @@ ModelImporter:
       name: Rig _ExplodeyOne|Idle
       takeName: Rig _ExplodeyOne|Idle
       internalID: 0
-      firstFrame: 0
-      lastFrame: 47
+      firstFrame: 1
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
+      hasAdditiveReferencePose: 1
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
