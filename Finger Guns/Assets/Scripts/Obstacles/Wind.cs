@@ -20,6 +20,8 @@ public class Wind : MonoBehaviour
     [SerializeField] float maxGustLength;
     [SerializeField] float minTimeBtwGusts;
     [SerializeField] float maxTimeBtwGusts;
+    [SerializeField] float windFadeInTime;
+    [SerializeField] float windFadeOutTime;
 
     //Private
     private ParticleSystem.VelocityOverLifetimeModule rainVel;
@@ -29,6 +31,10 @@ public class Wind : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (windFadeInTime == 0)
+            windFadeInTime = 0.1f;
+        if (windFadeOutTime == 0)
+            windFadeOutTime = 0.1f;
         rainVel = rainPS.velocityOverLifetime;
         shape = rainPS.shape;
         rainVel.enabled = true;
@@ -38,7 +44,7 @@ public class Wind : MonoBehaviour
     public void StartStorm()
     {
         StormStarted = true;
-        rainPS.Play();
+        //rainPS.Play();
         StartCoroutine(StartWindForDuration());
     }
 
@@ -56,40 +62,74 @@ public class Wind : MonoBehaviour
         while (true)
         {
             yield return WaitBeforeNextGust();
+            Debug.Log("executing next gust");
         }
     }
 
     private IEnumerator WaitBeforeNextGust()
     {
+        Debug.Log("Gust delay started.");
         var timeBtwGusts = UnityEngine.Random.Range(minTimeBtwGusts, maxTimeBtwGusts);
         yield return new WaitForSeconds(timeBtwGusts);
-        var gustLength = UnityEngine.Random.Range(minGustLength, maxGustLength);
-        currentWindForce = UnityEngine.Random.Range(minWindForce, maxWindForce) * (Random.Range(0, 2) * 2 - 1);
-        if (currentWindForce < 0)
-        {
-            rainSlantMag = Mathf.Clamp(currentWindForce * 4, -maxRainSlant, -7.5f);
-            rainVel.x = rainSlantMag;
-            shape.position = new Vector2((rainSlantMag * -1) + 5f, shape.position.y);
-            //var i = 0.0f;
-            //while (i < 1.0)
-            //{
-            //   i += Time.deltaTime;
-            //   shape.position = Vector3.Lerp(shape.position, new Vector3((rainSlantMag * -1) + 5f, shape.position.y, shape.position.z), i);
-            //}
 
+        var gustLength = UnityEngine.Random.Range(minGustLength, maxGustLength);
+        yield return StartCoroutine(WindSpeedFadeIn(UnityEngine.Random.Range(minWindForce, maxWindForce) * (Random.Range(0, 2) * 2 - 1), windFadeInTime));
+
+        Debug.Log("Max magnitude reached.");
+        yield return new WaitForSeconds(gustLength);
+        yield return StartCoroutine(WindSpeedFadeOut(0, windFadeOutTime));
+        Debug.Log("wind gust now done.");
+    }
+
+    private IEnumerator WindSpeedFadeIn(float targetWindSpeed, float time)
+    {
+        WindActive = true;
+        Debug.Log("Wind starting and ramping up velocity now");
+        var elapsedTime = 0.0f;
+        var shapeStartingPos = shape.position;
+        if (targetWindSpeed < 0)
+        {
+            rainSlantMag = Mathf.Clamp(targetWindSpeed * 4, -maxRainSlant, -7.5f);
+            while (elapsedTime < time)
+            {
+                rainVel.x = Mathf.Lerp(0, rainSlantMag, (elapsedTime / time));
+                shape.position = Vector3.Lerp(shapeStartingPos, new Vector3((rainSlantMag * -1) + 5f, shape.position.y, shape.position.z), (elapsedTime / time));
+                currentWindForce = Mathf.Lerp(0, targetWindSpeed, (elapsedTime / time));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
         else
         {
-            rainSlantMag = Mathf.Clamp(currentWindForce * 4, -7.5f, maxRainSlant);
-            rainVel.x = rainSlantMag;
-            shape.position = new Vector2((rainSlantMag * -1) - 12.5f, shape.position.y);
+            rainSlantMag = Mathf.Clamp(targetWindSpeed * 4, -7.5f, maxRainSlant);
+            while (elapsedTime < time)
+            {
+                rainVel.x = Mathf.Lerp(0, rainSlantMag, (elapsedTime / time));
+                shape.position = Vector3.Lerp(shapeStartingPos, new Vector3((rainSlantMag * -1) - 12.5f, shape.position.y, shape.position.z), (elapsedTime / time));
+                currentWindForce = Mathf.Lerp(0, targetWindSpeed, (elapsedTime / time));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
-        WindActive = true;
-        yield return new WaitForSeconds(gustLength);
+    }
+    private IEnumerator WindSpeedFadeOut(float targetWindSpeed, float time)
+    {
+        Debug.Log("Wind dying down now");
+        var startingRainSlantMag = rainSlantMag;
+        var shapeStartingPos = shape.position;
+        var startingWindForce = currentWindForce;
+        var elapsedTime = 0.0f;
+
+        while (elapsedTime < time)
+        {
+            rainVel.x = Mathf.Lerp(startingRainSlantMag, -7.5f, (elapsedTime / time));
+            shape.position = Vector3.Lerp(shapeStartingPos, new Vector3(0, shape.position.y, shape.position.z), (elapsedTime / time));
+            currentWindForce = Mathf.Lerp(startingWindForce, targetWindSpeed, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Wind fully stopped.");
         WindActive = false;
-        currentWindForce = 0;
-        shape.position = new Vector2(0, shape.position.y);
-        rainVel.x = -7.5f;
     }
 
     //Property
