@@ -780,16 +780,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOfStorm: 100
-  rainPS: {fileID: 1976789405}
-  maxRainSlant: 100
   minWindForce: 10
   maxWindForce: 30
   minGustLength: 1
   maxGustLength: 3
   minTimeBtwGusts: 2
   maxTimeBtwGusts: 4
-  windFadeInTime: 0
-  windFadeOutTime: 0
+  windFadeInTime: 2
+  windFadeOutTime: 2
 --- !u!114 &388612253 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3193852992982349058, guid: 29a0a1421a5579044a39ca943ab06a0a,
@@ -1943,6 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd35783dca366e4baa0191c88bac344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRainSlant: 100
 --- !u!1001 &1159550961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2135,17 +2134,17 @@ PrefabInstance:
     - target: {fileID: 6086355768888646368, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646368, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.914625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646368, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.795532
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646368, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
@@ -2200,7 +2199,7 @@ PrefabInstance:
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: ShapeModule.m_Scale.x
-      value: 90
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
@@ -2215,7 +2214,7 @@ PrefabInstance:
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: ShapeModule.m_Position.x
-      value: -145
+      value: -170
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
@@ -3000,12 +2999,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6516e8a584e0ee34db2f34b9090728f1, type: 3}
---- !u!198 &1976789405 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
-    type: 3}
-  m_PrefabInstance: {fileID: 1384015424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1993595568
 PrefabInstance:
   m_ObjectHideFlags: 0
