@@ -16,8 +16,12 @@ public class RainController : MonoBehaviour
     private ParticleSystem.ShapeModule shape;
     private ParticleSystem rainPs;
     private Camera cam;
-    private Vector2 rainPos;
+    private Vector2 currentPosAbovePlayer;
+    private Vector3 fadeInShapeStartingPos;
+    private float fadeInShapeEndingXPos;
     private float currentMaxRainSlant;
+    private Vector2 rainFadeInLerpedPos;
+    private float lerpedDisplacement;
 
     private void Awake()
     {
@@ -40,8 +44,9 @@ public class RainController : MonoBehaviour
         if (wind != null && wind.StormStarted)
         {
             var topCenterCamPos = cam.ViewportToWorldPoint(new Vector2(0.5f, 1));
-            rainPos = new Vector2(topCenterCamPos.x, (topCenterCamPos.y + 20));
-            shape.position = new Vector2(rainPos.x, rainPos.y);
+            currentPosAbovePlayer = new Vector2(topCenterCamPos.x + 10, (topCenterCamPos.y + 20));
+
+            shape.position = new Vector2(currentPosAbovePlayer.x + lerpedDisplacement, currentPosAbovePlayer.y);
             if (!rainPs.isPlaying)
                 rainPs.Play();
         }
@@ -49,27 +54,29 @@ public class RainController : MonoBehaviour
     public IEnumerator AdjustRainSlantFadeIn(float targetRainSlant, float time)
     {
         var elapsedTime = 0.0f;
-        var shapeStartingPos = shape.position;
+        fadeInShapeStartingPos = shape.position;
         currentMaxRainSlant = targetRainSlant;
 
         if (targetRainSlant < 0)
         {
+            fadeInShapeEndingXPos = P * (targetRainSlant + 7.5f) + fadeInShapeStartingPos.x;
             while (elapsedTime < time)
             {
-                Debug.Log("For rain controller, t is " + (elapsedTime / time));
                 rainVel.x = Mathf.Lerp(0, targetRainSlant, (elapsedTime / time));
-                shape.position = Vector3.Lerp(shapeStartingPos, new Vector3(P * (targetRainSlant - -7.5f) + shape.position.x, shape.position.y, shape.position.z), (elapsedTime / time));
+                rainFadeInLerpedPos = Vector3.Lerp(fadeInShapeStartingPos, new Vector3(fadeInShapeEndingXPos, shape.position.y, shape.position.z), (elapsedTime / time));
+                lerpedDisplacement = rainFadeInLerpedPos.x - fadeInShapeStartingPos.x;
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
         }
         else
         {
+            fadeInShapeEndingXPos = N * (targetRainSlant + 7.5f) + fadeInShapeStartingPos.x;
             while (elapsedTime < time)
             {
-                Debug.Log("For rain controller, t is " + (elapsedTime / time));
                 rainVel.x = Mathf.Lerp(0, targetRainSlant, (elapsedTime / time));
-                shape.position = Vector3.Lerp(shapeStartingPos, new Vector3(N * (targetRainSlant - -7.5f) + shape.position.x, shape.position.y, shape.position.z), (elapsedTime / time));
+                rainFadeInLerpedPos = Vector3.Lerp(fadeInShapeStartingPos, new Vector3(fadeInShapeEndingXPos, shape.position.y, shape.position.z), (elapsedTime / time));
+                lerpedDisplacement = rainFadeInLerpedPos.x - fadeInShapeStartingPos.x;
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -79,12 +86,12 @@ public class RainController : MonoBehaviour
     public IEnumerator AdjustRainSlantFadeOut(float targetRainSlant, float time)
     {
         var elapsedTime = 0.0f;
-        var shapeStartingPos = shape.position;
 
         while (elapsedTime < time)
         {
             rainVel.x = Mathf.Lerp(currentMaxRainSlant, targetRainSlant, (elapsedTime / time));
-            shape.position = Vector3.Lerp(shapeStartingPos, new Vector3(0, shape.position.y, shape.position.z), (elapsedTime / time));
+            var rainFadeOutLerpedPos = Vector3.Lerp(rainFadeInLerpedPos, new Vector3(fadeInShapeStartingPos.x, shape.position.y, shape.position.z), (elapsedTime / time));
+            lerpedDisplacement = rainFadeOutLerpedPos.x - fadeInShapeStartingPos.x;
             elapsedTime += Time.deltaTime;
             yield return null;
         }

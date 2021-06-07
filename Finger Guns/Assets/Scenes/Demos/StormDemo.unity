@@ -1736,7 +1736,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.100006
+      value: 240.9566
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344220, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -1796,7 +1796,7 @@ PrefabInstance:
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
       propertyPath: m_Size.x
-      value: 300
+      value: 1875.0043
       objectReference: {fileID: 0}
     - target: {fileID: 6535521085681344223, guid: ea18fff2c09b45948a0c9072133f4747,
         type: 3}
@@ -2199,12 +2199,12 @@ PrefabInstance:
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: ShapeModule.m_Scale.x
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: VelocityModule.x.scalar
-      value: 100
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
@@ -2214,7 +2214,7 @@ PrefabInstance:
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: ShapeModule.m_Position.x
-      value: -170
+      value: 56.8
       objectReference: {fileID: 0}
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
@@ -2224,6 +2224,21 @@ PrefabInstance:
     - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
         type: 3}
       propertyPath: ShapeModule.alignToDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6086355768888646370, guid: d7fb3d85c507e2e4d884a3e418df8371,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594972265289822237, guid: d7fb3d85c507e2e4d884a3e418df8371,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
