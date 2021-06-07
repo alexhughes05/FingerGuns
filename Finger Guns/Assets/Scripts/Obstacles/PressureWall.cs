@@ -10,6 +10,7 @@ public class PressureWall : MonoBehaviour
     [SerializeField] public ParticleSystem ps;
 
     //private variables
+    private Transform blackGradient;
     private BoxCollider2D col;
     private PlayerHealth playerHealth;
     private float offset;
@@ -29,6 +30,7 @@ public class PressureWall : MonoBehaviour
     void Start()
     {
         shape = ps.shape;  //Alows you to modify the boundaries of the particle system
+        blackGradient = GameObject.Find("BlackGrad").transform;
     }
 
     public float GetPressureWallXPos()
@@ -45,6 +47,11 @@ public class PressureWall : MonoBehaviour
         col.size = new Vector2(size, col.size.y);  //set the size of the collider
         //particle effect
         shape.position = new Vector2(offset * 2f, shape.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
+        
+        if (blackGradient != null)
+        {
+            blackGradient.position = new Vector3(shape.position.x + transform.position.x - 10, shape.position.y, shape.position.z);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
