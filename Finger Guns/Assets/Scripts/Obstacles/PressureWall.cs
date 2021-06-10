@@ -47,13 +47,12 @@ public class PressureWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector3(startingCamXPos - initialDistanceBehindPlayer, cam.transform.position.y, 0);
         size += (speedOfWall * Time.deltaTime); //The wall is expanded based on the speed. A higher speed will expand it faster
         offset = size * 0.5f;  //In order to keep the collider bounded on the left, the offset has to be half the amount of the size. This will allow it to only expand in the right direction.
         col.offset = new Vector2(offset, col.offset.y); //set the offset of the collider
         col.size = new Vector2(size, col.size.y);  //set the size of the collider
         //particle effect
-        shape.position = new Vector2(offset * 2f, shape.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
+        shape.position = new Vector2(offset * 2f, cam.transform.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
 
         if (blackGradient != null)
         {
