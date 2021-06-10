@@ -12,7 +12,6 @@ public class PressureWall : MonoBehaviour
     [SerializeField] public ParticleSystem ps;
 
     //private variables
-    private float startingCamXPos;
     private Camera cam;
     private Transform blackGradient;
     private BoxCollider2D col;
@@ -34,7 +33,6 @@ public class PressureWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startingCamXPos = cam.transform.position.x;
         shape = ps.shape;  //Alows you to modify the boundaries of the particle system
         blackGradient = GameObject.Find("BlackGrad").transform;
     }
@@ -47,7 +45,7 @@ public class PressureWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector3(startingCamXPos - initialDistanceBehindPlayer, cam.transform.position.y, 0);
+        gameObject.transform.position = new Vector3(cam.transform.position.x - initialDistanceBehindPlayer, cam.transform.position.y, 0);
         size += (speedOfWall * Time.deltaTime); //The wall is expanded based on the speed. A higher speed will expand it faster
         offset = size * 0.5f;  //In order to keep the collider bounded on the left, the offset has to be half the amount of the size. This will allow it to only expand in the right direction.
         col.offset = new Vector2(offset, col.offset.y); //set the offset of the collider
