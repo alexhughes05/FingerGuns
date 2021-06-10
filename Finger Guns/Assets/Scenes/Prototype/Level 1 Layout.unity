@@ -20434,6 +20434,11 @@ PrefabInstance:
       propertyPath: timeBtwDamageTicks
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4898762388483118184, guid: 975e1448a6ad8d94e8da24b1225265c1,
+        type: 3}
+      propertyPath: initialDistanceBehindPlayer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4898762388483118187, guid: 975e1448a6ad8d94e8da24b1225265c1,
         type: 3}
       propertyPath: m_RootOrder

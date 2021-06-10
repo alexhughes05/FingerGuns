@@ -5,11 +5,15 @@ using UnityEngine;
 public class PressureWall : MonoBehaviour
 {
     //public variables
+    [Range(0, 100)]
+    [SerializeField] public int initialDistanceBehindPlayer;
     [SerializeField] public float speedOfWall;
     [SerializeField] public float timeBtwDamageTicks;
     [SerializeField] public ParticleSystem ps;
 
     //private variables
+    private float startingCamXPos;
+    private Camera cam;
     private Transform blackGradient;
     private BoxCollider2D col;
     private PlayerHealth playerHealth;
@@ -21,7 +25,8 @@ public class PressureWall : MonoBehaviour
     private ParticleSystem.ShapeModule shape;
 
     private void Awake()
-    {        
+    {
+        cam = Camera.main;
         col = GetComponent<BoxCollider2D>();
         playerHealth = FindObjectOfType<PlayerHealth>();
     }
@@ -29,6 +34,7 @@ public class PressureWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startingCamXPos = cam.transform.position.x;
         shape = ps.shape;  //Alows you to modify the boundaries of the particle system
         blackGradient = GameObject.Find("BlackGrad").transform;
     }
@@ -41,16 +47,17 @@ public class PressureWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameObject.transform.position = new Vector3(startingCamXPos - initialDistanceBehindPlayer, cam.transform.position.y, 0);
         size += (speedOfWall * Time.deltaTime); //The wall is expanded based on the speed. A higher speed will expand it faster
         offset = size * 0.5f;  //In order to keep the collider bounded on the left, the offset has to be half the amount of the size. This will allow it to only expand in the right direction.
         col.offset = new Vector2(offset, col.offset.y); //set the offset of the collider
         col.size = new Vector2(size, col.size.y);  //set the size of the collider
         //particle effect
         shape.position = new Vector2(offset * 2f, shape.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
-        
+
         if (blackGradient != null)
         {
-            blackGradient.position = new Vector3(shape.position.x + transform.position.x - 10, shape.position.y, shape.position.z);
+            blackGradient.position = new Vector3(shape.position.x + transform.position.x - 7, cam.transform.position.y, 0);
         }
     }
 
