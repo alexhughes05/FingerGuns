@@ -9,10 +9,6 @@ public class Wind : MonoBehaviour
     [Header("General")]
     [SerializeField] float durationOfStorm;
     [Space()]
-    [Header("Rain")]
-    [SerializeField] ParticleSystem rainPS;
-    [SerializeField] float maxRainSlant;
-    [Space()]
     [Header("Wind")]
     [SerializeField] float minWindForce;
     [SerializeField] float maxWindForce;
@@ -20,25 +16,34 @@ public class Wind : MonoBehaviour
     [SerializeField] float maxGustLength;
     [SerializeField] float minTimeBtwGusts;
     [SerializeField] float maxTimeBtwGusts;
+    [SerializeField] float windFadeInTime;
+    [SerializeField] float windFadeOutTime;
 
-    //Private
-    private ParticleSystem.VelocityOverLifetimeModule rainVel;
-    private ParticleSystem.ShapeModule shape;
-    private float rainSlantMag;
+    //Components
+    private RainController rainController;
+
+    private void Awake()
+    {
+        rainController = FindObjectOfType<RainController>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        rainVel = rainPS.velocityOverLifetime;
-        shape = rainPS.shape;
-        rainVel.enabled = true;
-        rainVel.x = -7.5f;
+        if (windFadeInTime == 0)
+            windFadeInTime = 0.1f;
+        if (windFadeOutTime == 0)
+            windFadeOutTime = 0.1f;
+        //rainVel = rainPS.velocityOverLifetime;
+        //shape = rainPS.shape;
+        //rainVel.enabled = true;
+        //rainVel.x = -7.5f;
     }
 
     public void StartStorm()
     {
         StormStarted = true;
-        rainPS.Play();
+        //rainPS.Play();
         StartCoroutine(StartWindForDuration());
     }
 
@@ -63,26 +68,39 @@ public class Wind : MonoBehaviour
     {
         var timeBtwGusts = UnityEngine.Random.Range(minTimeBtwGusts, maxTimeBtwGusts);
         yield return new WaitForSeconds(timeBtwGusts);
+
         var gustLength = UnityEngine.Random.Range(minGustLength, maxGustLength);
-        currentWindForce = UnityEngine.Random.Range(minWindForce, maxWindForce) * (Random.Range(0, 2) * 2 - 1);
-        if (currentWindForce < 0)
-        {
-            rainSlantMag = Mathf.Clamp(currentWindForce * 4, -maxRainSlant, -7.5f);
-            rainVel.x = rainSlantMag;
-            shape.position = new Vector2((rainSlantMag * -1) + 5f, shape.position.y);
-        }
+
+        var randomWindSpeed = UnityEngine.Random.Range(minWindForce, maxWindForce) * (Random.Range(0, 2) * 2 - 1);
+        float rainSlantBasedOnWind;
+        
+        if (randomWindSpeed < 0)
+            rainSlantBasedOnWind = Mathf.Clamp(randomWindSpeed * (-rainController.MaxRainSlant / randomWindSpeed), -rainController.MaxRainSlant, -7.5f);
         else
-        {
-            rainSlantMag = Mathf.Clamp(currentWindForce * 4, -7.5f, maxRainSlant);
-            rainVel.x = rainSlantMag;
-            shape.position = new Vector2((rainSlantMag * -1) - 12.5f, shape.position.y);
-        }
-        WindActive = true;
+            rainSlantBasedOnWind = Mathf.Clamp(randomWindSpeed * 4, -7.5f, rainController.MaxRainSlant);
+
+        StartCoroutine(rainController.AdjustRainSlantFadeIn(rainSlantBasedOnWind, windFadeInTime));
+        yield return StartCoroutine(LerpWindSpeed(0, randomWindSpeed, windFadeInTime, true));
         yield return new WaitForSeconds(gustLength);
-        WindActive = false;
-        currentWindForce = 0;
-        shape.position = new Vector2(0, shape.position.y);
-        rainVel.x = -7.5f;
+        StartCoroutine(rainController.AdjustRainSlantFadeOut(-7.5f, windFadeOutTime));
+        yield return StartCoroutine(LerpWindSpeed(currentWindForce, 0, windFadeOutTime, false));
+    }
+
+    private IEnumerator LerpWindSpeed(float startingWindSpeed, float targetWindSpeed, float time, bool isFadingIn)
+    {
+        if (isFadingIn) //wind gust starting and fading in
+            WindActive = true;
+        var elapsedTime = 0.0f;
+
+        while (elapsedTime < time)
+        {
+            currentWindForce = Mathf.Lerp(startingWindSpeed, targetWindSpeed, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!isFadingIn) //wind gust ending and fading out
+            WindActive = false;
     }
 
     //Property
