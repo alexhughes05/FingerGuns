@@ -7,6 +7,7 @@ public class AIShoot : MonoBehaviour
     #region Variables
     //Components
     FingerGunMan fingerGunMan;
+    AIPatrol patrolScript;
 
     //Public
     [SerializeField] Transform firePoint;
@@ -17,14 +18,11 @@ public class AIShoot : MonoBehaviour
     private float currentTimeBtwShots;
     #endregion
 
-    #region Properties
-    public bool Shooting { get; set; }
-    #endregion
-
     #region Monobehaviour Callbacks
     private void Awake()
     {
         fingerGunMan = GameObject.FindGameObjectWithTag("Player").GetComponent<FingerGunMan>();
+        patrolScript = GetComponent<AIPatrol>();
     }
     void Start()
     {
@@ -33,18 +31,18 @@ public class AIShoot : MonoBehaviour
 
     void Update()
     {
-        if(Shooting && !fingerGunMan.PlayerDead)
+        if (Shooting && !fingerGunMan.PlayerDead)
         {
             Shoot();
         }
     }
 
+
     void OnTriggerStay2D(Collider2D collision)
-    {        
-        if(collision.gameObject.layer == 10)
+    {
+        if (collision.gameObject.layer == 10)
         {
             firePoint.Rotate(collision.transform.position);
-            //If player is not dead, enemy can shoot
             if (!collision.gameObject.GetComponentInParent<FingerGunMan>().PlayerDead && fingerGunMan.ExternalForce == false)
                 Shooting = true;
             else
@@ -60,7 +58,7 @@ public class AIShoot : MonoBehaviour
 
     #region Private Methods
     void Shoot()
-    {        
+    {
         if (currentTimeBtwShots <= 0)
         {
             Instantiate(enemyProjectile, firePoint.position, Quaternion.identity);
@@ -71,5 +69,10 @@ public class AIShoot : MonoBehaviour
             currentTimeBtwShots -= Time.deltaTime;
         }
     }
+    #endregion
+
+    #region Properties
+    public bool Shooting { get; set; }
+    public Transform FirePoint { get { return firePoint; } set { firePoint = value; } }
     #endregion
 }

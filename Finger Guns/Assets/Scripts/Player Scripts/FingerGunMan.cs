@@ -268,7 +268,7 @@ public class FingerGunMan : MonoBehaviour
     {
         MaxSpeed = defaultMaxSpeed; //Sets MaxSpeed back to default so sum doesn't accumulate every frame if the wind is active.
 
-        if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.GetHealth() > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
+        if (horizontalMovement.x != 0 && !ExternalForce && !playerSliding && health.Health > 0)  //If external force is enabled or if (enabled by any obstacle such as a blade or lightning), or the player is dead, the player is unable to move
         {
             if (wind != null && wind.WindActive)
             {
@@ -525,7 +525,7 @@ public class FingerGunMan : MonoBehaviour
                 if (collision.gameObject.layer == 12)
                 {
                     var playerOnRightOfEnemy = false;
-                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<AIPatrol>().PlayerOnRightOfEnemey())
+                    if (collision.gameObject.layer == 12 && collision.gameObject.GetComponent<AIPatrol>().PlayerOnRightOfEnemy())
                         playerOnRightOfEnemy = true;
 
                     if (playerOnRightOfEnemy)
