@@ -34,6 +34,7 @@ public class PressureWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.transform.position = new Vector2(cam.transform.position.x - initialDistanceBehindPlayer, cam.transform.position.y);
         startingCamXPos = cam.transform.position.x;
         shape = ps.shape;  //Alows you to modify the boundaries of the particle system
         blackGradient = GameObject.Find("BlackGrad").transform;
