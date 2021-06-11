@@ -19,7 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     [Space()]
     [Header("Camera")]
     [SerializeField] Transform cameraTarget;
-    [SerializeField] float lookAheadAmount = 5f, lookAheadSpeed = 4f;
+    [SerializeField] float lookAheadAmount, lookAheadSpeed;
     [Space()]
     [Header("SFX")]
     private FMOD.Studio.EventInstance instance;
@@ -39,7 +39,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         playerControls = new PlayerControls();
         playerHand = gameObject.transform;
-        player = FindObjectOfType<FingerGunMan>();
+        player = GetComponentInParent<FingerGunMan>();
         anim = GetComponentInParent<Animator>();
     }
 
@@ -94,9 +94,12 @@ public class PlayerWeapon : MonoBehaviour
         playerHand.eulerAngles = new Vector3(0, 0, angle);
 
         //Move Camera Target
-        cameraTarget.localPosition = new Vector3(Mathf.Lerp(cameraTarget.localPosition.x,
-            aimDirection.x * lookAheadAmount, lookAheadSpeed * Time.deltaTime),
-            cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        if (!player.PlayerDead)
+        {
+            cameraTarget.localPosition = new Vector3(Mathf.Lerp(cameraTarget.localPosition.x,
+                aimDirection.x * lookAheadAmount, lookAheadSpeed * Time.deltaTime),
+                cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        }
 
         //Player Flip Conditions
         if (player.FacingRight)
