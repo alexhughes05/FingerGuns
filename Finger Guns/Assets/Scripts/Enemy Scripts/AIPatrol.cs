@@ -26,7 +26,6 @@ public class AIPatrol : MonoBehaviour
     [SerializeField] float walkSpeed;
 
     //Components
-    private AIShoot shootScript;
     private FingerGunMan playerScript;
     private Coroutine co;
     private Beegman beegmanScript;
@@ -35,8 +34,8 @@ public class AIPatrol : MonoBehaviour
     private Rigidbody2D rb2d;
 
     //Private
-    private bool currentlyFlipping;
     private Collider2D[] colliders;
+    private bool currentlyFlipping;
     private bool signalTurn;
     private float distanceTraveledSinceTurn;
     private float currentXPos;
@@ -47,7 +46,6 @@ public class AIPatrol : MonoBehaviour
 
     private void Awake()
     {
-        shootScript = GetComponent<AIShoot>();
         playerScript = FindObjectOfType<FingerGunMan>();
         beegmanScript = GetComponent<Beegman>();
         explodeyScript = GetComponent<ExplodeyOne>();
@@ -70,25 +68,17 @@ public class AIPatrol : MonoBehaviour
 
     void Update()
     {
-        currentXPos = transform.position.x;
         if (!walkToNearestEdge)
         {
+            currentXPos = transform.position.x;
             distanceTraveledSinceTurn += Mathf.Abs(currentXPos - prevXPos);
+            prevXPos = currentXPos;
 
             if (distanceTraveledSinceTurn >= turnAroundDistance)
                 signalTurn = true;
         }
 
-        if (Patrolling && !EnemyAttack) //Not in aggro range of enemy
-        {
-            if (currentXPos - prevXPos > 0)
-                EnemyFacingRight = true;
-            else if (currentXPos - prevXPos < 0)
-                EnemyFacingRight = false;
-            Anim.SetFloat("Movement", rb2d.velocity.x);
-            Patrol();
-        }
-        if (!EnemyAttack)
+        if (Patrolling) //Not in aggro range of enemy
         {
             if (beegmanScript)
             {
@@ -96,8 +86,10 @@ public class AIPatrol : MonoBehaviour
                     StopCoroutine(co);
                 beegmanScript.StartAttackingPlayer = false;
             }
+            Anim.SetFloat("Movement", rb2d.velocity.x);
+            Patrol();
         }
-        else if (EnemyAttack)
+        else
         {
             FacePlayer();
 
@@ -112,12 +104,12 @@ public class AIPatrol : MonoBehaviour
                     explodeyScript.MoveTowardsPlayer = true;
             }
         }
-        prevXPos = currentXPos;
     }
 
     void FixedUpdate()
     {
-        signalTurn = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer); //better if put either when in a charge or patrolling
+        if (Patrolling)
+            signalTurn = !Physics2D.OverlapCircle(groundCheck.position, groundCheckDistance, groundLayer);
     }
     #endregion
 
@@ -135,19 +127,10 @@ public class AIPatrol : MonoBehaviour
 
     public void FacePlayer()
     {
-        if ((PlayerOnRightOfEnemy() && !EnemyFacingRight) || (!PlayerOnRightOfEnemy() && EnemyFacingRight))
+
+        if ((PlayerOnRightOfEnemey() && !EnemyFacingRight()) || (!PlayerOnRightOfEnemey() && EnemyFacingRight()))
         {
-            if (beegmanScript != null)
-                beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
-
-            Debug.Log("facing player now."); //This shouldnt be executed more than once at a time. Need to fix.
-
-            EnemyHasBeenFlipped = !EnemyHasBeenFlipped;
-            EnemyFacingRight = !EnemyFacingRight;
-
-            Vector3 newScale = transform.localScale;
-            newScale.x *= -1;
-            transform.localScale = newScale;
+            Flip();
         }
     }
 
@@ -157,9 +140,27 @@ public class AIPatrol : MonoBehaviour
         currentlyFlipping = false;
     }
 
-    public bool PlayerOnRightOfEnemy()
+    public bool EnemyFacingRight()
     {
-        if (playerScript && playerScript.gameObject.transform.position.x > gameObject.transform.position.x)
+        if (name.ToLower().Contains("ghostyboi"))
+        {
+            if (bodyCollider.offset.x > 0)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if (transform.localScale.x < 0)
+                return true;
+            else
+                return false;
+        }
+    }
+
+    public bool PlayerOnRightOfEnemey()
+    {
+        if (playerScript.gameObject.transform.position.x > transform.position.x)
             return true;
         else
             return false;
@@ -177,32 +178,24 @@ public class AIPatrol : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.layer == 6 && !EnemyAttack) //if enemy runs into a wall, turn around
-        {
-            Debug.Log("hit wall.");
-            Flip();
-        }
     }
 
     public void Flip()
     {
-        if (shootScript != null)
-            shootScript.FirePoint.transform.localPosition = new Vector2(-shootScript.FirePoint.transform.localPosition.x, shootScript.FirePoint.transform.localPosition.y);
-        if (beegmanScript != null)
-            beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
         distanceTraveledSinceTurn = 0;
         walkSpeed *= -1f;
         groundCheck.localPosition = new Vector3(groundCheck.localPosition.x * -1f, groundCheck.localPosition.y, groundCheck.localPosition.z);
 
+        //Move collider to other side of character due to the character not rotating on turn
+        if (name.ToLower().Contains("ghostyboi"))
+            bodyCollider.offset = new Vector2(bodyCollider.offset.x * -1, bodyCollider.offset.y);
+
         //Flip scale for beegman
         if (name.ToLower().Contains("beegman") || name.ToLower().Contains("explodeyone"))
         {
-            if (!EnemyAttack)
-            {
-                Vector3 newScale = transform.localScale;
-                newScale.x *= -1;
-                transform.localScale = newScale;
-            }
+            Vector3 newScale = transform.localScale;
+            newScale.x *= -1;
+            transform.localScale = newScale;
         }
 
         StartCoroutine(ResetTurnAround());
@@ -210,12 +203,9 @@ public class AIPatrol : MonoBehaviour
     #endregion
 
     //Properties
-    public bool EnemyAttack { get; set; }
     public bool Patrolling { get { return patrolling; } set { patrolling = value; } }
     public bool WalkToNearestEdge { get { return walkToNearestEdge; } set { walkToNearestEdge = value; } }
     public bool doneInitializing { get; set; }
     public Animator Anim { get; set; }
     public Collider2D[] Cols { get { return colliders; } set { colliders = value; } }
-    public bool EnemyHasBeenFlipped { get; set; }
-    public bool EnemyFacingRight { get; set; }
 }

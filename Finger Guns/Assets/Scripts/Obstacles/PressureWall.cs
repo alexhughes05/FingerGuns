@@ -71,7 +71,7 @@ public class PressureWall : MonoBehaviour
         {
             yield return new WaitForSeconds(timeBtwDamageTicks); //How often the player should be damaged
             playerHealth.ModifyHealth(-1);
-            if (playerHealth.Health <= 0)
+            if (playerHealth.GetHealth() <= 0)
             {
                 playerDead = true;
                 yield break;

@@ -1,3 +1,6 @@
+using UnityEngine;
+using System;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -41,15 +44,17 @@ public class AIPatrol_Editor : Editor
             using (new EditorGUI.IndentLevelScope())
             {
                 walkSpeed.floatValue = EditorGUILayout.FloatField(walkSpeed.displayName, walkSpeed.floatValue);
-                EditorGUILayout.Space();
-                nearestEdge.boolValue = EditorGUILayout.Toggle(nearestEdge.displayName, nearestEdge.boolValue);
-                if (!nearestEdge.boolValue)
-                {
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        turnAroundDistance.floatValue = EditorGUILayout.FloatField(turnAroundDistance.displayName, turnAroundDistance.floatValue);
-                    }
-                }
+            }
+        }
+
+        EditorGUILayout.Space();
+
+        nearestEdge.boolValue = EditorGUILayout.Toggle(nearestEdge.displayName, nearestEdge.boolValue);
+        if (!nearestEdge.boolValue)
+        {
+            using (new EditorGUI.IndentLevelScope())
+            {
+                turnAroundDistance.floatValue = EditorGUILayout.FloatField(turnAroundDistance.displayName, turnAroundDistance.floatValue);
             }
         }
 

@@ -63,9 +63,10 @@ public class PlayerHealth : MonoBehaviour
             level.DeathScreen();      
         }
     }
-    #endregion
 
-    #region Properties
-    public int Health { get { return health; } }
+    public int GetHealth()
+    {
+        return currentHealth;
+    }
     #endregion
 }

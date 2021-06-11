@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class ExplodeyOne : MonoBehaviour
 {
-    //public
     [SerializeField] CircleCollider2D explosionAreaCollider;
     [SerializeField] float moveSpeed;
-    [HideInInspector]
-    [SerializeField] bool lockOntoPlayer;
-    [HideInInspector]
-    [SerializeField] float explosionDelay;
 
     //Components
     private Animator anim;
@@ -18,9 +13,8 @@ public class ExplodeyOne : MonoBehaviour
     private FingerGunMan playerScript;
 
     //Private
-    private Vector2 playerCurrentPos;
-    private Vector2 playerPosOnTrigger;
-    private bool origPlayerPosReceived;
+    private float playerXPos;
+    private Vector2 targetPos;
     private bool inExplosionRadius;
     private bool deathAnimStarted;
     private bool explosionAnimStarted;
@@ -37,23 +31,7 @@ public class ExplodeyOne : MonoBehaviour
     {
         if (MoveTowardsPlayer)
         {
-            if (lockOntoPlayer)
-            {
-                playerCurrentPos = playerScript.gameObject.transform.position;
-                TriggerMoveTowards(playerCurrentPos);
-            }
-            else
-            {
-                if (!origPlayerPosReceived)
-                {
-                    origPlayerPosReceived = true;
-                    playerPosOnTrigger = playerScript.gameObject.transform.position;
-                }
-                TriggerMoveTowards(playerPosOnTrigger);
-
-                if (Vector2.Distance(playerPosOnTrigger, transform.position) <= 0.1)
-                    StartCoroutine(DelayBeforeDetonating());
-            }
+            TriggerMoveTowards();
         }
 
         if (anim.GetCurrentAnimatorStateInfo(2).IsName("Rig _ExplodeyOne|Death"))
@@ -75,7 +53,6 @@ public class ExplodeyOne : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.IsTouching(explosionAreaCollider))
@@ -95,19 +72,15 @@ public class ExplodeyOne : MonoBehaviour
         }
     }
 
-    private void TriggerMoveTowards(Vector2 destinationPos)
+    private void TriggerMoveTowards()
     {
+        playerXPos = playerScript.gameObject.transform.position.x;
+        targetPos = new Vector2(playerXPos, playerScript.gameObject.transform.position.y);
         var movementThisFrame = moveSpeed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, destinationPos, movementThisFrame);
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, movementThisFrame);
         anim.SetFloat("Movement", moveSpeed);
     }
-
-    private IEnumerator DelayBeforeDetonating()
-    {
-        yield return new WaitForSeconds(explosionDelay);
-        anim.SetTrigger("Death");
-    }
-
+    
     //Properties
     public bool MoveTowardsPlayer { get; set; }
 }

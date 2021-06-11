@@ -55,7 +55,7 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.gameObject.layer == 10 && fingerGunMan.ExternalForce == false)
         {
             var playerHealthScript = collision.gameObject.GetComponentInParent<PlayerHealth>();
-            if (!fingerGunMan.PlayerDead)
+            if (playerHealthScript.GetHealth() > 0)
             {
                 collision.gameObject.GetComponentInParent<Animator>().SetTrigger("Take Damage");
                 playerHealthScript.ModifyHealth(-1);
