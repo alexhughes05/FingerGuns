@@ -6,13 +6,12 @@ public class PressureWall : MonoBehaviour
 {
     //public variables
     [Range(0, 100)]
-    [SerializeField] public int initialDistanceBehindPlayer;
-    [SerializeField] public float speedOfWall;
-    [SerializeField] public float timeBtwDamageTicks;
-    [SerializeField] public ParticleSystem ps;
+    [SerializeField] int initialDistanceBehindPlayer;
+    [SerializeField] float speedOfWall;
+    [SerializeField] float timeBtwDamageTicks;
+    [SerializeField] ParticleSystem ps;
 
     //private variables
-    private float startingCamXPos;
     private Camera cam;
     private Transform blackGradient;
     private BoxCollider2D col;
@@ -35,7 +34,6 @@ public class PressureWall : MonoBehaviour
     void Start()
     {
         gameObject.transform.position = new Vector2(cam.transform.position.x - initialDistanceBehindPlayer, cam.transform.position.y);
-        startingCamXPos = cam.transform.position.x;
         shape = ps.shape;  //Alows you to modify the boundaries of the particle system
         blackGradient = GameObject.Find("BlackGrad").transform;
     }
@@ -92,4 +90,8 @@ public class PressureWall : MonoBehaviour
             }
         }
     }
+    //Properties
+    #region Properties
+    public float SpeedOfWall { get { return speedOfWall; } set {speedOfWall = value; } }
+    #endregion
 }

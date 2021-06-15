@@ -50,6 +50,8 @@ public class RainController : MonoBehaviour
             if (!rainPs.isPlaying)
                 rainPs.Play();
         }
+        if (!wind.StormStarted && rainPs.isPlaying)
+            rainPs.Stop();
     }
     public IEnumerator AdjustRainSlantFadeIn(float targetRainSlant, float time)
     {

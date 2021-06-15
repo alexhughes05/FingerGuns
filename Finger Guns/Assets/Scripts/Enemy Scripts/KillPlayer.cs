@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathPit : MonoBehaviour
+public class KillPlayer : MonoBehaviour
 {
     //Components
     private PlayerHealth playerHealth;

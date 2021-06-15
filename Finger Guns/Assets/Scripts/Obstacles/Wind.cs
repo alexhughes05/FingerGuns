@@ -7,7 +7,7 @@ public class Wind : MonoBehaviour
     //public
     [Space()]
     [Header("General")]
-    [SerializeField] float durationOfStorm;
+    [SerializeField] private float durationOfStorm;
     [Space()]
     [Header("Wind")]
     [SerializeField] float minWindForce;
@@ -22,6 +22,9 @@ public class Wind : MonoBehaviour
     //Components
     private RainController rainController;
 
+    //private
+    Coroutine co;
+
     private void Awake()
     {
         rainController = FindObjectOfType<RainController>();
@@ -34,25 +37,25 @@ public class Wind : MonoBehaviour
             windFadeInTime = 0.1f;
         if (windFadeOutTime == 0)
             windFadeOutTime = 0.1f;
-        //rainVel = rainPS.velocityOverLifetime;
-        //shape = rainPS.shape;
-        //rainVel.enabled = true;
-        //rainVel.x = -7.5f;
     }
 
     public void StartStorm()
     {
         StormStarted = true;
-        //rainPS.Play();
         StartCoroutine(StartWindForDuration());
+    }
+
+    public void StopStorm()
+    {
+        StopCoroutine(co);
+        StormStarted = false;
     }
 
     private IEnumerator StartWindForDuration()
     {
-        Coroutine co = StartCoroutine(WindGustCycle());
+        co = StartCoroutine(WindGustCycle());
         yield return new WaitForSeconds(durationOfStorm);
-        StopCoroutine(co);
-        StormStarted = false;
+        StopStorm();
     }
 
     private IEnumerator WindGustCycle()

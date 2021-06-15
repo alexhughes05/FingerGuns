@@ -63,9 +63,9 @@ public class ShakeBehavior : MonoBehaviour
                 roughnessValue = maxRoughnessValue;
             }
 
-            else if (currentDistanceFromWall - prevDistanceFromWall <= (-1 / pressureWall.speedOfWall))
+            else if (currentDistanceFromWall - prevDistanceFromWall <= (-1 / pressureWall.SpeedOfWall))
                 IncreaseShaking();
-            else if (currentDistanceFromWall - prevDistanceFromWall >= (1 / pressureWall.speedOfWall))
+            else if (currentDistanceFromWall - prevDistanceFromWall >= (1 / pressureWall.SpeedOfWall))
                 DecreaseShaking();
 
             if (currentDistanceFromWall <= distanceAwayToTriggerShake)
@@ -81,15 +81,15 @@ public class ShakeBehavior : MonoBehaviour
     }
     private void IncreaseShaking()
     {
-        magnitudeValue += (maxMagnitudeValue / (distanceAwayToTriggerShake * pressureWall.speedOfWall));
-        roughnessValue += (maxRoughnessValue / (distanceAwayToTriggerShake * pressureWall.speedOfWall));
+        magnitudeValue += (maxMagnitudeValue / (distanceAwayToTriggerShake * pressureWall.SpeedOfWall));
+        roughnessValue += (maxRoughnessValue / (distanceAwayToTriggerShake * pressureWall.SpeedOfWall));
         prevDistanceFromWall = currentDistanceFromWall;
     }
 
     private void DecreaseShaking()
     {
-        magnitudeValue -= (maxMagnitudeValue / (distanceAwayToTriggerShake * pressureWall.speedOfWall));
-        roughnessValue -= (maxRoughnessValue / (distanceAwayToTriggerShake * pressureWall.speedOfWall));
+        magnitudeValue -= (maxMagnitudeValue / (distanceAwayToTriggerShake * pressureWall.SpeedOfWall));
+        roughnessValue -= (maxRoughnessValue / (distanceAwayToTriggerShake * pressureWall.SpeedOfWall));
         prevDistanceFromWall = currentDistanceFromWall;
     }
 }

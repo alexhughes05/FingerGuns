@@ -23,17 +23,24 @@ public class StartEruption : MonoBehaviour
     private CameraShakeInstance shaker;
     private bool alreadyTriggered;
 
+    //private
+    private IEnumerator EntireCoroutine;
+
     private void Awake()
     {
         smokeAndRocksEffect = FindObjectOfType<SmokeAndRocksEffect>();
         debris = FindObjectOfType<FallingDebris>();
+    }
+    private void Start()
+    {
+        EntireCoroutine = StartShaking();   
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && !alreadyTriggered)
         {
             alreadyTriggered = true;
-            StartCoroutine(StartShaking());
+            StartCoroutine(EntireCoroutine);
         }
     }
 
@@ -42,21 +49,21 @@ public class StartEruption : MonoBehaviour
         shaker = CameraShaker.Instance.StartShake(magnitudeValue, roughnessValue, fadeInTime);
         yield return new WaitForSeconds(rumbleTimeBeforeSmoke);
         smokeAndRocksEffect.StartSmokeEffect();
-        StartCoroutine(StartRockEffect());
+        yield return StartCoroutine(StartRockEffect());
     }
 
     private IEnumerator StartRockEffect()
     {
         yield return new WaitForSeconds(smokeAndRocksEffect.RocksDelayAfterSmoke);
         smokeAndRocksEffect.StartRocksEffect();
-        StartCoroutine(StartRainingDebris());
+        yield return StartCoroutine(StartRainingDebris());
     }
 
     private IEnumerator StartRainingDebris()
     {
         yield return new WaitForSeconds(DelayToStartRainingDebris);
         debris.StartRainingDebris();
-        StartCoroutine(StopShaking());
+        yield return StartCoroutine(StopShaking());
     }
 
     private IEnumerator StopShaking()
@@ -64,6 +71,15 @@ public class StartEruption : MonoBehaviour
         yield return new WaitForSeconds(smokeAndRocksEffect.RocksDuration - DelayToStartRainingDebris);
         shaker.StartFadeOut(fadeOutTime);
         shaker.UpdateShake();
+    }
+    public void StopEruption()
+    {
+        if (EntireCoroutine != null)
+        {
+            StopAllCoroutines();
+            shaker.StartFadeOut(fadeOutTime);
+            shaker.UpdateShake();
+        }
     }
 
     //Properties

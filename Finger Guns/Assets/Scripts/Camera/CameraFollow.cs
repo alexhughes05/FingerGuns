@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Vector3 offset;
 
     //Components
+    private StopCameraMovement cameraMovementScript;
     private FingerGunMan player;
 
     //private
@@ -17,16 +18,23 @@ public class CameraFollow : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<FingerGunMan>();
+        cameraMovementScript = FindObjectOfType<StopCameraMovement>();
     }
 
     #endregion
     private void LateUpdate()
     {
-        if (!player.PlayerDead)
-        {
-            var desiredPos = target.position + offset;
-            var smoothedPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
-            transform.position = smoothedPos;
-        }
+        if (cameraMovementScript == null)
+            if (!player.PlayerDead)
+                MoveCamera();
+        else if (!player.PlayerDead && cameraMovementScript.StopCameraFollow)
+            MoveCamera();
+    }
+
+    private void MoveCamera()
+    {
+        var desiredPos = target.position + offset;
+        var smoothedPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
+        transform.position = smoothedPos;
     }
 }

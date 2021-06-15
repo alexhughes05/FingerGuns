@@ -140,8 +140,6 @@ public class AIPatrol : MonoBehaviour
             if (beegmanScript != null)
                 beegmanScript.NeedToFlipChargePs = !beegmanScript.NeedToFlipChargePs;
 
-            Debug.Log("facing player now."); //This shouldnt be executed more than once at a time. Need to fix.
-
             EnemyHasBeenFlipped = !EnemyHasBeenFlipped;
             EnemyFacingRight = !EnemyFacingRight;
 
@@ -179,7 +177,6 @@ public class AIPatrol : MonoBehaviour
         }
         if (collision.gameObject.layer == 6 && !EnemyAttack) //if enemy runs into a wall, turn around
         {
-            Debug.Log("hit wall.");
             Flip();
         }
     }
