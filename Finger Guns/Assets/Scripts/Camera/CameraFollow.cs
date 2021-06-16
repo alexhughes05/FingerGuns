@@ -25,9 +25,11 @@ public class CameraFollow : MonoBehaviour
     private void LateUpdate()
     {
         if (cameraMovementScript == null)
+        {
             if (!player.PlayerDead)
                 MoveCamera();
-        else if (!player.PlayerDead && cameraMovementScript.StopCameraFollow)
+        }
+        else if (!player.PlayerDead && !cameraMovementScript.StopCameraFollow)
             MoveCamera();
     }
 
