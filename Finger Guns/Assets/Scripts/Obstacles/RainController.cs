@@ -35,7 +35,6 @@ public class RainController : MonoBehaviour
         shape = rainPs.shape;
         rainVel = rainPs.velocityOverLifetime;
         rainVel.enabled = true;
-        rainVel.x = -7.5f;
     }
 
     // Update is called once per frame
@@ -48,10 +47,16 @@ public class RainController : MonoBehaviour
 
             shape.position = new Vector2(currentPosAbovePlayer.x + lerpedDisplacement, currentPosAbovePlayer.y);
             if (!rainPs.isPlaying)
+            {
+                rainVel.x = -7.5f;
                 rainPs.Play();
+            }
         }
         if (!wind.StormStarted && rainPs.isPlaying)
+        {
+            lerpedDisplacement = 0f;
             rainPs.Stop();
+        }
     }
     public IEnumerator AdjustRainSlantFadeIn(float targetRainSlant, float time)
     {

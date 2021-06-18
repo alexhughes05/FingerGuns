@@ -5,14 +5,14 @@ using UnityEngine;
 public class StopEruption : MonoBehaviour
 {
     //Components
-    StartEruption startEruptionScript;
+    Eruption eruptionScript;
 
     //private
     private bool alreadyTriggered;
 
     private void Awake()
     {
-        startEruptionScript = FindObjectOfType<StartEruption>();
+        eruptionScript = FindObjectOfType<Eruption>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,7 +20,7 @@ public class StopEruption : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !alreadyTriggered)
         {
             alreadyTriggered = true;
-            startEruptionScript.StopEruption();
+            eruptionScript.StopEruption();
         }
     }
 }

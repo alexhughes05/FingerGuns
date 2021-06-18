@@ -41,14 +41,23 @@ public class Wind : MonoBehaviour
 
     public void StartStorm()
     {
+        if (!StormStarted)
+            StartCoroutine(StartWindForDuration());
         StormStarted = true;
-        StartCoroutine(StartWindForDuration());
     }
 
     public void StopStorm()
     {
-        StopCoroutine(co);
+        StopAllCoroutines();
         StormStarted = false;
+        StartCoroutine(WaitAndStopWind());
+    }
+
+    private IEnumerator WaitAndStopWind()
+    {
+        yield return new WaitForSeconds(1.5f);
+        currentWindForce = 0f;
+        WindActive = false;
     }
 
     private IEnumerator StartWindForDuration()
@@ -81,7 +90,6 @@ public class Wind : MonoBehaviour
             rainSlantBasedOnWind = Mathf.Clamp(randomWindSpeed * (-rainController.MaxRainSlant / randomWindSpeed), -rainController.MaxRainSlant, -7.5f);
         else
             rainSlantBasedOnWind = Mathf.Clamp(randomWindSpeed * 4, -7.5f, rainController.MaxRainSlant);
-
         StartCoroutine(rainController.AdjustRainSlantFadeIn(rainSlantBasedOnWind, windFadeInTime));
         yield return StartCoroutine(LerpWindSpeed(0, randomWindSpeed, windFadeInTime, true));
         yield return new WaitForSeconds(gustLength);

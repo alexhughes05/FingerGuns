@@ -5,7 +5,7 @@ using UnityEngine;
 public class SmokeAndRocksEffect : MonoBehaviour
 {
     //Components
-    private StartEruption startEruption;
+    private Eruption eruption;
 
     //private
     private ParticleSystem smoke;
@@ -14,7 +14,7 @@ public class SmokeAndRocksEffect : MonoBehaviour
 
     void Awake()
     {
-        startEruption = FindObjectOfType<StartEruption>();
+        eruption = FindObjectOfType<Eruption>();
         GetParticles();
     }
 
@@ -22,7 +22,7 @@ public class SmokeAndRocksEffect : MonoBehaviour
     private void Start()
     {
         RocksDelayAfterSmoke = 3;
-        smokeDuration = (startEruption.totalEruptionLength - startEruption.rumbleTimeBeforeSmoke);
+        smokeDuration = (eruption.totalEruptionLength - eruption.rumbleTimeBeforeSmoke);
         RocksDuration = (smokeDuration - RocksDelayAfterSmoke);
     }
 
@@ -51,12 +51,22 @@ public class SmokeAndRocksEffect : MonoBehaviour
         smoke.Play();
     }
 
+    public void StopSmokeEffect()
+    {
+        smoke.Stop();
+    }
+
     public void StartRocksEffect()
     {
         rocks.Stop(); // Cannot set duration whilst particle system is playing
         var main = rocks.main;
         main.duration = RocksDuration;
         rocks.Play();
+    }
+
+    public void StopRocksEffect()
+    {
+        rocks.Stop();
     }
 
     //Properties

@@ -13,23 +13,19 @@ public class CameraFollow : MonoBehaviour
     private FingerGunMan player;
 
     //private
+    private bool stopCameraFollow;
     private Vector3 velocity = Vector3.zero;
 
     private void Awake()
     {
         player = FindObjectOfType<FingerGunMan>();
-        cameraMovementScript = FindObjectOfType<StopCameraMovement>();
     }
 
     #endregion
     private void LateUpdate()
     {
-        if (cameraMovementScript == null)
-        {
-            if (!player.PlayerDead)
-                MoveCamera();
-        }
-        else if (!player.PlayerDead && !cameraMovementScript.StopCameraFollow)
+
+        if (!player.PlayerDead && !stopCameraFollow)
             MoveCamera();
     }
 
@@ -38,5 +34,15 @@ public class CameraFollow : MonoBehaviour
         var desiredPos = target.position + offset;
         var smoothedPos = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
         transform.position = smoothedPos;
+    }
+
+    public void StopCameraFollow()
+    {
+        stopCameraFollow = true;
+    }
+
+    public void ResumeCameraFollow()
+    {
+        stopCameraFollow = false;
     }
 }

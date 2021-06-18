@@ -14,13 +14,4 @@ public class StopStorm : MonoBehaviour
     {
         wind = FindObjectOfType<Wind>();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 10 && !alreadyExecuted)
-        {
-            alreadyExecuted = true;
-            wind.StopStorm();
-        }
-    }
 }

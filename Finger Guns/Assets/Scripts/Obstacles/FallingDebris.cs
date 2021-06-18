@@ -15,25 +15,29 @@ public class FallingDebris : MonoBehaviour
 
     //Components
     private SmokeAndRocksEffect smokeAndRocksEffect;
-    private StartEruption startEruption;
+    private Eruption eruption;
     private GameObject spawnedObject;
     #endregion
 
     private void Awake()
     {
         smokeAndRocksEffect = FindObjectOfType<SmokeAndRocksEffect>();
-        startEruption = FindObjectOfType<StartEruption>();
+        eruption = FindObjectOfType<Eruption>();
     }
 
     public void StartRainingDebris()
     {
         StartCoroutine(RainDebrisForDuration());
     }
+    public void StopRainingDebris()
+    {
+        StopAllCoroutines();
+    }
 
     private IEnumerator RainDebrisForDuration()
     {
         Coroutine co = StartCoroutine(SpawnDebris());
-        yield return new WaitForSeconds(smokeAndRocksEffect.RocksDuration - startEruption.DelayToStartRainingDebris);
+        yield return new WaitForSeconds(smokeAndRocksEffect.RocksDuration - eruption.DelayToStartRainingDebris);
         StopCoroutine(co);
     }
     private IEnumerator SpawnDebris()
