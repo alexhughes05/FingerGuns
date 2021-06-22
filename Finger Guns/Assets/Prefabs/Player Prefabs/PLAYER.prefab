@@ -104,9 +104,56 @@ Transform:
   m_Children:
   - {fileID: 2013578974315147325}
   - {fileID: 919111308517153085}
+  - {fileID: 3275437574510908578}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6279277247990275902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3275437574510908578}
+  - component: {fileID: 4657610813768365519}
+  m_Layer: 0
+  m_Name: TEST
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3275437574510908578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279277247990275902}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.9130106, y: -5.170265, z: 23.714912}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 919111309621132930}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4657610813768365519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279277247990275902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b9912dacd58194f8e05e93fd4cd0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sets: []
+  automaticOnEnable: 1
+  automaticOnDisable: 1
 --- !u!1001 &919111308497191113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,8 +164,13 @@ PrefabInstance:
     - target: {fileID: 181469237730697333, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 181469237730697333, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6c69acda125184c96a507d523a42cb, type: 2}
     - target: {fileID: 1671114416377753844, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: m_RootOrder
@@ -179,6 +231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerGunManSeparateHand_NewColliderSetup
       objectReference: {fileID: 0}
+    - target: {fileID: 3146395505545369360, guid: 4647196bfadc0a84d92225139b383cfe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6c69acda125184c96a507d523a42cb, type: 2}
     - target: {fileID: 8618515013885771456, guid: 4647196bfadc0a84d92225139b383cfe,
         type: 3}
       propertyPath: fireRate
