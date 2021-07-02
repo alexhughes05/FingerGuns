@@ -1248,26 +1248,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 572644651}
     m_Modifications:
-    - target: {fileID: 1096826469214033776, guid: d3903210a746d7d45aaf72c8055dfe63,
-        type: 3}
-      propertyPath: m_LocalAABB.m_Center.x
-      value: 0.014499903
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096826469214033776, guid: d3903210a746d7d45aaf72c8055dfe63,
-        type: 3}
-      propertyPath: m_LocalAABB.m_Center.y
-      value: 1.5218838
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096826469214033776, guid: d3903210a746d7d45aaf72c8055dfe63,
-        type: 3}
-      propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.1104648
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096826469214033776, guid: d3903210a746d7d45aaf72c8055dfe63,
-        type: 3}
-      propertyPath: m_LocalAABB.m_Extent.y
-      value: 1.5767119
-      objectReference: {fileID: 0}
     - target: {fileID: 2510488620892356590, guid: d3903210a746d7d45aaf72c8055dfe63,
         type: 3}
       propertyPath: m_Name
@@ -1327,11 +1307,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7784220535163785417, guid: d3903210a746d7d45aaf72c8055dfe63,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3903210a746d7d45aaf72c8055dfe63, type: 3}
@@ -1904,21 +1879,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 572644651}
     m_Modifications:
-    - target: {fileID: 3121054254115868317, guid: 50359c47b19fbe9458eada207e47b6da,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3121054254115868317, guid: 50359c47b19fbe9458eada207e47b6da,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 72.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3121054254115868317, guid: 50359c47b19fbe9458eada207e47b6da,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -37.75
-      objectReference: {fileID: 0}
     - target: {fileID: 6565394921599092556, guid: 50359c47b19fbe9458eada207e47b6da,
         type: 3}
       propertyPath: m_RootOrder

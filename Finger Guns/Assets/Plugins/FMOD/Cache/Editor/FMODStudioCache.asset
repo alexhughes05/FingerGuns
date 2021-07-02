@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.bank
   Name: Master
-  lastModified: 637530499169029726
+  lastModified: 637538305266950251
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -420,7 +420,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-4425652811455928458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-1563549183262348609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637530499169045273
+  lastModified: 637538305267099356
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -790,8 +790,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -1754040030140999450}
-  - {fileID: -4848591634519635150}
+  - {fileID: 5256377319177526248}
+  - {fileID: 7089734599193556466}
   MinDistance: 0
   MaxDistance: 0
   Length: 81103
@@ -899,7 +899,7 @@ MonoBehaviour:
   - {fileID: -8377310224905248757}
   StringsBanks:
   - {fileID: -1134781285750565579}
-  stringsBankWriteTime: 637530499169045273
+  stringsBankWriteTime: 637538305267099356
   cacheVersion: 5
 --- !u!114 &397295174097014226
 MonoBehaviour:
@@ -1197,6 +1197,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &5256377319177526248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/TutorialShift
+  m_EditorClassIdentifier: 
+  Name: TutorialShift
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &5632815787330575786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,6 +1296,26 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 802
+  Exists: 1
+--- !u!114 &7089734599193556466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/GameStarted
+  m_EditorClassIdentifier: 
+  Name: GameStarted
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
   Exists: 1
 --- !u!114 &7247976542810646188
 MonoBehaviour:
