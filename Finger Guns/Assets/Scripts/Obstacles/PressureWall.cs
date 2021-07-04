@@ -36,7 +36,7 @@ public class PressureWall : MonoBehaviour
         gameObject.transform.position = new Vector2(cam.transform.position.x - initialDistanceBehindPlayer, cam.transform.position.y);
         //shape = ps.shape;  //Alows you to modify the boundaries of the particle system
         blackFill = GameObject.Find("Black Fill Container").transform;
-        blackFill.position = new Vector2(transform.position.x + size, cam.transform.position.y);
+        blackFill.position = new Vector2(transform.position.x + size - 0.5f, cam.transform.position.y + 5);
     }
 
     public float GetPressureWallXPos()
