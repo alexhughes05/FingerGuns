@@ -9,11 +9,11 @@ public class PressureWall : MonoBehaviour
     [SerializeField] int initialDistanceBehindPlayer;
     [SerializeField] float speedOfWall;
     [SerializeField] float timeBtwDamageTicks;
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] Transform dissolveShader;
 
     //private variables
     private Camera cam;
-    private Transform blackGradient;
+    private Transform blackFill;
     private BoxCollider2D col;
     private PlayerHealth playerHealth;
     private float offset;
@@ -34,8 +34,9 @@ public class PressureWall : MonoBehaviour
     void Start()
     {
         gameObject.transform.position = new Vector2(cam.transform.position.x - initialDistanceBehindPlayer, cam.transform.position.y);
-        shape = ps.shape;  //Alows you to modify the boundaries of the particle system
-        blackGradient = GameObject.Find("BlackGrad").transform;
+        //shape = ps.shape;  //Alows you to modify the boundaries of the particle system
+        blackFill = GameObject.Find("Black Fill Container").transform;
+        blackFill.position = new Vector2(transform.position.x + size, cam.transform.position.y);
     }
 
     public float GetPressureWallXPos()
@@ -51,11 +52,11 @@ public class PressureWall : MonoBehaviour
         col.offset = new Vector2(offset, col.offset.y); //set the offset of the collider
         col.size = new Vector2(size, col.size.y);  //set the size of the collider
         //particle effect
-        shape.position = new Vector2(offset * 2f, cam.transform.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
+        dissolveShader.position = new Vector2(transform.position.x + size, cam.transform.position.y);  //To match the rate of the wall, the particle effect must expand at a rate of 2 * the collider offset
 
-        if (blackGradient != null)
+        if (blackFill != null)
         {
-            blackGradient.position = new Vector3(shape.position.x + transform.position.x - 7, cam.transform.position.y, 0);
+            blackFill.localScale = new Vector3(offset * 33f, blackFill.localScale.y, blackFill.localScale.z);
         }
     }
 
