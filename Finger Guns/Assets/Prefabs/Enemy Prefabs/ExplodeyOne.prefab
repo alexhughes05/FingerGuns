@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionAreaCollider: {fileID: 8819690532242642217}
   moveSpeed: 10
+  lockOntoPlayer: 0
+  explosionDelay: 0
 --- !u!114 &737391101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5147,7 +5149,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 599d8fdfdc478d745ac25132aa5da3bb, type: 2}
+  - {fileID: 2100000, guid: 795be01d21293dd439374f18c1d5de35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
