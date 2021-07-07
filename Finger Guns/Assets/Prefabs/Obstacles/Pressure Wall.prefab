@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156002461728052149}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 87.6497, y: -1.6963, z: 0}
-  m_LocalScale: {x: 27.352037, y: 38.23964, z: 1}
+  m_LocalPosition: {x: 96, y: -1.6963, z: 0}
+  m_LocalScale: {x: 43.853622, y: 38.23964, z: 1}
   m_Children: []
   m_Father: {fileID: 4055880311458492011}
   m_RootOrder: 1
@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 759360d6383e1d042b98450ccdea4dbe, type: 2}
+  - {fileID: 2100000, guid: 5bcb8a8875781d643bba6b619c0b12ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4055880311458492005}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -139.2, y: 8.95, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fc0989f0f0fc14cafd8a05a3e3f490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfWall: 7
+  speedOfWall: 5
   timeBtwDamageTicks: 0.3
 --- !u!1 &8913335971030247020
 GameObject:
