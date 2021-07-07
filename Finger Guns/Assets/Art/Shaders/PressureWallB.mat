@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PressureWallDissolve
-  m_Shader: {fileID: -6465566751694194690, guid: 3c60b1d67ab9eaf42892455a3df705d4,
+  m_Name: PressureWallB
+  m_Shader: {fileID: -6465566751694194690, guid: 34c342d0d1d93c04d9ba4ca7f055ebe9,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
