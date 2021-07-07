@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PressureWallB
-  m_Shader: {fileID: -6465566751694194690, guid: 218fe1931b20e7e4c917f71941fdbdd8,
+  m_Name: PressureWall
+  m_Shader: {fileID: -6465566751694194690, guid: 34c342d0d1d93c04d9ba4ca7f055ebe9,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -95,12 +95,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_2c69f808b28940f0b0b5ccb40c917a3b: 5000
-    - Vector1_35a7a9135fdd4743b0d0b501cfd72f8a: 1.5
     - Vector1_7aee11b6c87a445dbefb858c01a727bf: 1
     - Vector1_9a9c3408674e4e24a674d53957e92df0: 1
     - Vector1_a1475059c57646cb8ce20ef04b1cb0fa: 0.15
-    - Vector1_cd6e465a0769437b9b344cfbc1418fe2: 0.25
-    - Vector1_ffa33c8b230c48c29132e181431b8ac4: 0.5
+    - Vector1_cd6e465a0769437b9b344cfbc1418fe2: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
