@@ -748,7 +748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421488923493965117}
   - component: {fileID: 421488922064455503}
-  - component: {fileID: 421488922064455502}
+  - component: {fileID: 6333992508968109031}
   m_Layer: 8
   m_Name: Generic Platform (6)
   m_TagString: Untagged
@@ -821,7 +821,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &421488922064455502
+--- !u!114 &6333992508968109031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -830,11 +830,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 421488922064455489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 756e7db3a08d9bc4fbe875be76ac2aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
+  padding: -0.1
 --- !u!1 &421488922128523420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1310,7 @@ GameObject:
   - component: {fileID: 421488923621688094}
   - component: {fileID: 421488922392175053}
   - component: {fileID: 421488922392175052}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Generic Platform (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421488922375625150}
   - component: {fileID: 421488922443358179}
-  - component: {fileID: 421488922443358178}
+  - component: {fileID: 5690600119609124948}
   m_Layer: 8
   m_Name: Generic Platform (8)
   m_TagString: Untagged
@@ -1481,7 +1480,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &421488922443358178
+--- !u!114 &5690600119609124948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1490,11 +1489,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 421488922443358181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 756e7db3a08d9bc4fbe875be76ac2aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
+  padding: -0.1
 --- !u!1 &421488922483372154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421488922979659364}
   - component: {fileID: 421488922496964987}
-  - component: {fileID: 421488922496964986}
+  - component: {fileID: 2096282221268524542}
   m_Layer: 8
   m_Name: Generic Platform (7)
   m_TagString: Untagged
@@ -1633,7 +1631,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &421488922496964986
+--- !u!114 &2096282221268524542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1642,11 +1640,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 421488922496964989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 756e7db3a08d9bc4fbe875be76ac2aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
+  padding: -0.1
 --- !u!1 &421488922504322667
 GameObject:
   m_ObjectHideFlags: 0
@@ -4145,7 +4142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421488923725136077}
   - component: {fileID: 421488923958497096}
-  - component: {fileID: 421488923958497099}
+  - component: {fileID: 452024798222353843}
   m_Layer: 8
   m_Name: Generic Platform (9)
   m_TagString: Untagged
@@ -4220,7 +4217,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &421488923958497099
+--- !u!114 &452024798222353843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4229,11 +4226,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 421488923958497098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daae6a1c2dcb83241bdb3cbfb7c75e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 756e7db3a08d9bc4fbe875be76ac2aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightPadding: -0.1
-  platformThickness: 0.1
+  padding: -0.1
 --- !u!1 &421488923972761979
 GameObject:
   m_ObjectHideFlags: 0
@@ -4427,7 +4423,7 @@ GameObject:
   - component: {fileID: 421488922734809584}
   - component: {fileID: 421488924026274437}
   - component: {fileID: 421488924026274436}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Generic Platform (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
