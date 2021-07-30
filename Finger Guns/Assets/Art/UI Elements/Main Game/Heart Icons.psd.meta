@@ -23,6 +23,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -54,9 +55,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -108,12 +112,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heart_Half 01
+      name: FingerGunHealth_Full
       rect:
         serializedVersion: 2
-        x: 138
+        x: 137
         y: 141
-        width: 60
+        width: 110
         height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -150,12 +154,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heart_Half 02
+      name: FingerGunHealth_Empty
       rect:
         serializedVersion: 2
-        x: 138
+        x: 137
         y: 15
-        width: 60
+        width: 110
         height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
